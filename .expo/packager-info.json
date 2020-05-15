@@ -1,0 +1,10 @@
+{
+  "devToolsPort": 19002,
+  "expoServerPort": 19000,
+  "packagerPort": 19003,
+  "packagerPid": 20409,
+  "expoServerNgrokUrl": "https://hp-rbn.anonymous.votark.exp.direct",
+  "packagerNgrokUrl": "https://packager.hp-rbn.anonymous.votark.exp.direct",
+  "ngrokPid": 20486,
+  "webpackServerPort": 19006
+}
