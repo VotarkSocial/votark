@@ -10,7 +10,12 @@ const styles = StyleSheet.create({
     },
     text: {
         color : colors.white,
-        fontSize: '50px'
+        marginRight: '15px',
+        marginLeft: '15px',
+    },
+    logo:{
+      width:'50px',
+      height:'70px'
     }
   });
   

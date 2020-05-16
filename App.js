@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { configureStore } from './store';
+import TokenRefresh from './src/components/TokenRefresh'
 
 const { store, persistor } = configureStore();
 
@@ -20,6 +21,7 @@ export default function App() {
             <Route exact path="/login" component={Login}/>
           </Switch>
         </BrowserRouter>
+        <TokenRefresh/>
       </PersistGate>
     </Provider>
   );
