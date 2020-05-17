@@ -7,7 +7,6 @@ import Home from './src/components/Home';
 import { Provider } from 'react-redux';
 import { Router, Stack, Scene } from "react-native-router-flux";
 import { BrowserRouter, Route, Switch } from 'react-router-dom'; 
-import { PersistGate } from 'redux-persist/integration/react';
 import {loadState,saveState} from './store'
 import throttle from 'lodash/throttle'
 import createSagaMiddleware from 'redux-saga';
@@ -15,6 +14,7 @@ import mainSaga from './src/sagas';
 import { createStore, applyMiddleware } from 'redux';
 import reducer from './src/reducers';
 import SignUp from './src/components/SignUp';
+import ResetPassword from './src/components/ResetPassword';
 
 //localStorage.clear();
 const persistedState = loadState()
@@ -40,6 +40,7 @@ export default function App() {
             <Scene key="Login"  component={Login} hideNavBar={true} />
             <Scene key="Home" component={Home}  hideNavBar={true} />
             <Scene key="SignUp" component={SignUp}  hideNavBar={true} />
+            <Scene key="ResetPassword" component={ResetPassword}  hideNavBar={true} />
           </Stack>
         </Router>
         ):(
@@ -48,6 +49,7 @@ export default function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login}/>
             <Route exact path="/signup" component={SignUp}/>
+            <Route exact path="/reset-password" component={ResetPassword}/>
           </Switch>
         </BrowserRouter>
         )

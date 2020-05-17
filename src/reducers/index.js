@@ -20,3 +20,6 @@ export const getIsRefreshingToken = state => authSelectors.getIsRefreshingToken(
 export const getRefreshingError = state => authSelectors.getRefreshingError(state.auth);
 export const getIsRegistrating = state => authSelectors.getIsRegistrating(state.auth);
 export const getSignUpError = state => authSelectors.getSignUpError(state.auth);
+export const isReseting = state => authSelectors.getisReseting(state.auth)
+export const resetError = state => authSelectors.reset_Error(state.auth)
+export const hasreset = state => authSelectors.has_reset(state.auth)

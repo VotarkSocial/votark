@@ -10,7 +10,6 @@ import { Actions } from 'react-native-router-flux';
 import { validateEmail } from '../../utils/validate';
 import { LinearGradient } from 'expo-linear-gradient';
 import { URL } from '../../../configuration'
-import Spinner from 'react-native-loading-spinner-overlay';
 
 const SignUp = ({
   onSubmit,

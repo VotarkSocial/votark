@@ -124,3 +124,36 @@ import {
       signup,
     );
   }
+  
+  function* reset(action) {
+    try {
+      const response = yield call(
+        fetch,
+        `${API_BASE_URL}/user/restore`,
+        {
+          method: 'POST',
+          body: JSON.stringify(action.payload),
+          headers:{
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+  
+      if (response.status === 200) {
+        const { token } = yield response.json();
+        yield put(actions.completeRegistration());
+      } else {
+        const { detail } = yield response.json();
+        yield put(actions.failRegistration(detail[0]));
+      }
+    } catch (error) {
+      yield put(actions.failRegistration('NETWORK ERROR'));
+    }
+  }
+
+  export function* watchResetPassword() {
+    yield takeEvery(
+      types.PASSWORD_RESET_PROCESS_STARTED,
+      reset,
+    );
+  }

@@ -16,6 +16,21 @@ export const failLogin = error => ({
   payload: { error },
 });
 
+export const startPasswordResetProcess = (email) => ({
+  type: types.PASSWORD_RESET_PROCESS_STARTED,
+  payload: { email },
+});
+
+export const completeReset = () => ({
+  type: types.PASSWORD_RESET_PROCESS_COMPLETED,
+  payload: { token },
+});
+
+export const failReset = error => ({
+  type: types.PASSWORD_RESET_PROCESS_FAILED,
+  payload: { error },
+});
+
 export const startRegistration = (username, password, email) => ({
   type: types.REGISTRATION_STARTED,
   payload: { username, password, email },

@@ -35,7 +35,6 @@ const decoded = (state = null, action) => {
       return jwtDecode(action.payload.token);
     }
     case types.TOKEN_REFRESH_COMPLETED: {
-      console.log("SI LLEGA?", jwtDecode(action.payload.newToken))
       return jwtDecode(action.payload.newToken);
     }
     case types.AUTHENTICATION_FAILED: {
@@ -81,6 +80,32 @@ const isRegistrating = (state = false, action) => {
   return state;
 };
 
+const isReseting = (state = false, action) => {
+  switch(action.type) {
+    case types.PASSWORD_RESET_PROCESS_STARTED: {
+      return true;
+    }
+    case types.PASSWORD_RESET_PROCESS_COMPLETED: {
+      return false;
+    }
+    case types.PASSWORD_RESET_PROCESS_FAILED: {
+      return false;
+    }
+  }
+
+  return state;
+};
+
+const hasReset = (state = false, action) => {
+  switch(action.type) {
+    case types.PASSWORD_RESET_PROCESS_COMPLETED: {
+      return true;
+    }
+  }
+
+  return state;
+};
+
 const error = (state = null, action) => {
   switch(action.type) {
     case types.AUTHENTICATION_STARTED: {
@@ -106,6 +131,23 @@ const error_signup = (state = null, action) => {
       return null;
     }
     case types.REGISTRATION_FAILED: {
+      return action.payload.error;
+    }
+  }
+
+  return state;
+};
+
+
+const resetError = (state = null, action) => {
+  switch(action.type) {
+    case types.PASSWORD_RESET_PROCESS_STARTED: {
+      return null;
+    }
+    case types.PASSWORD_RESET_PROCESS_COMPLETED: {
+      return null;
+    }
+    case types.PASSWORD_RESET_PROCESS_FAILED: {
       return action.payload.error;
     }
   }
@@ -154,6 +196,9 @@ const auth = combineReducers({
   error_signup,
   error,
   refreshingError,
+  resetError,
+  hasReset,
+  isReseting
 });
 
 
@@ -170,3 +215,6 @@ export const getAuthUsername = state => state.decoded ? state.decoded.username :
 export const getIsRefreshingToken = state => state.isRefreshing;
 export const getRefreshingError = state => state.refreshingError;
 export const getSignUpError = state => state.error_signup;
+export const getisReseting = state => state.isReseting;
+export const reset_Error = state => state.resetError;
+export const has_reset = state => state.hasReset;

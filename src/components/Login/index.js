@@ -57,7 +57,7 @@ const Login = ({
           (typeof document === 'undefined')?(
             <Text style={styles.link} title={' reset password '} type="submit" 
             onPress={() =>
-              console.log("here")
+              Actions.ResetPassword(true)
             }>{' reset password '}</Text>
           ):(
             <Link to="/reset-password" style={styles.navItem}>
