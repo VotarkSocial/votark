@@ -18,3 +18,5 @@ export const getAuthExpiration = state => authSelectors.getAuthExpiration(state.
 export const getAuthUsername = state => authSelectors.getAuthUsername(state.auth);
 export const getIsRefreshingToken = state => authSelectors.getIsRefreshingToken(state.auth);
 export const getRefreshingError = state => authSelectors.getRefreshingError(state.auth);
+export const getIsRegistrating = state => authSelectors.getIsRegistrating(state.auth);
+export const getSignUpError = state => authSelectors.getSignUpError(state.auth);

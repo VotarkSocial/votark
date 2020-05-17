@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       borderColor: colors.primary,
     },
+    centered:{
+      alignSelf: 'center'
+    },
     error: {
         color : colors.white,
         fontSize: normalize(0.9),
@@ -35,7 +38,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderRadius: 7,
         fontSize: normalize(1.5),
-        margin: normalize(1),
+        margin: normalize(0.5),
         padding: 10,
         borderColor: colors.white,
         borderWidth: 1
@@ -47,17 +50,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        paddingTop: normalize(0.2),
-        paddingBottom: normalize(0.2), 
-        paddingRight:normalize(1),
-        paddingLeft: normalize(1),
-        margin: normalize(1)
+        paddingTop: normalize(0.5),
+        paddingBottom: normalize(0.5), 
+        paddingRight:normalize(2),
+        paddingLeft: normalize(2)
     },
     logo: {
         alignSelf: 'center',
         height: normalize(300),
         width: normalize(170),
-        margin: normalize(500),
+        margin: normalize(200),
       },
     buttons:{
       alignItems: 'center',

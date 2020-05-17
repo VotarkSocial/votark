@@ -39,7 +39,7 @@ export default function App() {
           <Stack key="root" style={styles.container}>
             <Scene key="Login"  component={Login} hideNavBar={true} />
             <Scene key="Home" component={Home}  hideNavBar={true} />
-            <Scene key="SignUp" component={Home}  hideNavBar={true} />
+            <Scene key="SignUp" component={SignUp}  hideNavBar={true} />
           </Stack>
         </Router>
         ):(

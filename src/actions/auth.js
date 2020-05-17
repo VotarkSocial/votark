@@ -16,6 +16,20 @@ export const failLogin = error => ({
   payload: { error },
 });
 
+export const startRegistration = (username, password, email) => ({
+  type: types.REGISTRATION_STARTED,
+  payload: { username, password, email },
+});
+
+export const completeRegistration = () => ({
+  type: types.REGISTRATION_COMPLETED,
+});
+
+export const failRegistration = error => ({
+  type: types.REGISTRATION_FAILED,
+  payload: { error },
+});
+
 export const logout = () => ({
   type: types.AUTHENTICATION_IDENTITY_CLEARED,
 });

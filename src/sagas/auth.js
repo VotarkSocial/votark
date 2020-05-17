@@ -91,3 +91,36 @@ import {
     );
   }
   
+  function* signup(action) {
+    try {
+      const response = yield call(
+        fetch,
+        `${API_BASE_URL}/user/`,
+        {
+          method: 'POST',
+          body: JSON.stringify(action.payload),
+          headers:{
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+  
+      if (response.status === 201) {
+        const { token } = yield response.json();
+        yield put(actions.completeRegistration());
+        yield put(actions.startLogin(action.payload.username, action.payload.password))
+      } else {
+        const { username } = yield response.json();
+        yield put(actions.failRegistration(username[0]));
+      }
+    } catch (error) {
+      yield put(actions.failRegistration('NETWORK ERROR'));
+    }
+  }
+  
+  export function* watchSignupStarted() {
+    yield takeEvery(
+      types.REGISTRATION_STARTED,
+      signup,
+    );
+  }

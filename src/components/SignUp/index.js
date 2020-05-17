@@ -7,7 +7,7 @@ import styles from './styles'
 import { colors } from '../../../configuration';
 import { Link } from "react-router-dom";
 import { Actions } from 'react-native-router-flux';
-import { normalize } from '../../utils/normalize';
+import { validateEmail } from '../../utils/validate';
 import { LinearGradient } from 'expo-linear-gradient';
 import { URL } from '../../../configuration'
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -19,16 +19,17 @@ const SignUp = ({
 }) => {
   const [username, changeUsername] = useState('');
   const [password, changePassword] = useState('');
+  const [email, changeEmail] = useState('');
+  const [confirmPassword, changeConfirmation] = useState('');
   return (
     <View style={styles.container}>
       <LinearGradient
           colors={[colors.primaryc, 'transparent']}
           style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            alignSelf: 'center'
+            width: '100%',
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
         >
       <Image style={styles.logo} source={require('../../public/static/img/logo.png')} ></Image>
@@ -42,6 +43,15 @@ const SignUp = ({
         onChange={e => changeUsername(e.target.value)}
       />
       <TextInput
+        style={styles.input}
+        className="email"
+        type="email"
+        placeholder="email"
+        value={email}   
+        onChangeText={changeEmail}
+        onChange={e => changeEmail(e.target.value)}
+      />
+      <TextInput
           style={styles.input}
           className="password"
           type="password"
@@ -51,22 +61,16 @@ const SignUp = ({
           onChangeText={changePassword}
           onChange={e=>changePassword(e.target.value)}
       />
-      <View style={styles.option}>
-        <Text style={styles.text} >{"Did you forget your password? "}</Text>
-        {
-          (typeof document === 'undefined')?(
-            <Text style={styles.link} title={' reset password '} type="submit" 
-            onPress={() =>
-              console.log("here")
-            }>{' reset password '}</Text>
-          ):(
-            <Link to="/reset-password" style={styles.navItem}>
-              <Text style={styles.text}>{' reset password '}</Text>
-            </Link>
-          )
-        }
-        
-      </View>
+      <TextInput
+          style={styles.input}
+          className="password"
+          type="password"
+          secureTextEntry={true}
+          placeholder="confirm password"
+          value={confirmPassword}
+          onChangeText={changeConfirmation}
+          onChange={e=>changeConfirmation(e.target.value)}
+      />     
       <View style={styles.errors}>
         {
         error && (
@@ -82,20 +86,20 @@ const SignUp = ({
             <View> 
               <View style={styles.button}>
                   <Text style={styles.button} type="submit" onPress={
-                      () => onSubmit(username,password)
-                  }>{'LOGIN'}</Text>
+                      () => onSubmit(username,password, email, confirmPassword)
+                  }>{'SIGN UP'}</Text>
               </View>
               <View style={styles.option}>
                 <Text style={styles.text} >{"Do you have an account?  "}</Text>
                 {
                   (typeof document === 'undefined')?(
-                    <Text style={styles.link} title={' register now '} type="submit" 
+                    <Text style={styles.link} title={' login '} type="submit" 
                     onPress={() =>
-                      Actions.Home(true)
-                    }>{' register now '}</Text>
+                      Actions.Login(true)
+                    }>{' login '}</Text>
                   ):(
-                    <Link to="/signup" style={styles.navItem}>
-                      <Text style={styles.text}>{' register now'}</Text>
+                    <Link to="/login" style={styles.navItem}>
+                      <Text style={styles.text}>{' login '}</Text>
                     </Link>
                   )
                 }
@@ -111,23 +115,31 @@ const SignUp = ({
 } 
 
 export default connect(
-  state => {
-    console.log(state)
-    return ({
-    isLoading: selectors.getIsAuthenticating(state),
-    error: selectors.getAuthenticatingError(state),
+  state => ({
+    isLoading: selectors.getIsRegistrating(state),
+    error: selectors.getSignUpError(state),
     isAuthenticated: selectors.isAuthenticated(state),
-  })},
+  }),
   dispatch => ({
-    onSubmit(username, password) {
+    onSubmit(username, password, email, confirmPass) {
       if(username && password){
-        //dispatch(actions.startLogin(username, password))
+        if(validateEmail(email)){
+          if(password===confirmPass){
+            dispatch(actions.startRegistration(username,password,email))
+          }
+          else{
+            dispatch(actions.failRegistration("PASSWORDS DON'T MATCH"))
+          }
+        }
+        else{
+          dispatch(actions.failRegistration("WRITE A VALID EMAIL"))
+        }
       }
       else if(!username){
-        //dispatch(actions.failLogin('WRITE A VALID USERNAME'))
+        dispatch(actions.failRegistration('WRITE A VALID USERNAME'))
       }
       else if(!password){
-        //dispatch(actions.failLogin('WRITE A VALID PASSWORD'))
+        dispatch(actions.failRegistration('WRITE A VALID PASSWORD'))
       }
     },
   }),

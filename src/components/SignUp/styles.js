@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderRadius: 7,
         fontSize: normalize(1.5),
-        margin: normalize(1),
+        margin: normalize(0.5),
         padding: 10,
         borderColor: colors.white,
         borderWidth: 1
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         height: normalize(300),
         width: normalize(170),
-        margin: normalize(500),
+        margin: normalize(20),
       },
     buttons:{
       alignItems: 'center',

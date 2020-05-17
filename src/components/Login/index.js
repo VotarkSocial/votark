@@ -24,13 +24,13 @@ const Login = ({
       <LinearGradient
           colors={[colors.primaryc, 'transparent']}
           style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            alignSelf: 'center'
+            width: '100%',
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
         >
+      <View style={styles.centered}>
       <Image style={styles.logo} source={require('../../public/static/img/logo.png')} ></Image>
       <TextInput
         style={styles.input}
@@ -91,7 +91,7 @@ const Login = ({
                   (typeof document === 'undefined')?(
                     <Text style={styles.link} title={' register now '} type="submit" 
                     onPress={() =>
-                      Actions.Home(true)
+                      Actions.SignUp(true)
                     }>{' register now '}</Text>
                   ):(
                     <Link to="/signup" style={styles.navItem}>
@@ -104,6 +104,7 @@ const Login = ({
             </View>
           )
         }
+      </View>
       </View>
       </LinearGradient>
     </View>
