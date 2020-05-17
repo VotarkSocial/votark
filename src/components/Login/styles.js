@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        paddingTop: normalize(0.7),
-        paddingBottom: normalize(0.7), 
+        paddingTop: normalize(0.5),
+        paddingBottom: normalize(0.5), 
         paddingRight:normalize(2),
         paddingLeft: normalize(2)
     },
