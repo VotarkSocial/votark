@@ -20,7 +20,7 @@ export default connect(
   undefined,
   (stateToProps,disptachToProps) => {
     if(!stateToProps.isAuthenticated){
-      window.location.href = URL+'login/'
+      //window.location.href = URL+'login/'
     }
   }
 )(Home);

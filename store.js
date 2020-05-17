@@ -1,34 +1,24 @@
-import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import {
-  persistStore,
-  persistReducer,
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import {AsyncStorage} from 'react-native';
 
-import reducer from './src/reducers';
-import mainSaga from './src/sagas';
+export const loadState = () => {
+  try{
+    const serializedState = localStorage.getItem('state');
+    if(serializedState===null){
+        return undefined
+    }
+    return JSON.parse(serializedState);
+  }
+  catch (err){
+      return undefined
+  }
+};
 
-
-export const configureStore = () => {
-  const sagaMiddleware = createSagaMiddleware();
-  const persistedReducer = persistReducer(
-    {
-      key: 'rootx',
-      storage,
-      whitelist: ['auth'],
-    },
-    reducer,
-  );
-
-  const store = createStore(
-    persistedReducer,
-    applyMiddleware(sagaMiddleware),
-  );
-
-  const persistor = persistStore(store);
-
-  sagaMiddleware.run(mainSaga);
-
-  return { store, persistor };
-}
+export const saveState = (state) => {
+  try{
+    const serializedState = JSON.stringify(state);
+    AsyncStorage.setItem('state',serializedState)
+  }
+  catch(err){
+      console.log(err)
+  }
+};

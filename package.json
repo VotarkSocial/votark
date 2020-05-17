@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
+    "@react-native-community/async-storage": "^1.10.1",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.3.2",
     "@react-navigation/stack": "^5.3.6",
@@ -30,6 +31,7 @@
     "react-router-native": "^5.2.0",
     "react-spinner": "^0.2.7",
     "react-spinners": "^0.8.3",
+    "reactotron-react-native": "^5.0.0",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.3",

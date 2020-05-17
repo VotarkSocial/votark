@@ -8,6 +8,7 @@ import styles from './styles'
 import { colors } from '../../../configuration';
 import Spinner from '../Spinner'
 import { Link } from "react-router-dom";
+import { Actions } from 'react-native-router-flux';
 
 const Login = ({
   onSubmit,
@@ -40,9 +41,19 @@ const Login = ({
       />
       <View style={styles.option}>
         <Text style={styles.text} >{"Did you forget your password? "}</Text>
-        <Link to="/reset-password" underlayColor="#f0f4f7" style={styles.navItem}>
-          <Text style={styles.text}>{' reset password '}</Text>
-        </Link>
+        {
+          (typeof document === 'undefined')?(
+            <Button title={' reset password '} type="submit" 
+              onPress={() =>
+                Actions.home({})
+              }/>
+          ):(
+            <Link to="/reset-password" underlayColor="#f0f4f7" style={styles.navItem}>
+              <Text style={styles.text}>{' reset password '}</Text>
+            </Link>
+          )
+        }
+        
       </View>
       <View style={styles.errors}>
         {
@@ -62,9 +73,19 @@ const Login = ({
               </View>
               <View style={styles.option}>
                 <Text style={styles.text} >{"Do you have an account?  "}</Text>
-                <Link to="/signup" underlayColor="#f0f4f7" style={styles.navItem}>
-                  <Text style={styles.text}>{' register now'}</Text>
-                </Link>
+                {
+                  (typeof document === 'undefined')?(
+                    <Button title={' register now '} type="submit" 
+                    onPress={() =>
+                      Actions.home({})
+                    }/>
+                  ):(
+                    <Link to="/signup" underlayColor="#f0f4f7" style={styles.navItem}>
+                      <Text style={styles.text}>{' register now'}</Text>
+                    </Link>
+                  )
+                }
+                
               </View>
             </View>
           )
@@ -81,7 +102,7 @@ export default connect(
   }),
   dispatch => ({
     onSubmit(username, password) {
-      dispatch(actions.startLogin(username, password));
+      dispatch(actions.startLogin(username, password))
     },
   }),
 )(Login);

@@ -2,35 +2,60 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { colors } from './configuration';
 import Login from './src/components/Login';
+import { Platform } from 'react-native';
 import Home from './src/components/Home';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'; 
 import { Provider } from 'react-redux';
+import { Router, Stack, Scene } from "react-native-router-flux";
+import { BrowserRouter, Route, Switch } from 'react-router-dom'; 
 import { PersistGate } from 'redux-persist/integration/react';
-import { configureStore } from './store';
-import TokenRefresh from './src/components/TokenRefresh'
+import {loadState,saveState} from './store'
+import throttle from 'lodash/throttle'
+import createSagaMiddleware from 'redux-saga';
+import mainSaga from './src/sagas';
+import { createStore, applyMiddleware } from 'redux';
+import reducer from './src/reducers';
 
-const { store, persistor } = configureStore();
+//localStorage.clear();
+const persistedState = loadState()
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(reducer,persistedState,applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(mainSaga);
+store.subscribe(throttle(()=>{
+  saveState(store.getState().auth);
+}),1000)
+
+const instructions = Platform.select({
+  ios: `Press Cmd+R to reload,\nCmd+D or shake for dev menu`,
+  android: `Double tap R on your keyboard to reload,\nShake or press menu button for dev menu`,
+});
+
 
 export default function App() {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
+        {(typeof document === 'undefined')?(
+          <Router>
+          <Stack key="root" style={styles.container}>
+            <Scene key="login"  component={Login} />
+            <Scene key="home" component={Home} />
+          </Stack>
+        </Router>
+        ):(
+          <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login}/>
           </Switch>
         </BrowserRouter>
-        <TokenRefresh/>
-      </PersistGate>
-    </Provider>
+        )
+        }
+        
+   </Provider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: colors.primaryB,
     alignItems: 'center',
     justifyContent: 'center',
   },
