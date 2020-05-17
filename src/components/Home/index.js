@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import {Text, View, Image } from 'react-native';
 import * as selectors from '../../reducers'
 import React from 'react';
-import Spinner from '../Spinner'
 import styles from './styles'
 import { URL } from '../../../configuration'
 import { Actions } from 'react-native-router-flux';

@@ -14,6 +14,7 @@ import createSagaMiddleware from 'redux-saga';
 import mainSaga from './src/sagas';
 import { createStore, applyMiddleware } from 'redux';
 import reducer from './src/reducers';
+import SignUp from './src/components/SignUp';
 
 //localStorage.clear();
 const persistedState = loadState()
@@ -21,7 +22,7 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer,persistedState,applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(mainSaga);
 store.subscribe(throttle(()=>{
-  saveState(store.getState().auth);
+  saveState(store.getState());
 }),1000)
 
 const instructions = Platform.select({
@@ -38,6 +39,7 @@ export default function App() {
           <Stack key="root" style={styles.container}>
             <Scene key="Login"  component={Login} hideNavBar={true} />
             <Scene key="Home" component={Home}  hideNavBar={true} />
+            <Scene key="SignUp" component={Home}  hideNavBar={true} />
           </Stack>
         </Router>
         ):(
@@ -45,6 +47,7 @@ export default function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login}/>
+            <Route exact path="/signup" component={SignUp}/>
           </Switch>
         </BrowserRouter>
         )

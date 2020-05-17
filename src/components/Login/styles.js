@@ -1,17 +1,17 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../../configuration';
-import { normalize } from '../../utils/normalize'
+import { normalize } from '../../utils/normalize';
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.primary,
+      backgroundColor: colors.black,
       alignItems: 'center',
       justifyContent: 'center',
       borderColor: colors.primary,
     },
     error: {
-        color : colors.secondary,
+        color : colors.white,
         fontSize: normalize(0.9),
         margin: normalize(5)
     },
@@ -22,12 +22,13 @@ const styles = StyleSheet.create({
       },
     link: {
         marginTop: normalize(5),
-        color : colors.white,
+        color: colors.white,
         fontSize: normalize(0.9),
-        textDecorationLine: 'underline'
+        textDecorationLine: 'underline',
     },
     input: {
         width: normalize(1600),
+        alignSelf: 'center',
         maxWidth: 700,
         maxHeight: 50,
         height: normalize(30),
@@ -42,21 +43,21 @@ const styles = StyleSheet.create({
     button:{
         alignItems: 'center',
         borderRadius: 10,
-        fontSize: normalize(2),
-        color: colors.white,
         backgroundColor: colors.terceary,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        paddingTop: normalize(0.5),
-        paddingBottom: normalize(0.5), 
-        paddingRight:normalize(2),
-        paddingLeft: normalize(2)
+        paddingTop: normalize(0.2),
+        paddingBottom: normalize(0.2), 
+        paddingRight:normalize(1),
+        paddingLeft: normalize(1),
+        margin: normalize(1)
     },
     logo: {
+        alignSelf: 'center',
         height: normalize(300),
         width: normalize(170),
-        margin: normalize(200),
+        margin: normalize(500),
       },
     buttons:{
       alignItems: 'center',

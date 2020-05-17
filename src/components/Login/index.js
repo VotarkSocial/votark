@@ -5,12 +5,12 @@ import * as selectors from '../../reducers';
 import React, { useState } from 'react';
 import styles from './styles'
 import { colors } from '../../../configuration';
-import Spinner from '../Spinner'
 import { Link } from "react-router-dom";
 import { Actions } from 'react-native-router-flux';
 import { normalize } from '../../utils/normalize';
 import { LinearGradient } from 'expo-linear-gradient';
-
+import { URL } from '../../../configuration'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const Login = ({
   onSubmit,
@@ -28,9 +28,9 @@ const Login = ({
             left: 0,
             right: 0,
             top: 0,
-            height: 1300,
+            alignSelf: 'center'
           }}
-        />
+        >
       <Image style={styles.logo} source={require('../../public/static/img/logo.png')} ></Image>
       <TextInput
         style={styles.input}
@@ -60,7 +60,7 @@ const Login = ({
               console.log("here")
             }>{' reset password '}</Text>
           ):(
-            <Link to="/reset-password" underlayColor="#f0f4f7" style={styles.navItem}>
+            <Link to="/reset-password" style={styles.navItem}>
               <Text style={styles.text}>{' reset password '}</Text>
             </Link>
           )
@@ -75,9 +75,11 @@ const Login = ({
       }
         {
           isLoading ? (
-            <View/>
-          ) : (
             <View>
+              <Text style={styles.error}>{'LOADING...'}</Text>
+            </View>
+          ) : (
+            <View> 
               <View style={styles.button}>
                   <Text style={styles.button} type="submit" onPress={
                       () => onSubmit(username,password)
@@ -92,7 +94,7 @@ const Login = ({
                       Actions.Home(true)
                     }>{' register now '}</Text>
                   ):(
-                    <Link to="/signup" underlayColor="#f0f4f7" style={styles.navItem}>
+                    <Link to="/signup" style={styles.navItem}>
                       <Text style={styles.text}>{' register now'}</Text>
                     </Link>
                   )
@@ -103,19 +105,30 @@ const Login = ({
           )
         }
       </View>
+      </LinearGradient>
     </View>
   );
 } 
 
 export default connect(
-  state => ({
+  state => {
+    console.log(state)
+    return ({
     isLoading: selectors.getIsAuthenticating(state),
     error: selectors.getAuthenticatingError(state),
     isAuthenticated: selectors.isAuthenticated(state),
-  }),
+  })},
   dispatch => ({
     onSubmit(username, password) {
-      dispatch(actions.startLogin(username, password))
+      if(username && password){
+        dispatch(actions.startLogin(username, password))
+      }
+      else if(!username){
+        dispatch(actions.failLogin('WRITE A VALID USERNAME'))
+      }
+      else if(!password){
+        dispatch(actions.failLogin('WRITE A VALID PASSWORD'))
+      }
     },
   }),
   (stateToProps,disptachToProps) => {
@@ -127,6 +140,6 @@ export default connect(
         Actions.Home(true)
       }
     }
-    return ({...disptachToProps,...stateToProps.isLoading,...stateToProps.error})
+    return ({...disptachToProps,...stateToProps})
   }
 )(Login);
