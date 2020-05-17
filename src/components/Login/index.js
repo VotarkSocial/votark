@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { Text, View, TextInput, Button, Image } from 'react-native';
-import { v4 as uuidv4 } from 'uuid';
 import * as actions from '../../actions/auth';
 import * as selectors from '../../reducers';
 import React, { useState } from 'react';
@@ -9,6 +8,9 @@ import { colors } from '../../../configuration';
 import Spinner from '../Spinner'
 import { Link } from "react-router-dom";
 import { Actions } from 'react-native-router-flux';
+import { normalize } from '../../utils/normalize';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 const Login = ({
   onSubmit,
@@ -19,6 +21,16 @@ const Login = ({
   const [password, changePassword] = useState('');
   return (
     <View style={styles.container}>
+      <LinearGradient
+          colors={[colors.primaryc, 'transparent']}
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            height: 1300,
+          }}
+        />
       <Image style={styles.logo} source={require('../../public/static/img/logo.png')} ></Image>
       <TextInput
         style={styles.input}
@@ -43,10 +55,10 @@ const Login = ({
         <Text style={styles.text} >{"Did you forget your password? "}</Text>
         {
           (typeof document === 'undefined')?(
-            <Button title={' reset password '} type="submit" 
-              onPress={() =>
-                Actions.home({})
-              }/>
+            <Text style={styles.link} title={' reset password '} type="submit" 
+            onPress={() =>
+              console.log("here")
+            }>{' reset password '}</Text>
           ):(
             <Link to="/reset-password" underlayColor="#f0f4f7" style={styles.navItem}>
               <Text style={styles.text}>{' reset password '}</Text>
@@ -63,22 +75,22 @@ const Login = ({
       }
         {
           isLoading ? (
-            <Spinner/>
+            <View/>
           ) : (
-            <View style={styles.buttons}>
+            <View>
               <View style={styles.button}>
-                  <Button className="login_button" color={colors.primary} title={'LOGIN'} type="submit" onPress={
+                  <Text style={styles.button} type="submit" onPress={
                       () => onSubmit(username,password)
-                  }/>
+                  }>{'LOGIN'}</Text>
               </View>
               <View style={styles.option}>
                 <Text style={styles.text} >{"Do you have an account?  "}</Text>
                 {
                   (typeof document === 'undefined')?(
-                    <Button title={' register now '} type="submit" 
+                    <Text style={styles.link} title={' register now '} type="submit" 
                     onPress={() =>
-                      Actions.home({})
-                    }/>
+                      Actions.Home(true)
+                    }>{' register now '}</Text>
                   ):(
                     <Link to="/signup" underlayColor="#f0f4f7" style={styles.navItem}>
                       <Text style={styles.text}>{' register now'}</Text>
@@ -99,10 +111,22 @@ export default connect(
   state => ({
     isLoading: selectors.getIsAuthenticating(state),
     error: selectors.getAuthenticatingError(state),
+    isAuthenticated: selectors.isAuthenticated(state),
   }),
   dispatch => ({
     onSubmit(username, password) {
       dispatch(actions.startLogin(username, password))
     },
   }),
+  (stateToProps,disptachToProps) => {
+    if(stateToProps.isAuthenticated){
+      if(typeof document !== 'undefined'){
+        window.location.href = URL
+      }
+      else{
+        Actions.Home(true)
+      }
+    }
+    return ({...disptachToProps,...stateToProps.isLoading,...stateToProps.error})
+  }
 )(Login);

@@ -10,12 +10,12 @@ const styles = StyleSheet.create({
     },
     text: {
         color : colors.white,
-        marginRight: '15px',
-        marginLeft: '15px',
+        marginRight: 15,
+        marginLeft: 15,
     },
     logo:{
-      width:'50px',
-      height:'70px'
+      width:50,
+      height:50
     }
   });
   

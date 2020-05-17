@@ -36,8 +36,8 @@ export default function App() {
         {(typeof document === 'undefined')?(
           <Router>
           <Stack key="root" style={styles.container}>
-            <Scene key="login"  component={Login} />
-            <Scene key="home" component={Home} />
+            <Scene key="Login"  component={Login} hideNavBar={true} />
+            <Scene key="Home" component={Home}  hideNavBar={true} />
           </Stack>
         </Router>
         ):(

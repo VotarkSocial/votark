@@ -9,16 +9,17 @@ export const URL = 'https://localhost:19006/'
 
 export const colors = {
     primary: '#21796A',
-    primaryB: '#2A726B',
-    primaryc: '#287069',
-    secondary: '#870081',
+    primaryB: '#033F38',
+    primaryc: '#1D5E85',
+    secondary: '#350033',
     secondaryB: '#8C007B',
     secondaryC: '#890079',
     terceary: '#A28600',
     tercearyB: '#A48300',
     tercearyB: '#998700',
     white: '#FFFFFF',
-    black: '#120F0F',
+    black: '#000000',
     border: '#264B6E',
+
 }
 
