@@ -111,13 +111,11 @@ const Login = ({
 } 
 
 export default connect(
-  state => {
-    console.log(state)
-    return ({
+  state => ({
     isLoading: selectors.getIsAuthenticating(state),
     error: selectors.getAuthenticatingError(state),
     isAuthenticated: selectors.isAuthenticated(state),
-  })},
+  }),
   dispatch => ({
     onSubmit(username, password) {
       if(username && password){
