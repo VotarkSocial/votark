@@ -5,11 +5,31 @@ import React from 'react';
 import styles from './styles'
 import { URL } from '../../../configuration'
 import { Actions } from 'react-native-router-flux';
+import { LinearGradient } from 'expo-linear-gradient';
+import { colors } from '../../../configuration';
+import Header from '../Header';
+import Stories from '../Stories';
+import NavBar from '../NavBar';
 
 const Home = () => (
   <View style={styles.container}>
-      <Text style={styles.text} >WELCOME TO VOTARK</Text>
-  </View>
+  <LinearGradient
+      colors={[colors.primary, 'transparent']}
+      style={{
+        width: '100%',
+        height: '100%',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start'
+      }}
+    >
+    <View style={styles.body}>
+      <Header/>
+      <Stories/>
+      <NavBar/>
+    </View>
+    
+  </LinearGradient>
+</View>
 );
 
 export default connect(
@@ -18,7 +38,7 @@ export default connect(
   }),
   undefined,
   (stateToProps,disptachToProps) => {
-    if(!stateToProps.isAuthenticated){
+    if(stateToProps.isAuthenticated){
       if(typeof document !== 'undefined'){
         window.location.href = URL+'login/'
       }
