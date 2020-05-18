@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         paddingTop: normalize(0.5),
         paddingBottom: normalize(0.5), 
         paddingRight:normalize(2),
-        paddingLeft: normalize(2)
+        paddingLeft: normalize(2),
     },
     logo: {
         alignSelf: 'center',

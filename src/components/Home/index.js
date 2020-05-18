@@ -23,7 +23,6 @@ export default connect(
         window.location.href = URL+'login/'
       }
       else{
-        console.log("pase por home")
         Actions.Login(true)
       }
     }

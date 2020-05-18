@@ -23,7 +23,7 @@ const SignUp = ({
   return (
     <View style={styles.container}>
       <LinearGradient
-          colors={[colors.primaryc, 'transparent']}
+          colors={[colors.primary, 'transparent']}
           style={{
             width: '100%',
             height: '100%',

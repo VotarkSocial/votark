@@ -129,7 +129,7 @@ import {
     try {
       const response = yield call(
         fetch,
-        `${API_BASE_URL}/user/restore`,
+        `${API_BASE_URL}/user/restore/`,
         {
           method: 'POST',
           body: JSON.stringify(action.payload),
@@ -140,14 +140,13 @@ import {
       );
   
       if (response.status === 200) {
-        const { token } = yield response.json();
-        yield put(actions.completeRegistration());
+        yield put(actions.completeReset());
       } else {
         const { detail } = yield response.json();
-        yield put(actions.failRegistration(detail[0]));
+        yield put(actions.failReset(detail));
       }
     } catch (error) {
-      yield put(actions.failRegistration('NETWORK ERROR'));
+      yield put(actions.failReset('NETWORK ERROR'));
     }
   }
 

@@ -9,18 +9,20 @@ import React, { useState } from 'react';
 import styles from './styles'
 import { colors } from '../../../configuration';
 import * as actions from '../../actions/auth';
+import { URL } from '../../../configuration'
 
 const ResetPassword = ({
   onSubmit,
   isLoading,
   error = null,
   hasReset,
+  onBack,
 }) => {
   const [email, changeEmail] = useState('');
   return (
     <View style={styles.container}>
       <LinearGradient
-          colors={[colors.primaryc, 'transparent']}
+          colors={[colors.primary, 'transparent']}
           style={{
             width: '100%',
             height: '100%',
@@ -54,19 +56,11 @@ const ResetPassword = ({
             hasReset ? (
                 <View>
                 <Text style={styles.error}>{'AN EMAIL WAS SENT WITH YOUR NEW PASSWORD'}</Text>
-                <View style={styles.button}>
-                    {
-                    (typeof document === 'undefined')?(
+                    <View style={styles.button}>
                         <Text style={styles.button} type="submit" onPress={
-                            () => Actions.Login(true)
-                        }>{'GO BACK'}</Text>
-                    ):(
-                        <Link to="/login" style={styles.navItem}>
-                            <Text style={styles.button} type="submit">{'GO BACK'}</Text>
-                        </Link>
-                    )
-                    }
-                </View>
+                            () => onBack()
+                        }>{' GO BACK '}</Text>
+                    </View>
                 </View>
             ):(
                 <View> 
@@ -117,6 +111,15 @@ export default connect(
             dispatch(actions.failReset("WRITE A VALID EMAIL"))
           }
       },
+      onBack(){
+        dispatch(actions.failReset(''))
+        if(typeof document !== 'undefined'){
+            window.location.href = URL
+        }
+        else{
+            Actions.Home(true)
+        }
+      } 
     }),
   )(ResetPassword);
   

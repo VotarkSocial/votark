@@ -23,7 +23,6 @@ export const startPasswordResetProcess = (email) => ({
 
 export const completeReset = () => ({
   type: types.PASSWORD_RESET_PROCESS_COMPLETED,
-  payload: { token },
 });
 
 export const failReset = error => ({

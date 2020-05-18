@@ -4,6 +4,7 @@ import {
   watchLoginStarted,
   watchRefreshTokenStarted,
   watchSignupStarted,
+  watchResetPassword,
 } from './auth';
 
 function* mainSaga() {
@@ -11,6 +12,7 @@ function* mainSaga() {
     fork(watchLoginStarted),
     fork(watchRefreshTokenStarted),
     fork(watchSignupStarted),
+    fork(watchResetPassword),
   ]);
 }
 

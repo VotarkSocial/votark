@@ -17,7 +17,15 @@ import SignUp from './src/components/SignUp';
 import ResetPassword from './src/components/ResetPassword';
 
 //localStorage.clear();
-const persistedState = loadState()
+let persistedState = undefined
+if(loadState()!==undefined){
+  persistedState = {
+    auth: {
+      token: loadState().auth.token,
+      decoded: loadState().auth.decoded,
+    }
+  }
+}
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer,persistedState,applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(mainSaga);
