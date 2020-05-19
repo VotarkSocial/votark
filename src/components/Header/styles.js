@@ -6,12 +6,11 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       position: 'absolute',
-      backgroundColor: colors.primary,
       alignItems: 'flex-end',
       justifyContent: 'space-between',
       flexDirection: 'row',
-      height: normalize(145),
-      padding: normalize(3),
+      height: normalize(165),
+      padding: normalize(4),
       width: '100%',
     },
     text: {
@@ -21,8 +20,8 @@ const styles = StyleSheet.create({
         fontSize: normalize(6)
     },
     logo:{
-      width:normalize(20),
-      height:normalize(27)
+      width:normalize(17),
+      height:normalize(24)
     },
     icon:{
         width:normalize(10),

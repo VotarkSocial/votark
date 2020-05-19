@@ -4,7 +4,7 @@ import { colors } from '../../../configuration';
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.secondary,
+      backgroundColor: colors.black,
       alignItems: 'flex-start',
       justifyContent: 'flex-start',
       flexDirection: 'column',
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     body:{
       width:'100%',
       height: '100%'
-    }
+    },
   });
   
 export default styles

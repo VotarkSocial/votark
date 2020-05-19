@@ -10,11 +10,14 @@ import { colors } from '../../../configuration';
 import Header from '../Header';
 import Stories from '../Stories';
 import NavBar from '../NavBar';
+import VersusPad from '../VersusPad';
+import Comments from '../Comments';
+import Interactions from '../Interactions';
 
 const Home = () => (
   <View style={styles.container}>
   <LinearGradient
-      colors={[colors.primary, 'transparent']}
+      colors={[colors.primaryB, 'transparent']}
       style={{
         width: '100%',
         height: '100%',
@@ -24,8 +27,13 @@ const Home = () => (
     >
     <View style={styles.body}>
       <Header/>
-      <Stories/>
+      {
+        (typeof document === 'undefined')&&<Stories/>
+      }
+      <VersusPad/>  
+      <Comments/>
       <NavBar/>
+      <Interactions/>
     </View>
     
   </LinearGradient>

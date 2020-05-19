@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import {Text, View, Image, TouchableHighlight } from 'react-native';
+import {Text, View, Image, TouchableOpacity } from 'react-native';
 import * as selectors from '../../reducers'
 import React from 'react';
 import styles from './styles'
@@ -10,15 +10,15 @@ import { colors } from '../../../configuration';
 
 const Header = ({onClick,home}) => (
     <View style={styles.container}>
-        <TouchableHighlight style={styles.row} onPress={() => home}>
+        <TouchableOpacity style={styles.row} onPress={() => home}>
             <Image style={styles.logo} source={require('../../public/static/img/logo.png')} ></Image>
-        </TouchableHighlight>  
+        </TouchableOpacity>  
         <View style={styles.row}>
-            <Text style={styles.text} >{"VOTARK  "}</Text>
+            <Text style={styles.text} >{"VOTARK"}</Text>
         </View>
-        <TouchableHighlight style={styles.row} onPress={() => onClick}>
+        <TouchableOpacity style={styles.row} onPress={() => onClick}>
             <Image style={styles.icon} source={require('../../public/static/icon/notification.png')} />
-        </TouchableHighlight>   
+        </TouchableOpacity>   
     </View>
 );
 
