@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
       height:'100%',
       alignItems:'center',
       justifyContent:'center',
-      width: '49.7%',
+      width: '49.4%',
       backgroundColor: colors.black
     },
   });
