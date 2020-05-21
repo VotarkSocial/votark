@@ -9,7 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../../../configuration';
 
 const Header = ({onClick,home}) => (
-    <View style={styles.container}>
+    <View style={(typeof document==='undefined')?styles.container:styles.webcontainer}>
         <TouchableOpacity style={styles.row} onPress={() => home}>
             <Image style={styles.logo} source={require('../../public/static/img/logo.png')} ></Image>
         </TouchableOpacity>  

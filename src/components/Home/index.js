@@ -13,8 +13,11 @@ import NavBar from '../NavBar';
 import VersusPad from '../VersusPad';
 import Comments from '../Comments';
 import Interactions from '../Interactions';
+import { useParams } from "react-router-dom";
 
-const Home = () => (
+const Home = ({redirect}) => {
+
+  return (
   <View style={styles.container}>
   <LinearGradient
       colors={[colors.primaryB, 'transparent']}
@@ -38,15 +41,19 @@ const Home = () => (
     
   </LinearGradient>
 </View>
-);
+)};
 
 export default connect(
   state => ({
     isAuthenticated: selectors.isAuthenticated(state),
   }),
-  undefined,
+  dispatch=>({
+    redirect(){
+      
+    }
+  }),
   (stateToProps,disptachToProps) => {
-    if(stateToProps.isAuthenticated){
+    if(!stateToProps.isAuthenticated){
       if(typeof document !== 'undefined'){
         window.location.href = URL+'login/'
       }
@@ -54,6 +61,6 @@ export default connect(
         Actions.Login(true)
       }
     }
-    return ({isAuthenticated: stateToProps.isAuthenticated})
+    return ({...disptachToProps})
   }
 )(Home);

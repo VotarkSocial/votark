@@ -62,15 +62,4 @@ export default connect(
     isAuthenticated: selectors.isAuthenticated(state),
   }),
   undefined,
-  (stateToProps,disptachToProps) => {
-    if(stateToProps.isAuthenticated){
-      if(typeof document !== 'undefined'){
-        window.location.href = URL+'login/'
-      }
-      else{
-        Actions.Login(true)
-      }
-    }
-    return ({isAuthenticated: stateToProps.isAuthenticated})
-  }
 )(Comments);

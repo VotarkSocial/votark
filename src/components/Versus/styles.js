@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
       alignItems:'center',
       justifyContent:'center',
       width: '49.4%',
+      borderRadius: normalize(55),
       backgroundColor: colors.black
     },
   });

@@ -100,7 +100,8 @@ export default connect(
     state => ({
       isLoading: selectors.isReseting(state),
       error: selectors.resetError(state),
-      hasReset: selectors.hasreset(state)
+      hasReset: selectors.hasreset(state),
+      isAuthenticated: selectors.isAuthenticated(state),
     }),
     dispatch => ({
       onSubmit(email) {
@@ -121,5 +122,16 @@ export default connect(
         }
       } 
     }),
+    (stateToProps,disptachToProps) => {
+      if(stateToProps.isAuthenticated){
+        if(typeof document !== 'undefined'){
+          window.location.href = URL
+        }
+        else{
+          Actions.Home(true)
+        }
+      }
+      return ({...disptachToProps,...stateToProps})
+    }
   )(ResetPassword);
   

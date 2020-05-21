@@ -11,6 +11,7 @@ export const colors = {
     primary: '#21796A',
     primaryB: '#033F38',
     primaryc: '#1D5E85',
+    primaryd: '#001412',
     secondary: '#350033',
     secondaryB: '#8C007B',
     secondaryC: '#890079',

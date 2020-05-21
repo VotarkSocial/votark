@@ -13,6 +13,16 @@ const styles = StyleSheet.create({
       padding: normalize(4),
       width: '100%',
     },
+    webcontainer: {
+      flex: 1,
+      position: 'absolute',
+      alignItems: 'flex-end',
+      justifyContent: 'space-between',
+      flexDirection: 'row',
+      height: normalize(95),
+      padding: normalize(4),
+      width: '100%',
+    },
     text: {
         color : colors.white,
         marginRight: normalize(20),
