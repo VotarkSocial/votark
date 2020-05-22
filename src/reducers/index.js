@@ -4,13 +4,15 @@ import versus, * as versusSelectors from './versus';
 import comment, * as commentSelectors from './comment';
 import reaction, * as reactionSelectros from './reaction';
 import user,* as userSelectors from './user'
+import story, * as storySelectors from './stories'
 
 const reducer = combineReducers({
     auth,
     versus,
     comment,
     reaction,
-    user
+    user,
+    story
 });
 
 
@@ -57,3 +59,5 @@ export const getIsFollowingUser = (state) => userSelectors.getIsFollowingUser(st
 export const getIsFollowingExtraUser = state => userSelectors.getIsFollowingExtraUser(state.user);
 export const isFetchingUser = state => userSelectors.getisFetching(state.user);
 export const getErrorUser = state => userSelectors.getError(state.user);
+
+export const getHidden = state => storySelectors.getHidden(state.story)

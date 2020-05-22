@@ -13,10 +13,9 @@ import NavBar from '../NavBar';
 import VersusPad from '../VersusPad';
 import Comments from '../Comments';
 import Interactions from '../Interactions';
-import { useParams } from "react-router-dom";
+import TokenRefresh from '../TokenRefresh';
 
-const Home = ({redirect}) => {
-
+const Home = ({redirect, areHidden}) => {
   return (
   <View style={styles.container}>
   <LinearGradient
@@ -31,12 +30,13 @@ const Home = ({redirect}) => {
     <View style={styles.body}>
       <Header/>
       {
-        (typeof document === 'undefined')&&<Stories/>
+        ((typeof document === 'undefined') && !areHidden)&&<Stories/>
       }
       <VersusPad/>  
       <Comments/>
       <NavBar/>
       <Interactions/>
+      <TokenRefresh/>
     </View>
     
   </LinearGradient>
@@ -46,6 +46,7 @@ const Home = ({redirect}) => {
 export default connect(
   state => ({
     isAuthenticated: selectors.isAuthenticated(state),
+    areHidden: selectors.getHidden(state)
   }),
   dispatch=>({
     redirect(){
@@ -61,6 +62,6 @@ export default connect(
         Actions.Login(true)
       }
     }
-    return ({...disptachToProps})
+    return ({...disptachToProps,...stateToProps})
   }
 )(Home);

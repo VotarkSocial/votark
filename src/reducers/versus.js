@@ -35,6 +35,9 @@ const order = (state = [], action) => {
     case types.VERSUS_VOTE_STARTED: {
       return state.filter(id => id !== action.payload.id);
     }
+    case types.setNull:{
+        return []
+    }
     default: {
       return state;
     }

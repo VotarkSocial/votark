@@ -17,27 +17,6 @@ const Comments = () => {
     return (
   <View style={styles.container}>
       <TouchableOpacity style={styles.comments}>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT super large sdjflsdjflkjsdlkfjsdfjslkdjfksjdfsdfsdfsjdlkfjskjdfñsjdñfjafñjañfjs</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT super large sdjflsdjflkjsdlkfjsdfjslkdjfksjdfsdfsdfsjdlkfjskjdfñsjdñfjafñjañfjs</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT super large sdjflsdjflkjsdlkfjsdfjslkdjfksjdfsdfsdfsjdlkfjskjdfñsjdñfjafñjañfjs</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT super large sdjflsdjflkjsdlkfjsdfjslkdjfksjdfsdfsdfsjdlkfjskjdfñsjdñfjafñjañfjs</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
-        <Text style={styles.comment} >HERE IS A COMMENT</Text>
       </TouchableOpacity>
       <View style={styles.row}>
             <TextInput

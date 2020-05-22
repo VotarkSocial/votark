@@ -7,14 +7,17 @@ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import { URL, colors } from '../../../configuration'
 import { Actions } from 'react-native-router-flux';
 import Versus from '../Versus';
+import * as actions from '../../actions/stories';
+import { startFetchingVersus, setNull } from '../../actions/versus';
+import { logout } from '../../actions/auth';
 
 const config = {
   velocityThreshold: 0.01,
   directionalOffsetThreshold: 50
 };
 
-const VersusPad = ({onSwipeDown,onSwipeLeft,onSwipeUp,onSwipeRight}) => (
-  <View style={(typeof document!=='undefined')?styles.container:styles2.container}>
+const VersusPad = ({onSwipeDown,onSwipeLeft,onSwipeUp,onSwipeRight, isFetching,areHidden}) => (
+  <View style={(typeof document==='undefined' || areHidden)?styles2.container:styles.container}>
         <GestureRecognizer
         onSwipeUp={onSwipeUp}
         onSwipeDown={onSwipeDown}
@@ -24,31 +27,51 @@ const VersusPad = ({onSwipeDown,onSwipeLeft,onSwipeUp,onSwipeRight}) => (
         style={{height:'100%', }}
         >
           <Versus></Versus>
-          <Text style={styles.text} >{"VS"}</Text>
+          <Text style={styles.text} >{isFetching?"LOADING...":"VS"}</Text>
       </GestureRecognizer>
   </View>
 );
 
 export default connect(
   state => ({
-    isAuthenticated: selectors.isAuthenticated(state),
+    isFetching: selectors.isFetchingVersus(state),
+    areHidden: selectors.getHidden(state)
   }),
   dispatch => ({
       onSwipeDown(){
-        console.log('down')
+        dispatch(actions.showStories())
+      },
+      reload(){
+        dispatch(startFetchingVersus())
       },
       onSwipeLeft(){
-        console.log('left')
+        dispatch(logout())
       },
       onSwipeRight(){
         console.log('right')
-
       },
       onSwipeUp(){
-        console.log('up')
-
-      }
-      
-      
+        dispatch(actions.hideStories())
+      }  
   }),
+  (stateToProps,dispatchToProps) => ({
+    isFetching: stateToProps.isFetching,
+    onSwipeUp(){
+      dispatchToProps.onSwipeUp()
+    },
+    onSwipeLeft(){
+      dispatchToProps.onSwipeLeft()
+    },
+    onSwipeRight(){
+      dispatchToProps.onSwipeRight()
+    },
+    onSwipeDown(){
+      if(!stateToProps.areHidden){
+        dispatchToProps.reload()
+      }
+      else{
+        dispatchToProps.onSwipeDown()
+      }
+    }
+  })
 )(VersusPad);

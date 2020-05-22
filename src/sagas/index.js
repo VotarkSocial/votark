@@ -7,12 +7,17 @@ import {
   watchResetPassword,
 } from './auth';
 
+import {
+  watchVersusFetch
+} from './versus'
+
 function* mainSaga() {
   yield all([
     fork(watchLoginStarted),
     fork(watchRefreshTokenStarted),
     fork(watchSignupStarted),
     fork(watchResetPassword),
+    fork(watchVersusFetch)
   ]);
 }
 

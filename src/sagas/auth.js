@@ -75,7 +75,8 @@ import {
         } else {
           // TODO: poner un redirect al home (login)
           const { non_field_errors } = yield response.json();
-          yield put(actions.failTokenRefresh(non_field_errors[0]));
+          yield put(actions.logout());
+          alert('YOU HAVE BEEN TO MUCH LOGGED')
         }
       } catch (error) {
         // TODO: poner un redirect al home (login)

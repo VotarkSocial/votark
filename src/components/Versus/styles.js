@@ -13,11 +13,16 @@ const styles = StyleSheet.create({
     post:{
       height:'100%',
       alignItems:'center',
-      justifyContent:'center',
+      justifyContent:'flex-start',
       width: '49.4%',
       borderRadius: normalize(55),
       backgroundColor: colors.black
     },
+    image:{
+      width: normalize(70*9), 
+      height: normalize(70*48),
+      resizeMode : 'stretch' ,
+    }
   });
   
 export default styles

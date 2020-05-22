@@ -52,3 +52,7 @@ export const failVoteVersus = error => ({
         error,
         },
     });
+
+export const setNull = () => ({
+    type: types.setNull,
+})
