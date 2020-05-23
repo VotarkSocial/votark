@@ -5,16 +5,19 @@ import { combineReducers } from 'redux';
 const liked = (state = false, action) => {
     switch(action.type) {
       case types.VERSUS_LIKE_FAILED: {
-        return false;
+        return !state;
       }
       case types.VERSUS_LIKE_STARTED: {
-        return true;
+        return !state;
       }
       case types.VERSUS_UNLIKE_FAILED:{
-        return true
+        return !state;
       }
       case types.VERSUS_UNLIKE_STARTED:{
-        return false
+        return !state;
+      }
+      case types.NULL_SETTED:{
+          return false
       }
       default: {
         return state;
@@ -26,16 +29,19 @@ const liked = (state = false, action) => {
 const hearted = (state = false, action) => {
     switch(action.type) {
       case types.VERSUS_HEART_FAILED: {
-        return false;
+        return !state;
       }
       case types.VERSUS_HEART_STARTED: {
-        return true;
+        return !state;
       }
       case types.VERSUS_UNHEART_FAILED:{
-        return true
+        return !state;
       }
       case types.VERSUS_UNHEART_STARTED:{
-        return false
+        return !state;
+      }
+      case types.NULL_SETTED:{
+          return false
       }
       default: {
         return state;
@@ -47,6 +53,8 @@ const hearted = (state = false, action) => {
     switch (action.type) {
         case types.VERSUS_LIKE_FETCH_COMPLETED:
             return action.payload
+        case types.NULL_SETTED:
+            return {}
         default:
             return state
     }
@@ -56,6 +64,8 @@ const hearted = (state = false, action) => {
     switch (action.type) {
         case types.VERSUS_HEART_FETCH_COMPLETED:
             return action.payload
+        case types.NULL_SETTED:
+            return {}
         default:
             return state
     }

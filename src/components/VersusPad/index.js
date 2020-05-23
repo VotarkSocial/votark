@@ -8,7 +8,7 @@ import { URL, colors } from '../../../configuration'
 import { Actions } from 'react-native-router-flux';
 import Versus from '../Versus';
 import * as actions from '../../actions/stories';
-import { startFetchingVersus, setNull } from '../../actions/versus';
+import { startFetchingVersus, setNull, setNull_toProps } from '../../actions/versus';
 import { logout } from '../../actions/auth';
 
 const config = {
@@ -42,6 +42,8 @@ export default connect(
         dispatch(actions.showStories())
       },
       reload(){
+        dispatch(setNull())
+        dispatch(setNull_toProps())
         dispatch(startFetchingVersus())
       },
       onSwipeLeft(){

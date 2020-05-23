@@ -8,24 +8,25 @@ import { Actions } from 'react-native-router-flux';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../../../configuration';
 import * as actions from '../../actions/user';
+import { startLikeVersus, startHeartVersus, startUnLikeVersus, startUnHeartVersus } from '../../actions/reaction';
 
-const Interactions = ({followUser,followExtraUser,home,extrauserPicture,userPicture,followsUser, followsExtrauser}) => (
+const Interactions = ({followUser,followExtraUser,home,extrauserPicture,userPicture,followsUser, followsExtrauser, isLiked, isHearted, like, heart}) => (
     <View style={styles.container}>
         <TouchableOpacity  onPress={followUser}>
             <Image style={styles.photo} source={userPicture?{uri: userPicture}:require('../../public/static/icon/user.png')}/>
-            {followsUser&&<Image style={styles.icon2} source={require('../../public/static/icon/add.png')} />}
+            {!followsUser&&<Image style={styles.icon2} source={require('../../public/static/icon/add.png')} />}
         </TouchableOpacity>  
         <TouchableOpacity  onPress={followExtraUser}>
             <Image style={styles.photo} source={extrauserPicture?{uri: extrauserPicture}:require('../../public/static/icon/user.png')}/>
-            {followsExtrauser&&<Image style={styles.icon2} source={require('../../public/static/icon/add.png')} />}
+            {!followsExtrauser&&<Image style={styles.icon2} source={require('../../public/static/icon/add.png')} />}
         </TouchableOpacity>  
-        <TouchableOpacity style={styles.row} onPress={() => home}>
-            <Image style={styles.icon} source={require('../../public/static/icon/like.png')} />
+        <TouchableOpacity style={styles.row} onPress={like}>
+            <Image style={styles.icon} source={require('../../public/static/icon/like.png')} tintColor={isLiked?colors.primary:colors.white}/>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.row} onPress={() => onClick}>
-            <Image style={styles.icon} source={require('../../public/static/icon/heart.png')} />
+        <TouchableOpacity style={styles.row} onPress={heart}>
+            <Image style={styles.icon} source={require('../../public/static/icon/heart.png')} tintColor={isHearted?colors.secondaryB:colors.white}/>
         </TouchableOpacity>  
-        <TouchableOpacity style={styles.row} onPress={() => onClick}>
+        <TouchableOpacity style={styles.row} onPress={heart}>
             <Image style={styles.icon} source={require('../../public/static/icon/share.png')} />
         </TouchableOpacity>   
     </View>
@@ -40,6 +41,10 @@ export default connect(
     extrauserPicture: selectors.getExtraUser(state).picture,
     followsUser: selectors.getIsFollowingUser(state),
     followsExtrauser: selectors.getIsFollowingExtraUser(state),
+    isLiked: selectors.getisLiked(state),
+    isHearted : selectors.getisHearted(state),
+    reactionid: selectors.getLike(state)?selectors.getLike(state).id:null,
+    versusid: selectors.getVersus(state)?selectors.getVersus(state).id:null,
   }),
   dispatch => ({
         followUser(userid){
@@ -54,22 +59,28 @@ export default connect(
         unfollowExtraUser(userid){
             dispatch(actions.startUnFollowExtraUser(userid))
         },
-      home(){
-        if(typeof document !== 'undefined'){
-            window.location.href = URL
-          }
-          else{
-            Actions.Home(true)
-          }
-      }
+        like(id){
+            dispatch(startLikeVersus(id))
+        },
+        unlike(id){
+            dispatch(startUnLikeVersus(id))
+        },
+        heart(id){
+            dispatch(startHeartVersus(id))
+        },
+        unHeart(id){
+            dispatch(startUnHeartVersus(id))
+        }
   }),
   (stateToProps,dispatchToProps) => ({
     userPicture: stateToProps.userPicture,
     extrauserPicture: stateToProps.extrauserPicture,
     followsUser: stateToProps.followsUser,
     followsExtrauser: stateToProps.followsExtrauser,
+    isLiked: stateToProps.isLiked,
+    isHearted: stateToProps.isHearted,
     followUser(){
-        if(stateToProps.followsUser){
+        if(!stateToProps.followsUser){
             dispatchToProps.unFollowUser(stateToProps.userid)
         }
         else{
@@ -77,13 +88,28 @@ export default connect(
         }
     },
     followExtraUser(){
-        if(stateToProps.followExtraUser){
+        if(!stateToProps.followExtraUser){
             dispatchToProps.unfollowExtraUser(stateToProps.userid)
         }
         else{
             dispatchToProps.followExtraUser(stateToProps.extrauserid)
         }
     },
-    home: dispatchToProps.home
+    like(){
+        if(stateToProps.isLiked){
+            dispatchToProps.like(stateToProps.versusid)
+        }
+        else{
+            dispatchToProps.unlike(stateToProps.reactionid)
+        }
+    },
+    heart(){
+        if(stateToProps.isHearted){
+            dispatchToProps.heart(stateToProps.versusid)
+        }
+        else{
+            dispatchToProps.unHeart(stateToProps.reactionid)
+        }
+    }
   }),
 )(Interactions);

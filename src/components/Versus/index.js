@@ -53,6 +53,7 @@ const Versus = ({fetchVersus,url1,url2,versusid}) =>{
             source={{uri: url2}} 
            />
           }
+{console.log(url2)}
           </LinearGradient>
         </View>
     </View>

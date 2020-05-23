@@ -3,20 +3,20 @@ import {Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import * as selectors from '../../reducers'
 import React, { useState } from 'react';
 import styles from './styles'
-import { URL } from '../../../configuration'
 import { Actions } from 'react-native-router-flux';
-import { LinearGradient } from 'expo-linear-gradient';
-import { colors } from '../../../configuration';
-import Header from '../Header';
-import Stories from '../Stories';
-import NavBar from '../NavBar';
-import VersusPad from '../VersusPad';
+import { startAddingComment } from '../../actions/comment';
+import {v4} from 'uuid'
 
-const Comments = () => {
+const Comments = ({comments,send}) => {
     const [comment, changeComment] = useState('');
     return (
   <View style={styles.container}>
       <TouchableOpacity style={styles.comments}>
+        {
+          comments.map(comm => 
+            <Text key={comm.id} style={styles.comment} >{comm.content}</Text>
+            )
+        }
       </TouchableOpacity>
       <View style={styles.row}>
             <TextInput
@@ -30,7 +30,7 @@ const Comments = () => {
             />
             <Text style={styles.send} type="submit" 
             onPress={() =>
-              Actions.ResetPassword(true)
+              send(comment)
             }>{' Send '}</Text>
       </View>
 </View>
@@ -38,7 +38,20 @@ const Comments = () => {
 
 export default connect(
   state => ({
-    isAuthenticated: selectors.isAuthenticated(state),
+    comments: selectors.getComments(state),
+    versusid: selectors.getVersus(state)?selectors.getVersus(state):null
   }),
-  undefined,
+  dispatch => ({
+    send(comment,versusid){
+      dispatch(startAddingComment(comment,versusid,v4()))
+    }
+  }),
+  (stateToProps, dispatchToProps) => ({
+    comments: stateToProps.comments,
+    send(comment){
+      if(stateToProps.versusid){
+        dispatchToProps.send(comment,stateToProps.versusid)
+      }
+    }
+  })
 )(Comments);

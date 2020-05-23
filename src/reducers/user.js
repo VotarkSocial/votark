@@ -8,16 +8,19 @@ const followUser = (state = false, action) => {
         return action.payload;
       }
       case types.USER_FOLLOW_STARTED:{
-        return true
+        return !state
       }
       case types.USER_FOLLOW_FAILED:{
-        return false
+        return !state
       }
       case types.USER_UNFOLLOW_STARTED:{
-          return false
+          return !state
       }
       case types.USER_UNFOLLOW_FAILED:{
-          return true
+          return !state
+      }
+      case types.NULL_SETTED:{
+          return false
       }
       default: {
         return state;
@@ -31,16 +34,19 @@ const followUser = (state = false, action) => {
         return action.payload;
       }
       case types.EXTRA_USER_FOLLOW_STARTED:{
-        return true
+        return !state
       }
       case types.EXTRA_USER_FOLLOW_FAILED:{
-        return false
+        return !state
       }
       case types.EXTRA_USER_UNFOLLOW_STARTED:{
-          return false
+          return !state
       }
       case types.EXTRA_USER_UNFOLLOW_FAILED:{
-          return true
+          return !state
+      }
+      case types.NULL_SETTED:{
+          return false
       }
       default: {
         return state;
@@ -50,10 +56,12 @@ const followUser = (state = false, action) => {
 
   const user = (state={},action)=>{
       switch (action.type) {
-          case types.USER_SETTED:
-              return action.payload
-          default:
-              return state
+            case types.USER_SETTED:
+                return action.payload
+            case types.NULL_SETTED:
+                return {}
+            default:
+                return state
       }
   }
 
@@ -62,6 +70,8 @@ const followUser = (state = false, action) => {
     switch (action.type) {
         case types.EXTRA_USER_SETTED:
             return action.payload
+        case types.NULL_SETTED:
+            return {}
         default:
             return state
     }

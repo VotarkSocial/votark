@@ -53,6 +53,9 @@ const order = (state = [], action) => {
       const { oldId, petOwner } = action.payload;
       return state.map(id => id === oldId ? petOwner.id : id);
     }
+    case types.NULL_SETTED:{
+        return []
+    }
     default: {
       return state;
     }

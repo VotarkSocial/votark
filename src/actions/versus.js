@@ -1,4 +1,5 @@
 import * as types from '../types/versus'
+import { NULL_SETTED } from '../types/comment';
 
 export const startFetchingVersus = () => ({
     type: types.VERSUS_FETCHING_STARTED,
@@ -55,4 +56,8 @@ export const failVoteVersus = error => ({
 
 export const setNull = () => ({
     type: types.setNull,
+})
+
+export const setNull_toProps = () => ({
+    type: NULL_SETTED
 })

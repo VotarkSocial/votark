@@ -20,10 +20,11 @@ export const failFetchingComments = error => ({
     },
 });
 
-export const startAddingComment = (Comment,id) => ({
+export const startAddingComment = (Comment,versusid,id) => ({
     type: types.COMMENT_ADDITION_STARTED,
     payload: {
-        Comment,
+        content: Comment,
+        versusid,
         id
     },
 });
@@ -32,7 +33,7 @@ export const completeAddingComment = (oldId, Comment) => ({
     type: types.COMMENT_ADDITION_COMPLETED,
     payload: {
         oldId,
-        Comment,
+        content: Comment,
     },
 });
 export const failAddingComment = (oldId, error) => ({
