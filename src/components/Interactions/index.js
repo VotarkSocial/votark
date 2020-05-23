@@ -10,7 +10,7 @@ import { colors } from '../../../configuration';
 import * as actions from '../../actions/user';
 import { startLikeVersus, startHeartVersus, startUnLikeVersus, startUnHeartVersus } from '../../actions/reaction';
 
-const Interactions = ({followUser,followExtraUser,home,extrauserPicture,userPicture,followsUser, followsExtrauser, isLiked, isHearted, like, heart}) => (
+const Interactions = ({followUser,followExtraUser,home,extrauserPicture,userPicture,followsUser, followsExtrauser, isLiked, isHearted, like, heart,share}) => (
     <View style={styles.container}>
         <TouchableOpacity  onPress={followUser}>
             <Image style={styles.photo} source={userPicture?{uri: userPicture}:require('../../public/static/icon/user.png')}/>
@@ -21,12 +21,24 @@ const Interactions = ({followUser,followExtraUser,home,extrauserPicture,userPict
             {!followsExtrauser&&<Image style={styles.icon2} source={require('../../public/static/icon/add.png')} />}
         </TouchableOpacity>  
         <TouchableOpacity style={styles.row} onPress={like}>
-            <Image style={styles.icon} source={require('../../public/static/icon/like.png')} tintColor={isLiked?colors.primary:colors.white}/>
+            {
+                (isLiked)?(
+                    <Image style={styles.icon} source={require('../../public/static/icon/like.png')}/>
+                ):(
+                    <Image style={styles.icon} source={require('../../public/static/icon/liked.png')}/>
+                )
+            }
         </TouchableOpacity>
         <TouchableOpacity style={styles.row} onPress={heart}>
-            <Image style={styles.icon} source={require('../../public/static/icon/heart.png')} tintColor={isHearted?colors.secondaryB:colors.white}/>
+        {
+                (isHearted)?(
+                    <Image style={styles.icon} source={require('../../public/static/icon/heart.png')}/>
+                ):(
+                    <Image style={styles.icon} source={require('../../public/static/icon/hearted.png')}/>
+                )
+            }
         </TouchableOpacity>  
-        <TouchableOpacity style={styles.row} onPress={heart}>
+        <TouchableOpacity style={styles.row} onPress={share}>
             <Image style={styles.icon} source={require('../../public/static/icon/share.png')} />
         </TouchableOpacity>   
     </View>
@@ -110,6 +122,9 @@ export default connect(
         else{
             dispatchToProps.unHeart(stateToProps.reactionid)
         }
+    },
+    share(){
+        //do Share
     }
   }),
 )(Interactions);

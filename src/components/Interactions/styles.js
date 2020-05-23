@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
         marginRight: normalize(5),
         width:normalize(15),
         height:normalize(15),
-        color:colors.primary
     },
     icon2:{
         position: 'absolute',

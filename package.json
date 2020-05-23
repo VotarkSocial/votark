@@ -21,6 +21,8 @@
     "react-dom": "~16.9.0",
     "react-loader-spinner": "^3.1.14",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
+    "react-native-cached-image": "^1.4.3",
+    "react-native-fit-image": "^1.5.5",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-loader": "^1.2.1",
     "react-native-loading-spinner-overlay": "^1.1.0",

@@ -10,6 +10,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as actions from '../../actions/versus'
 import ReactPlayer from 'react-player'
 import { useParams } from "react-router-dom";
+import FitImage from 'react-native-fit-image';
 
 const Versus = ({fetchVersus,url1,url2,versusid}) =>{
   useEffect(fetchVersus)
@@ -27,8 +28,8 @@ const Versus = ({fetchVersus,url1,url2,versusid}) =>{
               padding: 10,
               borderRadius: 8,
             }}
-          >{url1 &&
-            <Image  
+          >{
+            <FitImage  
             style={styles.image}
             source={{uri: url1}} 
            />
@@ -47,13 +48,12 @@ const Versus = ({fetchVersus,url1,url2,versusid}) =>{
               borderRadius: 8,
             }}
           >
-            { url2 &&
-            <Image  
+            {
+            <FitImage  
             style={styles.image}
             source={{uri: url2}} 
            />
           }
-{console.log(url2)}
           </LinearGradient>
         </View>
     </View>

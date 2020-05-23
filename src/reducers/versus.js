@@ -29,9 +29,6 @@ const order = (state = [], action) => {
     case types.VERSUS_FETCHING_COMPLETED: {
       return [...state, ...action.payload.order];
     }
-    case types.PET_OWNER_ADD_STARTED: {
-      return [...state, action.payload.id];
-    }
     case types.VERSUS_VOTE_STARTED: {
       return state.filter(id => id !== action.payload.id);
     }
