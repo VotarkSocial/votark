@@ -22,8 +22,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "bundleIdentifier": "com.votark.votark"
+    },
+    "android": {
+        "package": "com.votark.votark"
+   }
   },
   "name": "votark"
 }

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         fontSize: normalize(6)
     },
     logo:{
-      width:normalize(17),
+      width:normalize(24),
       height:normalize(24)
     },
     icon:{
