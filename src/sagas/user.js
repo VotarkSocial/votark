@@ -20,7 +20,6 @@ import * as schemas from '../schemas/user';
 
   function* followUser(action) {
     try {
-        console.log(action.payload)
         const isAuth = yield select(selectors.isAuthenticated);
     
         if (isAuth) {

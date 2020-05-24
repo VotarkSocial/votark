@@ -36,7 +36,7 @@ export default connect(
   state => ({
     isFetching: selectors.isFetchingVersus(state),
     areHidden: selectors.getHidden(state),
-    versusid: selectors.getVersus(state)?selectors.getVersus(state):null
+    versusid: selectors.getVersus(state)?selectors.getVersus(state).id:null
   }),
   dispatch => ({
       onSwipeDown(){
@@ -65,10 +65,14 @@ export default connect(
       dispatchToProps.onSwipeUp()
     },
     onSwipeLeft(){
-      dispatchToProps.onSwipeLeft(stateToProps.versusid)
+      if(stateToProps.versusid){
+        dispatchToProps.onSwipeLeft(stateToProps.versusid)
+      }
     },
     onSwipeRight(){
-      dispatchToProps.onSwipeRight(stateToProps.versusid)
+      if(stateToProps.versusid){
+        dispatchToProps.onSwipeRight(stateToProps.versusid)
+      }
     },
     onSwipeDown(){
       if(!stateToProps.areHidden){

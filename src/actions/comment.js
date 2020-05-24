@@ -1,8 +1,7 @@
 import * as types from '../types/comment'
 
-export const startFetchingComments = (id) => ({
+export const startFetchingComments = () => ({
     type: types.COMMENTS_FETCHING_STARTED,
-    payload:{id}
   });
 
 export const completeFetchingComments = (entities, order) => ({

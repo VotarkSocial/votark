@@ -12,15 +12,21 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
     },
     comment: {
-        color: 'rgba(255,255,255,0.5)',
+        color: 'rgba(255,255,255,0.6)',
         marginBottom: normalize(2),
         fontSize: normalize(1),
-        opacity: 100,
+        marginLeft: normalize(1)
+    },
+    notConfirmed: {
+        color: 'rgba(255,255,255,0.4)',
+        marginBottom: normalize(2),
+        fontSize: normalize(1),
         marginLeft: normalize(1)
     },
     comments:{
         position: 'absolute',
         maxHeight: normalize(1100),
+        flexDirection: 'column-reverse',
         overflow: 'hidden',
         bottom: normalize(60),
         width: normalize(450),

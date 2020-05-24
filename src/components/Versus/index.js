@@ -63,23 +63,19 @@ export default connect(
   (state) => ({
     isAuthenticated: selectors.isAuthenticated(state),
     versus: selectors.getVersus(state),
+    versusid: selectors.getVersus(state)?selectors.getVersus(state).id:null,
+    isFetchingVersus: selectors.isFetchingVersus(state)
   }),
   dispatch => ({
-      fetchVersus(match){
-        if(match){
-
-        }
-        else{
+      fetchVersus(){
           dispatch(actions.startFetchingVersus())
         }
-      }
-      
   }),
   (stateToProps,dispatchToProps)=>({
     url1:(stateToProps.versus)? STATIC_URL+stateToProps.versus.content1.image:null,
     url2:(stateToProps.versus)?STATIC_URL+stateToProps.versus.content2.image:null,
-    fetchVersus(match){
-      if(!stateToProps.versus){
+    fetchVersus(){
+      if(!stateToProps.versusid && !stateToProps.isFetchingVersus){
         dispatchToProps.fetchVersus()
       }
     }

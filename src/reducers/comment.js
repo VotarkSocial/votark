@@ -44,14 +44,14 @@ const byId = (state = {}, action) => {
 const order = (state = [], action) => {
   switch(action.type) {
     case types.COMMENTS_FETCHING_COMPLETED: {
-      return [...state, ...action.payload.order];
+      return action.payload.order;
     }
     case types.COMMENT_ADDITION_STARTED: {
       return [...state, action.payload.id];
     }
     case types.COMMENT_ADDITION_COMPLETED: {
-      const { oldId, petOwner } = action.payload;
-      return state.map(id => id === oldId ? petOwner.id : id);
+      const { oldId, comment } = action.payload;
+      return state.map(id => id === oldId ? comment.id : id);
     }
     case types.NULL_SETTED:{
         return []

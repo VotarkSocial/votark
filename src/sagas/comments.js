@@ -21,12 +21,12 @@ import * as schemas from '../schemas/comment';
   function* commentFetch(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated);
-    
+        const versusid = yield select(selectors.getVersus)
         if (isAuth) {
           const token = yield select(selectors.getAuthToken);
           const response = yield call(
             fetch,
-            `${API_BASE_URL}/versus/${action.payload.vaersusid}/comments/`,
+            `${API_BASE_URL}/versus/${versusid.id}/comments/`,
             {
               method: 'GET',
               headers:{
@@ -82,11 +82,11 @@ function* addComment(action) {
         );
   
         if (response.status === 201) {
-          const jsonResult = yield response.json();
+          const comment = yield response.json();
           yield put(
             actions.completeAddingComment(
               action.payload.id,
-              jsonResult,
+              comment,
             ),
           );
         } else {

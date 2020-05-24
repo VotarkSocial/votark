@@ -15,9 +15,10 @@ const byId = (state = {}, action) => {
           isConfirmed: true,
         };
       });
-
       return newState;
     }
+    case types.setNull:
+        return {}
     default: {
       return state;
     }
