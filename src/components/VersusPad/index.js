@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import {Text, View, Image, ScrollView } from 'react-native';
 import * as selectors from '../../reducers'
-import React from 'react';
+import React, {useEffect, useCallback} from 'react';
 import {styles, styles2} from './styles';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import { URL, colors } from '../../../configuration'
@@ -16,7 +16,27 @@ const config = {
   directionalOffsetThreshold: 50
 };
 
-const VersusPad = ({onSwipeDown,onSwipeLeft,onSwipeUp,onSwipeRight, isFetching,areHidden}) => (
+
+const VersusPad = ({onSwipeDown,onSwipeLeft,onSwipeUp,onSwipeRight, isFetching,areHidden}) => {
+  const escFunction = useCallback((event) => {
+    if(event.keyCode===37){
+      console.log("here")
+      onSwipeLeft()
+    }
+    else if(event.keyCode===39){
+      onSwipeRight()
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction, false);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  }, []);
+  
+  return (
   <View style={(typeof document==='undefined' || areHidden)?styles2.container:styles.container}>
         <GestureRecognizer
         onSwipeUp={onSwipeUp}
@@ -30,7 +50,7 @@ const VersusPad = ({onSwipeDown,onSwipeLeft,onSwipeUp,onSwipeRight, isFetching,a
           <Text style={styles.text} >{isFetching?"LOADING...":"VS"}</Text>
       </GestureRecognizer>
   </View>
-);
+)};
 
 export default connect(
   state => ({

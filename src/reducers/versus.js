@@ -17,7 +17,7 @@ const byId = (state = {}, action) => {
       });
       return newState;
     }
-    case types.setNull:
+    case types.VERSUS_FETCHING_STARTED:
         return {}
     default: {
       return state;
@@ -31,9 +31,9 @@ const order = (state = [], action) => {
       return [...state, ...action.payload.order];
     }
     case types.VERSUS_VOTE_STARTED: {
-      return state.filter(id => id !== action.payload.id);
+      return state.slice(1);
     }
-    case types.setNull:{
+    case types.VERSUS_FETCHING_STARTED:{
         return []
     }
     default: {
