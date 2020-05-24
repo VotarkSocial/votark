@@ -26,7 +26,7 @@ import * as schemas from '../schemas/comment';
           const token = yield select(selectors.getAuthToken);
           const response = yield call(
             fetch,
-            `${API_BASE_URL}/user/versus/`,
+            `${API_BASE_URL}/versus/${action.payload.vaersusid}/comments/`,
             {
               method: 'GET',
               headers:{
@@ -37,27 +37,71 @@ import * as schemas from '../schemas/comment';
           );
           if (response.status === 200) {
             const jsonResult = yield response.json();
-            const normalized = normalize(jsonResult, schemas.versuses);
-            put(actions.setNull())
+            const normalized = normalize(jsonResult, schemas.comments);
             yield put(
-            actions.completeFetchingVersus(
-                normalized.entities.versuses,
+            actions.completeFetchingComments(
+                normalized.entities.comments,
                 normalized.result
             ),
             );
           } else {
             const { non_field_errors } = yield response.json();
-            yield put(actions.failFetchingVersus(non_field_errors[0]));
+            yield put(actions.failFetchingComments(non_field_errors[0]));
           }
         }
       } catch (error) {
-        // yield put(actions.failLogin('Falló horrible la conexión mano'));
+        yield put(actions.failFetchingComments('NETWORK ERROR'));
       }
   }
   
-  export function* watchVersusFetch() {
+  export function* watchCommentFetch() {
     yield takeEvery(
-      types.VERSUS_FETCHING_STARTED,
-      versusFetch,
+      types.COMMENTS_FETCHING_STARTED,
+      commentFetch,
+    );
+  }
+
+function* addComment(action) {
+    try {
+      const isAuth = yield select(selectors.isAuthenticated);
+  
+      if (isAuth) {
+        const token = yield select(selectors.getAuthToken);
+        const user = yield select(selectors.getAuthUserID);
+        const response = yield call(
+          fetch,
+          `${API_BASE_URL}/comment/`,
+          {
+            method: 'POST',
+            body: JSON.stringify({...action.payload,user}),
+            headers:{
+              'Content-Type': 'application/json',
+              'Authorization': `JWT ${token}`,
+            },
+          }
+        );
+  
+        if (response.status === 201) {
+          const jsonResult = yield response.json();
+          yield put(
+            actions.completeAddingComment(
+              action.payload.id,
+              jsonResult,
+            ),
+          );
+        } else {
+          // const { non_field_errors } = yield response.json();
+          // yield put(actions.failLogin(non_field_errors[0]));
+        }
+      }
+    } catch (error) {
+      // yield put(actions.failLogin('Falló horrible la conexión mano'));
+    }
+  }
+
+  export function* watchCommentAddition() {
+    yield takeEvery(
+      types.COMMENT_ADDITION_STARTED,
+      addComment,
     );
   }

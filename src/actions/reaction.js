@@ -3,7 +3,7 @@ import * as types from '../types/reactions'
 export const startLikeVersus = (id) => ({
     type: types.VERSUS_LIKE_STARTED,
     payload:{
-        id,
+        versus: id,
     },
     });
 
@@ -22,7 +22,7 @@ export const failLikeVersus = error => ({
 export const startHeartVersus = (id) => ({
     type: types.VERSUS_HEART_STARTED,
     payload:{
-        id,
+        versus: id,
     },
     });
 

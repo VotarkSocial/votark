@@ -5,19 +5,22 @@ import { combineReducers } from 'redux';
 const liked = (state = false, action) => {
     switch(action.type) {
       case types.VERSUS_LIKE_FAILED: {
-        return !state;
+        return false;
       }
       case types.VERSUS_LIKE_STARTED: {
-        return !state;
+        return true
       }
       case types.VERSUS_UNLIKE_FAILED:{
-        return !state;
+        return true
       }
       case types.VERSUS_UNLIKE_STARTED:{
-        return !state;
+        return false;
       }
       case types.NULL_SETTED:{
           return false
+      }
+      case types.VERSUS_LIKE_FETCH_COMPLETED:{
+          return action.payload.result
       }
       default: {
         return state;
@@ -29,20 +32,23 @@ const liked = (state = false, action) => {
 const hearted = (state = false, action) => {
     switch(action.type) {
       case types.VERSUS_HEART_FAILED: {
-        return !state;
+        return false;
       }
       case types.VERSUS_HEART_STARTED: {
-        return !state;
+        return true;
       }
       case types.VERSUS_UNHEART_FAILED:{
-        return !state;
+        return true;
       }
       case types.VERSUS_UNHEART_STARTED:{
-        return !state;
+        return false;
       }
       case types.NULL_SETTED:{
           return false
       }
+     case types.VERSUS_HEART_FETCH_COMPLETED:{
+        return action.payload.result
+     }
       default: {
         return state;
       }
@@ -53,6 +59,10 @@ const hearted = (state = false, action) => {
     switch (action.type) {
         case types.VERSUS_LIKE_FETCH_COMPLETED:
             return action.payload
+        case types.VERSUS_LIKE_COMPLETED:
+            return action.payload
+        case types.VERSUS_UNLIKE_COMPLETED:
+            return {}
         case types.NULL_SETTED:
             return {}
         default:
@@ -64,6 +74,10 @@ const hearted = (state = false, action) => {
     switch (action.type) {
         case types.VERSUS_HEART_FETCH_COMPLETED:
             return action.payload
+        case types.VERSUS_HEART_COMPLETED:
+            return action.payload
+        case types.VERSUS_UNHEART_COMPLETED:
+            return {}
         case types.NULL_SETTED:
             return {}
         default:

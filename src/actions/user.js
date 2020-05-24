@@ -1,9 +1,10 @@
 import * as types from '../types/user'
 
-export const startFollowUser = (id) => ({
+export const startFollowUser = (user,onVersus) => ({
     type: types.USER_FOLLOW_STARTED,
     payload:{
-        id,
+        user,
+        onVersus
     },
     });
 
@@ -37,10 +38,11 @@ export const failUnFollowUser = error => ({
     });
 
 
-export const startFolloExtraUser = (id) => ({
+export const startFolloExtraUser = (user,onVersus) => ({
     type: types.EXTRA_USER_FOLLOW_STARTED,
     payload:{
-        id,
+        user,
+        onVersus
     },
     });
 

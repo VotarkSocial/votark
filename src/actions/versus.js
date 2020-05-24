@@ -38,8 +38,8 @@ export const failSharingVersus = error => ({
 export const startVoteVersus = (direction,id) => ({
     type: types.VERSUS_VOTE_STARTED,
     payload:{
-        direction,
-        id
+        winner: direction,
+        versus: id
     },
     });
 

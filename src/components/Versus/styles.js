@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     image:{
       width: normalize(70*9), 
       height: normalize(70*48),
-      resizeMode : 'stretch' ,
     }
   });
   

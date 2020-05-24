@@ -1,16 +1,17 @@
 import { connect } from 'react-redux';
 import {Text, View, Image, TouchableOpacity } from 'react-native';
 import * as selectors from '../../reducers'
-import React from 'react';
+import React, { useEffect}  from 'react';
 import styles from './styles'
 import { URL } from '../../../configuration'
 import { Actions } from 'react-native-router-flux';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../../../configuration';
 import * as actions from '../../actions/user';
-import { startLikeVersus, startHeartVersus, startUnLikeVersus, startUnHeartVersus } from '../../actions/reaction';
+import { startLikeVersus, startHeartVersus, startUnLikeVersus, startUnHeartVersus, startFetchinHeart, startFetchinLike } from '../../actions/reaction';
+import { startFetchingComments } from '../../actions/comment';
 
-const Interactions = ({followUser,followExtraUser,home,extrauserPicture,userPicture,followsUser, followsExtrauser, isLiked, isHearted, like, heart,share}) => (
+const Interactions = ({fetch,followUser,followExtraUser,home,extrauserPicture,userPicture,followsUser, followsExtrauser, isLiked, isHearted, like, heart,share}) => (
     <View style={styles.container}>
         <TouchableOpacity  onPress={followUser}>
             <Image style={styles.photo} source={userPicture?{uri: userPicture}:require('../../public/static/icon/user.png')}/>
@@ -23,18 +24,18 @@ const Interactions = ({followUser,followExtraUser,home,extrauserPicture,userPict
         <TouchableOpacity style={styles.row} onPress={like}>
             {
                 (isLiked)?(
-                    <Image style={styles.icon} source={require('../../public/static/icon/like.png')}/>
-                ):(
                     <Image style={styles.icon} source={require('../../public/static/icon/liked.png')}/>
+                ):(
+                    <Image style={styles.icon} source={require('../../public/static/icon/like.png')}/>
                 )
             }
         </TouchableOpacity>
         <TouchableOpacity style={styles.row} onPress={heart}>
         {
                 (isHearted)?(
-                    <Image style={styles.icon} source={require('../../public/static/icon/heart.png')}/>
-                ):(
                     <Image style={styles.icon} source={require('../../public/static/icon/hearted.png')}/>
+                ):(
+                    <Image style={styles.icon} source={require('../../public/static/icon/heart.png')}/>
                 )
             }
         </TouchableOpacity>  
@@ -55,15 +56,16 @@ export default connect(
     followsExtrauser: selectors.getIsFollowingExtraUser(state),
     isLiked: selectors.getisLiked(state),
     isHearted : selectors.getisHearted(state),
-    reactionid: selectors.getLike(state)?selectors.getLike(state).id:null,
+    likeid: selectors.getLike(state)?selectors.getLike(state).id:null,
+    heartid: selectors.getHeart(state)?selectors.getHeart(state).id:null,
     versusid: selectors.getVersus(state)?selectors.getVersus(state).id:null,
   }),
   dispatch => ({
-        followUser(userid){
-            dispatch(actions.startFollowUser(userid))
+        followUser(userid,versusid){
+            dispatch(actions.startFollowUser(userid,versusid))
         },
-        followExtraUser(userid){
-            dispatch(actions.startFolloExtraUser(userid))
+        followExtraUser(userid,versusid){
+            dispatch(actions.startFolloExtraUser(userid,versusid))
         },
         unFollowUser(userid){
             dispatch(actions.startUnFollowUser(userid))
@@ -82,7 +84,7 @@ export default connect(
         },
         unHeart(id){
             dispatch(startUnHeartVersus(id))
-        }
+        },
   }),
   (stateToProps,dispatchToProps) => ({
     userPicture: stateToProps.userPicture,
@@ -92,39 +94,39 @@ export default connect(
     isLiked: stateToProps.isLiked,
     isHearted: stateToProps.isHearted,
     followUser(){
-        if(!stateToProps.followsUser){
+        if(stateToProps.followsUser){
             dispatchToProps.unFollowUser(stateToProps.userid)
         }
         else{
-            dispatchToProps.followUser(stateToProps.userid)
+            dispatchToProps.followUser(stateToProps.userid,stateToProps.versusid)
         }
     },
     followExtraUser(){
-        if(!stateToProps.followExtraUser){
-            dispatchToProps.unfollowExtraUser(stateToProps.userid)
+        if(stateToProps.followsExtrauser){
+            dispatchToProps.unfollowExtraUser(stateToProps.extrauserid)
         }
         else{
-            dispatchToProps.followExtraUser(stateToProps.extrauserid)
+            dispatchToProps.followExtraUser(stateToProps.extrauserid,stateToProps.versusid)
         }
     },
     like(){
-        if(stateToProps.isLiked){
+        if(!stateToProps.isLiked){
             dispatchToProps.like(stateToProps.versusid)
         }
         else{
-            dispatchToProps.unlike(stateToProps.reactionid)
+            dispatchToProps.unlike(stateToProps.likeid)
         }
     },
     heart(){
-        if(stateToProps.isHearted){
+        if(!stateToProps.isHearted){
             dispatchToProps.heart(stateToProps.versusid)
         }
         else{
-            dispatchToProps.unHeart(stateToProps.reactionid)
+            dispatchToProps.unHeart(stateToProps.heartid)
         }
     },
     share(){
         //do Share
-    }
+    },
   }),
 )(Interactions);

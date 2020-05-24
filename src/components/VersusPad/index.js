@@ -8,7 +8,7 @@ import { URL, colors } from '../../../configuration'
 import { Actions } from 'react-native-router-flux';
 import Versus from '../Versus';
 import * as actions from '../../actions/stories';
-import { startFetchingVersus, setNull, setNull_toProps } from '../../actions/versus';
+import { startFetchingVersus, setNull, setNull_toProps, startVoteVersus } from '../../actions/versus';
 import { logout } from '../../actions/auth';
 
 const config = {
@@ -35,7 +35,8 @@ const VersusPad = ({onSwipeDown,onSwipeLeft,onSwipeUp,onSwipeRight, isFetching,a
 export default connect(
   state => ({
     isFetching: selectors.isFetchingVersus(state),
-    areHidden: selectors.getHidden(state)
+    areHidden: selectors.getHidden(state),
+    versusid: selectors.getVersus(state)?selectors.getVersus(state):null
   }),
   dispatch => ({
       onSwipeDown(){
@@ -46,11 +47,13 @@ export default connect(
         dispatch(setNull_toProps())
         dispatch(startFetchingVersus())
       },
-      onSwipeLeft(){
-        dispatch(logout())
+      onSwipeLeft(versusid){
+        dispatch(setNull_toProps())
+        dispatch(startVoteVersus(true,versusid))
       },
-      onSwipeRight(){
-        console.log('right')
+      onSwipeRight(versusid){
+        dispatch(setNull_toProps())
+        dispatch(startVoteVersus(false,versusid))
       },
       onSwipeUp(){
         dispatch(actions.hideStories())
@@ -62,10 +65,10 @@ export default connect(
       dispatchToProps.onSwipeUp()
     },
     onSwipeLeft(){
-      dispatchToProps.onSwipeLeft()
+      dispatchToProps.onSwipeLeft(stateToProps.versusid)
     },
     onSwipeRight(){
-      dispatchToProps.onSwipeRight()
+      dispatchToProps.onSwipeRight(stateToProps.versusid)
     },
     onSwipeDown(){
       if(!stateToProps.areHidden){
