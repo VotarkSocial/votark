@@ -36,6 +36,7 @@ const Versus = ({fetchVersus,url1,url2,versusid}) =>{
           }
           </LinearGradient>
         </View>
+        { console.log(url2)}
         <View style={styles.post}>
             <LinearGradient
             colors={[colors.primaryd, 'transparent']}
@@ -64,7 +65,8 @@ export default connect(
     isAuthenticated: selectors.isAuthenticated(state),
     versus: selectors.getVersus(state),
     versusid: selectors.getVersus(state)?selectors.getVersus(state).id:null,
-    isFetchingVersus: selectors.isFetchingVersus(state)
+    isFetchingVersus: selectors.isFetchingVersus(state),
+    fail: selectors.getFetchError(state)
   }),
   dispatch => ({
       fetchVersus(){
@@ -75,7 +77,7 @@ export default connect(
     url1:(stateToProps.versus)? STATIC_URL+stateToProps.versus.content1.image:null,
     url2:(stateToProps.versus)?STATIC_URL+stateToProps.versus.content2.image:null,
     fetchVersus(){
-      if(!stateToProps.versusid && !stateToProps.isFetchingVersus){
+      if(!stateToProps.versusid && !stateToProps.isFetchingVersus && !stateToProps.fail){
         dispatchToProps.fetchVersus()
       }
     }

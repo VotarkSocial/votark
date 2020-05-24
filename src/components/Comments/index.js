@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import {Text, View, Image, TextInput, ScrollView } from 'react-native';
+import {Text, View, Image, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import * as selectors from '../../reducers'
 import React, { useState, useEffect } from 'react';
 import styles from './styles'
@@ -22,13 +22,13 @@ const Comments = ({comments,send,fetch}) => {
   const [comment, changeComment] = useState('');
   return (
   <View style={styles.container}>
-      <ScrollView style={styles.comments}>
+      <TouchableOpacity style={styles.comments}>
         {
           comments.map(comm =>
             <Text key={comm.id} style={comm.isConfirmed?styles.comment:styles.notConfirmed} >{comm.isConfirmed?comm.username + ' : ' + comm.content:comm.content}</Text>
             )
         }
-      </ScrollView>
+      </TouchableOpacity>
       <View style={styles.row}>
             <TextInput
             style={styles.input}

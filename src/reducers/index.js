@@ -40,6 +40,7 @@ export const isFetchingVote = state => versusSelectors.getisFetchingVote(state.v
 export const getFetchError = state => versusSelectors.getFetchError(state.versus);
 export const getShareError = state => versusSelectors.getShareError(state.versus);
 export const getVoteError = state => versusSelectors.getVoteError(state.versus);
+export const getLastSelected = state => versusSelectors.getLastSelected(state.versus)
 
 export const getComment = (state, id) => commentSelectors.getComment(state.comment, id);
 export const getComments = state => commentSelectors.getComments(state.comment)

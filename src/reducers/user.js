@@ -58,8 +58,6 @@ const followUser = (state = false, action) => {
       switch (action.type) {
             case types.USER_SETTED:
                 return action.payload
-            case types.NULL_SETTED:
-                return {}
             default:
                 return state
       }
@@ -70,8 +68,6 @@ const followUser = (state = false, action) => {
     switch (action.type) {
         case types.EXTRA_USER_SETTED:
             return action.payload
-        case types.NULL_SETTED:
-            return {}
         default:
             return state
     }

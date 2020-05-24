@@ -23,7 +23,6 @@ import { startFetchinLike, startFetchinHeart} from '../actions/reaction'
   function* versusFetch(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated);
-    
         if (isAuth) {
           const token = yield select(selectors.getAuthToken);
           const response = yield call(
@@ -45,15 +44,15 @@ import { startFetchinLike, startFetchinHeart} from '../actions/reaction'
             yield put(startFetchinLike(normalized.result[0]))
             yield put(startExtraUserFollowFetch(normalized.entities.versuses[normalized.result[0]].user1.id))
             yield put(startUserFollowFetch(normalized.entities.versuses[normalized.result[0]].user2.id))
-            yield put(
-            actions.completeFetchingVersus(
-                normalized.entities.versuses,
-                normalized.result
-            ),
-            );
             yield put(setUser(normalized.entities.versuses[normalized.result[0]].user1))
             yield put(setExtraUser(normalized.entities.versuses[normalized.result[0]].user2))
-            
+            yield put(
+              actions.completeFetchingVersus(
+                  normalized.entities.versuses,
+                  normalized.result
+              ),
+              );
+             
           } else {
             const { non_field_errors } = yield response.json();
             yield put(actions.failFetchingVersus(non_field_errors[0]));
@@ -75,7 +74,7 @@ import { startFetchinLike, startFetchinHeart} from '../actions/reaction'
   function* voteFetch(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated);
-    
+        const versusid = yield select(selectors.getLastSelected);
         if (isAuth) {
           const token = yield select(selectors.getAuthToken);
           const user = yield select(selectors.getAuthUserID);
@@ -84,21 +83,23 @@ import { startFetchinLike, startFetchinHeart} from '../actions/reaction'
             `${API_BASE_URL}/vote/`,
             {
               method: 'POST',
-              body: JSON.stringify({...action.payload,user}),
+              body: JSON.stringify({...action.payload,user,versus:versusid}),
               headers:{
                 'Content-Type': 'application/json',
                 'Authorization': `JWT ${token}`,
               },
             }
           );
-          if (response.status === 200) {
-            yield put(startFetchinHeart(select(selectors.getVersus).id))
-            yield put(startFetchinLike(select(selectors.getVersus).id))
-            yield put(setUser(select(selectors.getVersus).user1))
-            yield put(setExtraUser(select(selectors.getVersus).user2))
-            yield put(startExtraUserFollowFetch(select(selectors.getExtraUser).id))
-            yield put(startUserFollowFetch(select(selectors.getUser).id))
-            yield put(actions.completeVoteVersus())
+
+          const versus = yield select(selectors.getVersus)
+          yield put(startFetchinHeart(versus.id))
+          yield put(startFetchinLike(versus.id))
+          yield put(setUser(versus.user1))
+          yield put(setExtraUser(versus.user2))
+          yield put(startExtraUserFollowFetch(versus.user2.id))
+          yield put(startUserFollowFetch(versus.user1.id))
+          if (response.status === 201) {
+            yield put(actions.completeVoteVersus(versus.id))
           } else {
             const { non_field_errors } = yield response.json();
             yield put(actions.failVoteVersus(non_field_errors[0]));

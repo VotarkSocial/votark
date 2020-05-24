@@ -17,10 +17,9 @@ const config = {
 };
 
 
-const VersusPad = ({onSwipeDown,onSwipeLeft,onSwipeUp,onSwipeRight, isFetching,areHidden}) => {
+const VersusPad = ({onSwipeDown,onSwipeLeft,onSwipeUp,onSwipeRight, isFetching,areHidden, fail}) => {
   const escFunction = useCallback((event) => {
     if(event.keyCode===37){
-      console.log("here")
       onSwipeLeft()
     }
     else if(event.keyCode===39){
@@ -29,11 +28,13 @@ const VersusPad = ({onSwipeDown,onSwipeLeft,onSwipeUp,onSwipeRight, isFetching,a
   }, []);
 
   useEffect(() => {
-    document.addEventListener("keydown", escFunction, false);
+    if(typeof document !== 'undefined'){
+      document.addEventListener("keydown", escFunction, false);
 
-    return () => {
-      document.removeEventListener("keydown", escFunction, false);
-    };
+      return () => {
+        document.removeEventListener("keydown", escFunction, false);
+      };
+    }
   }, []);
   
   return (
@@ -47,7 +48,7 @@ const VersusPad = ({onSwipeDown,onSwipeLeft,onSwipeUp,onSwipeRight, isFetching,a
         style={{height:'100%', }}
         >
           <Versus></Versus>
-          <Text style={styles.text} >{isFetching?"LOADING...":"VS"}</Text>
+          <Text style={styles.text} >{fail?fail:(isFetching?"LOADING...":"VS")}</Text>
       </GestureRecognizer>
   </View>
 )};
@@ -56,7 +57,8 @@ export default connect(
   state => ({
     isFetching: selectors.isFetchingVersus(state),
     areHidden: selectors.getHidden(state),
-    versusid: selectors.getVersus(state)?selectors.getVersus(state).id:null
+    versusid: selectors.getVersus(state)?selectors.getVersus(state).id:null,
+    fail: selectors.getFetchError(state)
   }),
   dispatch => ({
       onSwipeDown(){
@@ -67,13 +69,13 @@ export default connect(
         dispatch(setNull_toProps())
         dispatch(startFetchingVersus())
       },
-      onSwipeLeft(versusid){
+      onSwipeLeft(){
         dispatch(setNull_toProps())
-        dispatch(startVoteVersus(true,versusid))
+        dispatch(startVoteVersus(true))
       },
-      onSwipeRight(versusid){
+      onSwipeRight(){
         dispatch(setNull_toProps())
-        dispatch(startVoteVersus(false,versusid))
+        dispatch(startVoteVersus(false))
       },
       onSwipeUp(){
         dispatch(actions.hideStories())
@@ -81,18 +83,15 @@ export default connect(
   }),
   (stateToProps,dispatchToProps) => ({
     isFetching: stateToProps.isFetching,
+    fail: stateToProps.fail,
     onSwipeUp(){
       dispatchToProps.onSwipeUp()
     },
     onSwipeLeft(){
-      if(stateToProps.versusid){
-        dispatchToProps.onSwipeLeft(stateToProps.versusid)
-      }
+        dispatchToProps.onSwipeLeft()
     },
     onSwipeRight(){
-      if(stateToProps.versusid){
-        dispatchToProps.onSwipeRight(stateToProps.versusid)
-      }
+        dispatchToProps.onSwipeRight()
     },
     onSwipeDown(){
       if(!stateToProps.areHidden){

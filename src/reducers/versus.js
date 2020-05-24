@@ -25,6 +25,19 @@ const byId = (state = {}, action) => {
   }
 };
 
+const selected = (state=null,action) => {
+  switch (action.type) {
+    case types.VERSUS_FETCHING_COMPLETED:
+      return action.payload.order[0]
+    case types.VERSUS_VOTE_COMPLETED:
+      return action.payload
+    case types.VERSUS_VOTE_FAILED:
+      return action.payload
+    default:
+      return state;
+  }
+}
+
 const order = (state = [], action) => {
   switch(action.type) {
     case types.VERSUS_FETCHING_COMPLETED: {
@@ -154,7 +167,8 @@ export default combineReducers({
   isFetchingVote,
   error,
   errorShare,
-  errorVote
+  errorVote,
+  selected
 });
 
 export const getVersus = (state) => state.order[0]!==undefined?state.byId[state.order[0]]:null;
@@ -164,3 +178,4 @@ export const getisFetchingVote = state => state.isFetchingVote;
 export const getFetchError = state => state.error;
 export const getShareError = state => state.errorShare;
 export const getVoteError = state => state.errorVote;
+export const getLastSelected = state => state.selected;
