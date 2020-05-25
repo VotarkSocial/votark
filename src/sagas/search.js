@@ -12,7 +12,7 @@ import * as selectors from '../reducers';
 import * as actions from '../actions/search';
 import * as types from '../types/search';
 import { API_URL } from '../../configuration';
-import { normalize } from 'normalizr';
+import { normalize, schema } from 'normalizr';
 import * as schemas from '../schemas/hashtag';
 import * as userShema from '../schemas/user'
   
@@ -38,10 +38,10 @@ import * as userShema from '../schemas/user'
           );
           if (response.status === 200) {
             const jsonResult = yield response.json();
-            const normalized = normalize(jsonResult, userShema.users);
+            const normalized = normalize(jsonResult, schemas.hashtags);
             yield put(
             actions.completeHashtagHistoryFetching(
-                normalized.entities.users,
+                normalized.entities.hashtags,
                 normalized.result
             ),
             );
@@ -125,10 +125,10 @@ try {
         );
         if (response.status === 200) {
         const jsonResult = yield response.json();
-        const normalized = normalize(jsonResult, userShema.users);
+        const normalized = normalize(jsonResult, schemas.hashtags);
         yield put(
         actions.completeUserFetching(
-            normalized.entities.users,
+            normalized.entities.hashtags,
             normalized.result
         ),
         );

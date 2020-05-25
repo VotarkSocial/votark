@@ -41,6 +41,11 @@ const styles = StyleSheet.create({
         color : colors.primaryB,
         fontSize: normalize(6)
     },
+    element: {
+        color : colors.black,
+        fontSize: normalize(2),
+        margin: normalize(0.5),
+    },
     logo:{
       width:normalize(24),
       height:normalize(24)
@@ -56,7 +61,7 @@ const styles = StyleSheet.create({
     },
     elements:{
         margin: normalize(10),
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent:'center',
     },
     section: {

@@ -59,7 +59,7 @@ const Search = ({onClick,home,search,getHistory,users,hashtags,isFetchingHash,is
                             {
                             hashtags.map(hash =>
                                 <TouchableOpacity key={hash.id}>
-                                    <Text style={styles.subtext} >#{hash.content}</Text>
+                                    <Text style={styles.element} >#{hash.content}</Text>
                                 </TouchableOpacity>
                                 )
                             }
@@ -75,7 +75,7 @@ const Search = ({onClick,home,search,getHistory,users,hashtags,isFetchingHash,is
                             {
                             users.map(user =>
                                 <TouchableOpacity key={user.id}>
-                                    <Text style={styles.subtext} >@{user.username}</Text>
+                                    <Text style={styles.element} >@{user.username}</Text>
                                 </TouchableOpacity>
                                 )
                             }
