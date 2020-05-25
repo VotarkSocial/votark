@@ -36,7 +36,6 @@ const Versus = ({fetchVersus,url1,url2,versusid}) =>{
           }
           </LinearGradient>
         </View>
-        { console.log(url2)}
         <View style={styles.post}>
             <LinearGradient
             colors={[colors.primaryd, 'transparent']}

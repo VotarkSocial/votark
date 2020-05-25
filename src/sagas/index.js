@@ -36,6 +36,12 @@ import {
   watchUnFollowUser
 } from './user'
 
+import {
+  watchHistoryHashtagFetch,
+  watchHistoryUserFetch,
+  watchHashgagFetch,
+  watchUserFetch,
+} from './search'
 
 function* mainSaga() {
   yield all([
@@ -58,7 +64,11 @@ function* mainSaga() {
     fork(watchUnFollowExtraUser),
     fork(watchUnFollowUser),
     fork(WatchfOLLOWExtraUser),
-    fork(watchFollowingUserFetch)    
+    fork(watchFollowingUserFetch),
+    fork(watchHistoryHashtagFetch),
+    fork(watchHistoryUserFetch),
+    fork(watchHashgagFetch),
+    fork(watchUserFetch),   
   ]);
 }
 
