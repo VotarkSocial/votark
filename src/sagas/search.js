@@ -51,7 +51,7 @@ import * as userShema from '../schemas/user'
           }
         }
       } catch (error) {
-        yield put(actions.failHashtagHistoryFetching('NETWORK ERROR'));
+        yield put(actions.failHashtagHistoryFetching('CONNECTION FAILED'));
       }
   }
   
@@ -94,7 +94,7 @@ try {
         }
     }
     } catch (error) {
-    yield put(actions.failUserHistoryFetching('NETWORK ERROR'));
+    yield put(actions.failUserHistoryFetching('CONNECTION FAILED'));
     }
 }
 
@@ -139,7 +139,7 @@ try {
     }
     } catch (error) {
         console.log(error)
-    yield put(actions.failUserFetching('NETWORK ERROR'));
+    yield put(actions.failUserFetching('CONNECTION FAILED'));
     }
 }
 
@@ -183,7 +183,7 @@ function* HashtagFetch(action) {
             }
         }
         } catch (error) {
-        yield put(actions.failHashtagFetching('NETWORK ERROR'));
+        yield put(actions.failHashtagFetching('CONNECTION FAILED'));
         }
     }
     

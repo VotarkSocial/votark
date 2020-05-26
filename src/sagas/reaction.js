@@ -50,7 +50,7 @@ import * as schemas from '../schemas/like';
           }
         }
       } catch (error) {
-        yield put(actions.failLikeVersus('NETWORK ERROR'));
+        yield put(actions.failLikeVersus('CONNECTION FAILED'));
       }
   }
   
@@ -93,7 +93,7 @@ import * as schemas from '../schemas/like';
           }
         }
       } catch (error) {
-        yield put(actions.failHeartVersus('NETWORK ERROR'));
+        yield put(actions.failHeartVersus('CONNECTION FAILED'));
       }
   }
   
@@ -141,7 +141,7 @@ import * as schemas from '../schemas/like';
           }
         }
       } catch (error) {
-        yield put(actions.failFetchLike('NETWORK ERROR'));
+        yield put(actions.failFetchLike('CONNECTION FAILED'));
       }
   }
   
@@ -181,7 +181,7 @@ import * as schemas from '../schemas/like';
           }
         }
       } catch (error) {
-        yield put(actions.failFetchHeart('NETWORK ERROR'));
+        yield put(actions.failFetchHeart('CONNECTION FAILED'));
       }
   }
   
@@ -229,7 +229,7 @@ import * as schemas from '../schemas/like';
           }
         }
       } catch (error) {
-        yield put(actions.failUnLikeVersus('NETWORK ERROR'));
+        yield put(actions.failUnLikeVersus('CONNECTION FAILED'));
       }
   }
   
@@ -268,7 +268,7 @@ import * as schemas from '../schemas/like';
           }
         }
       } catch (error) {
-        yield put(actions.failUnHeartVersus('NETWORK ERROR'));
+        yield put(actions.failUnHeartVersus('CONNECTION FAILED'));
       }
   }
   

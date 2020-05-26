@@ -39,7 +39,7 @@ import {
         yield put(actions.failLogin(non_field_errors[0]));
       }
     } catch (error) {
-      yield put(actions.failLogin('NETWORK ERROR'));
+      yield put(actions.failLogin('CONNECTION FAILED'));
     }
   }
   
@@ -80,7 +80,7 @@ import {
         }
       } catch (error) {
         // TODO: poner un redirect al home (login)
-        yield put(actions.failTokenRefresh('NETWORK ERROR'));
+        yield put(actions.failTokenRefresh('CONNECTION FAILED'));
       }
     }
   }
@@ -115,7 +115,7 @@ import {
         yield put(actions.failRegistration(username[0]));
       }
     } catch (error) {
-      yield put(actions.failRegistration('NETWORK ERROR'));
+      yield put(actions.failRegistration('CONNECTION FAILED'));
     }
   }
   
@@ -147,7 +147,7 @@ import {
         yield put(actions.failReset(detail));
       }
     } catch (error) {
-      yield put(actions.failReset('NETWORK ERROR'));
+      yield put(actions.failReset('CONNECTION FAILED'));
     }
   }
 

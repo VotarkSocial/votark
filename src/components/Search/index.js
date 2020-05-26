@@ -3,7 +3,7 @@ import {Text, View, Image, TouchableOpacity,TextInput } from 'react-native';
 import * as selectors from '../../reducers'
 import React, {useEffect,useState} from 'react';
 import styles from './styles'
-import { URL } from '../../../configuration'
+import { URL, STATIC_URL } from '../../../configuration'
 import { Actions } from 'react-native-router-flux';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../../../configuration';
@@ -11,9 +11,22 @@ import * as actions from '../../actions/search';
 import { ScrollView } from 'react-native-gesture-handler';
 import NavBar from '../NavBar';
 import TokenRefresh from '../TokenRefresh';
+import { startFetchPost } from '../../actions/post';
+import { startFetchTopic, selectTopic } from '../../actions/topic';
+import Posts from '../Posts';
 
-const Search = ({onClick,home,search,getHistory,users,hashtags,isFetchingHash,isFetchingUsers,hashError,userError}) => {
+const Search = ({search,users,hashtags,isFetchingHash,isFetchingUsers,hashError,userError,fetch,posts,topics,error,select,selected}) => {
     
+    useEffect(
+        () => {
+          const interval = setInterval(fetch, 1000);
+          return () => {
+            clearInterval(interval);
+          };
+        },
+        []
+      );
+
     const [query, changeQuery] = useState('');
 
     const changeQueryMiddleware = (query) => {
@@ -28,15 +41,14 @@ const Search = ({onClick,home,search,getHistory,users,hashtags,isFetchingHash,is
         style={{
             width: '100%',
             height: '100%',
+            flexDirection: 'column',
             alignItems: 'flex-start',
             justifyContent: 'flex-start'
         }}
         >
         <View style={(typeof document==='undefined')?styles.container:styles.webcontainer}>
-            <TouchableOpacity style={styles.row} onClick={() => home}>
-                <Image style={styles.logo} source={require('../../public/static/img/logo.png')} ></Image>
-            </TouchableOpacity>  
             <View style={styles.row}>
+                <Image style={styles.icon} source={require('../../public/static/icon/search.png')} ></Image>
                 <TextInput
                 style={styles.input}
                 className="user"
@@ -47,46 +59,84 @@ const Search = ({onClick,home,search,getHistory,users,hashtags,isFetchingHash,is
                 onChange={e => changeQueryMiddleware(e.target.value)}
                 />
             </View>
-            <TouchableOpacity style={styles.row} onClick={() => onClick}>
-                <Image style={styles.icon} source={require('../../public/static/icon/top.png')} />
-            </TouchableOpacity>
         </View>
-            <View style={styles.section}>
-                <Text style={styles.subtext}>{'# HASHTAGS:'}</Text>
-                <View style={styles.elements}>
-                    {(!hashError)?((!isFetchingHash)?(
-                        <View>
-                            {
-                            hashtags.map(hash =>
-                                <TouchableOpacity key={hash.id}>
-                                    <Text style={styles.element} >#{hash.content}</Text>
-                                </TouchableOpacity>
-                                )
-                            }
+        {
+            query?(
+                <ScrollView style={(typeof document==='undefined')?styles.section:styles.websection}>
+                    <Text style={styles.subtext}>{'@ USERS'}</Text>
+                    <View style={styles.elements}>
+                        {(!userError)?(!isFetchingUsers)?(
+                            <View style={styles.item}>
+                                {
+                                users.map(user =>
+                                    <TouchableOpacity key={user.id} style={styles.item}>
+                                        <View style={styles.row}>
+                                            <Image style={styles.photo} source={user.picture?{uri: STATIC_URL + user.picture}:require('../../public/static/icon/user.png')}/>
+                                            <Text style={styles.element} >@ { user.username }</Text>
+                                        </View>
+                                        <View style={styles.bar}></View>
+                                    </TouchableOpacity>
+                                    )
+                                }
+                            </View>
+                        ):(<Text>{'LOADING...'}</Text>)
+                        :(<Text>{userError}</Text>)
+                        }
+                    </View>
+                    <Text style={styles.subtext}>{'# HASHTAGS:'}</Text>
+                    <View style={styles.elements}>
+                        {(!hashError)?((!isFetchingHash)?(
+                            <View style={styles.item}>
+                                {
+                                hashtags.map(hash =>
+                                    <TouchableOpacity key={hash.id} style={styles.item} onPress={()=>{
+                                        select(hash.topic)
+                                        changeQuery('')
+                                    }}>
+                                        <Text style={styles.element} ># {hash.content}</Text>
+                                        <View style={styles.bar}></View>
+                                    </TouchableOpacity>
+                                    )
+                                }
+                            </View>
+                        ):(<Text>{'LOADING...'}</Text>))
+                        :(<Text>{hashError}</Text>)
+                        }
+                    </View>
+                </ScrollView>):(
+                        (error)?(
+                        <View style={styles.section2}>
+                            <Text style={styles.subtext} >{error}</Text>
                         </View>
-                    ):(<Text>{'LOADING...'}</Text>))
-                    :(<Text>{hashError}</Text>)
-                    }
-                </View>
-                <Text style={styles.subtext}>{'@ USERS'}</Text>
-                <View style={styles.elements}>
-                    {(!userError)?(!isFetchingUsers)?(
-                        <ScrollView>
-                            {
-                            users.map(user =>
-                                <TouchableOpacity key={user.id}>
-                                    <Text style={styles.element} >@{user.username}</Text>
-                                </TouchableOpacity>
-                                )
-                            }
-                        </ScrollView>
-                    ):(<Text>{'LOADING...'}</Text>)
-                    :(<Text>{userError}</Text>)
-                    }
-                </View>
-            </View>
+                        
+                        ):(                    
+                            <View style={styles.section2}>
+                                <ScrollView horizontal={true}>
+                                        {
+                                        topics.map(topic =>
+                                            <TouchableOpacity key={topic.id} style={styles.topic} onPress={()=>{select(topic.id)}}>
+                                                <Text style={styles.element} >{topic.name}</Text>
+                                            </TouchableOpacity>
+                                            )
+                                        }
+                                </ScrollView>
+                                {
+                                    selected &&
+                                    <ScrollView horizontal={true}>
+                                        {
+                                        selected.hashtags.map(hash =>
+                                                <Text key={hash.id} style={styles.element} >#{hash.content}</Text>
+                                            )
+                                        }
+                                </ScrollView>
+                                }
+                                <Posts posts={posts}></Posts>
+                            </View>
+                        )
+                )
+        }
         </LinearGradient>
-        <NavBar/>
+       <NavBar/>
       <TokenRefresh/>
     </View>
 )};
@@ -100,6 +150,10 @@ export default connect(
     isFetchingHash: selectors.getisFetchingHashtag(state),
     hashError: selectors.getError_Hashtag_search(state),
     userError: selectors.getError_User_search(state),
+    topics: selectors.getTopics(state),
+    posts: selectors.getPosts(state),
+    error : selectors.getFetchingErrorTopic(state),
+    selected : selectors.getTopic(state,selectors.getTopicSelected(state))
   }),
   dispatch => ({
       onClick(){
@@ -117,12 +171,13 @@ export default connect(
         dispatch(actions.startHashtagFetching(query))
         dispatch(actions.startUserFetching(query))
       },
-      getHistory(hashtags,users,hashError,userError){
-          if(hashtags.length===0 && users.length===0 && !hashError && userError){
-            dispatch(actions.startHashtagHistoryFetching())
-            dispatch(actions.startUserHistoryFetching())
-          }
-      }
+    dofetch(){
+        dispatch(startFetchPost())
+        dispatch(startFetchTopic())
+      },
+    select(id){
+        dispatch(selectTopic(id))
+    }
       
   }),
   (stateToProps,disptachToProps) => {
@@ -136,6 +191,11 @@ export default connect(
     }
     return ({...disptachToProps,
         ...stateToProps,
+        fetch(){
+            if(stateToProps.topics.length===0 || stateToProps.posts.length===0){
+                disptachToProps.dofetch()
+            }
+        }
     })
   },
 )(Search);

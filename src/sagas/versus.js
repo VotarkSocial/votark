@@ -59,7 +59,7 @@ import { startFetchinLike, startFetchinHeart} from '../actions/reaction'
           }
         }
       } catch (error) {
-        yield put(actions.failFetchingVersus('NETWORK ERROR'));
+        yield put(actions.failFetchingVersus('CONNECTION FAILED'));
       }
   }
   
@@ -106,7 +106,7 @@ import { startFetchinLike, startFetchinHeart} from '../actions/reaction'
           }
         }
       } catch (error) {
-        yield put(actions.failVoteVersus('NETWORK ERROR'));
+        yield put(actions.failVoteVersus('CONNECTION FAILED'));
       }
   }
   

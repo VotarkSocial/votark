@@ -50,7 +50,7 @@ import * as schemas from '../schemas/comment';
           }
         }
       } catch (error) {
-        yield put(actions.failFetchingComments('NETWORK ERROR'));
+        yield put(actions.failFetchingComments('CONNECTION FAILED'));
       }
   }
   

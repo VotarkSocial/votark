@@ -1,18 +1,22 @@
 import { combineReducers } from 'redux';
 import auth, * as authSelectors from './auth';
-import versus, * as versusSelectors from './versus';
 import comment, * as commentSelectors from './comment';
 import reaction, * as reactionSelectros from './reaction';
-import user,* as userSelectors from './user'
-import story, * as storySelectors from './stories'
 import search, * as searchSelectors from './search'
+import story, * as storySelectors from './stories'
+import user,* as userSelectors from './user'
+import versus, * as versusSelectors from './versus';
+import posts, * as postSelectors from './post'
+import topic, * as topicSelectors from './topic'
 
 const reducer = combineReducers({
     auth,
     comment,
+    posts,
     reaction,
     search,
     story,
+    topic,
     user,
     versus,
 });
@@ -71,3 +75,15 @@ export const getisFetchingHashtag = state => searchSelectors.getisFetchingHashta
 export const getisFetchingSearchedUser = state => searchSelectors.getisFetchingSearchedUser(state.search);
 export const getError_Hashtag_search = state => searchSelectors.getError_Hashtag_search(state.search);
 export const getError_User_search = state => searchSelectors.getError_User_search(state.search);
+
+
+export const getTopic = (state, id) => topicSelectors.getTopic(state.topic,id);
+export const getTopics = state => topicSelectors.getTopics(state.topic);
+export const isFetchingTopic = state => topicSelectors.isFetchingTopic(state.topic);
+export const getFetchingErrorTopic = state => topicSelectors.getFetchingErrorTopic(state.topic);
+export const getTopicSelected = state => topicSelectors.getSelectedTopic(state.topic)
+
+export const getPost = (state, id) => postSelectors.getPost(state.posts,id);
+export const getPosts = state => postSelectors.getPosts(state.posts);
+export const isFetchingPost = state => postSelectors.isFetchingPost(state.posts);
+export const getFetchingErrorPost = state => postSelectors.getFetchingErrorPost(state.posts);

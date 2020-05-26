@@ -47,7 +47,7 @@ import * as schemas from '../schemas/user';
           }
         }
       } catch (error) {
-        yield put(actions.failFollowUser('NETWORK ERROR'));
+        yield put(actions.failFollowUser('CONNECTION FAILED'));
       }
   }
   
@@ -88,7 +88,7 @@ import * as schemas from '../schemas/user';
           }
         }
       } catch (error) {
-        yield put(actions.failFollowExtraUser('NETWORK ERROR'));
+        yield put(actions.failFollowExtraUser('CONNECTION FAILED'));
       }
   }
   
@@ -133,7 +133,7 @@ import * as schemas from '../schemas/user';
           }
         }
       } catch (error) {
-        yield put(actions.failUnFollowUser('NETWORK ERROR'));
+        yield put(actions.failUnFollowUser('CONNECTION FAILED'));
       }
   }
   
@@ -173,7 +173,7 @@ import * as schemas from '../schemas/user';
           }
         }
       } catch (error) {
-        yield put(actions.failUnFollowExtraUser('NETWORK ERROR'));
+        yield put(actions.failUnFollowExtraUser('CONNECTION FAILED'));
       }
   }
   
@@ -214,7 +214,7 @@ import * as schemas from '../schemas/user';
           }
         }
       } catch (error) {
-        yield put(actions.failUserFollowFetcch('NETWORK ERROR'));
+        yield put(actions.failUserFollowFetcch('CONNECTION FAILED'));
       }
   }
   
@@ -253,7 +253,7 @@ import * as schemas from '../schemas/user';
           }
         }
       } catch (error) {
-        yield put(actions.failUserFollowFetcch('NETWORK ERROR'));
+        yield put(actions.failUserFollowFetcch('CONNECTION FAILED'));
       }
   }
   

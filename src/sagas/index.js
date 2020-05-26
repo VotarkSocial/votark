@@ -43,6 +43,17 @@ import {
   watchUserFetch,
 } from './search'
 
+
+import {
+  watchTopicFetch
+} from './topic'
+
+
+import {
+  watchTopicSelected,
+  watchPostFetch
+} from './post'
+
 function* mainSaga() {
   yield all([
     fork(watchLoginStarted),
@@ -69,6 +80,9 @@ function* mainSaga() {
     fork(watchHistoryUserFetch),
     fork(watchHashgagFetch),
     fork(watchUserFetch),   
+    fork(watchPostFetch),
+    fork(watchTopicFetch),
+    fork(watchTopicSelected),
   ]);
 }
 

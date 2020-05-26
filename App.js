@@ -32,7 +32,7 @@ const store = createStore(reducer,persistedState,applyMiddleware(sagaMiddleware)
 sagaMiddleware.run(mainSaga);
 store.subscribe(throttle(()=>{
   saveState(store.getState());
-}),1000)
+}),5000)
 
 const instructions = Platform.select({
   ios: `Press Cmd+R to reload,\nCmd+D or shake for dev menu`,
