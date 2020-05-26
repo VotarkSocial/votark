@@ -119,20 +119,22 @@ const styles = StyleSheet.create({
     topic:{
         backgroundColor:colors.gray,
         margin: normalize(0.2),
+        marginBottom: normalize(3),
         padding: normalize(0.3),
         paddingTop: normalize(0.1),
         paddingBottom: normalize(0.8),
         borderRadius: normalize(5),
-        height: normalize(15)
+        height: normalize(20)
     },
     selected:{
         backgroundColor:colors.secondaryB,
-        margin: normalize(0.2),
+        margin: normalize(0.4),
+        marginBottom: normalize(3),
         padding: normalize(0.3),
         paddingTop: normalize(0.1),
         paddingBottom: normalize(0.8),
         borderRadius: normalize(5),
-        height: normalize(15)
+        height: normalize(20)
     },
     websection: {
         flex: 1,

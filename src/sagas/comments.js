@@ -95,7 +95,7 @@ function* addComment(action) {
         }
       }
     } catch (error) {
-      // yield put(actions.failLogin('Falló horrible la conexión mano'));
+      // yield put(actions.failLogin(''));
     }
   }
 

@@ -75,7 +75,7 @@ const selected = (state = null, action) => {
         return action.payload;
       }
       case types.TOPIC_FETCH_COMPLETED: {
-        return action.payload.order[0];
+        return state?state:action.payload.order[0];
       }
       default: {
         return state;
