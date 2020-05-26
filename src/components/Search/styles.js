@@ -59,6 +59,12 @@ const styles = StyleSheet.create({
         margin: normalize(0.5),
         width:'100%'
     },
+    el_selected: {
+        color : colors.white,
+        fontSize: normalize(2),
+        margin: normalize(0.5),
+        width:'100%'
+    },
     photo:{
         margin: normalize(0.25), 
         width:normalize(10),
@@ -96,6 +102,11 @@ const styles = StyleSheet.create({
         padding: normalize(1),
         padding: normalize(5),
       },
+      hash:{
+        margin: normalize(1),
+        height: normalize(5),
+        fontSize: normalize(2)
+      },
     section2: {
         flex: 1,
         backgroundColor: colors.white,
@@ -110,7 +121,16 @@ const styles = StyleSheet.create({
         margin: normalize(0.2),
         padding: normalize(0.3),
         paddingTop: normalize(0.1),
-        paddingBottom: normalize(0.1),
+        paddingBottom: normalize(0.8),
+        borderRadius: normalize(5),
+        height: normalize(15)
+    },
+    selected:{
+        backgroundColor:colors.secondaryB,
+        margin: normalize(0.2),
+        padding: normalize(0.3),
+        paddingTop: normalize(0.1),
+        paddingBottom: normalize(0.8),
         borderRadius: normalize(5),
         height: normalize(15)
     },

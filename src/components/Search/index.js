@@ -114,8 +114,8 @@ const Search = ({search,users,hashtags,isFetchingHash,isFetchingUsers,hashError,
                                 <ScrollView horizontal={true}>
                                         {
                                         topics.map(topic =>
-                                            <TouchableOpacity key={topic.id} style={styles.topic} onPress={()=>{select(topic.id)}}>
-                                                <Text style={styles.element} >{topic.name}</Text>
+                                            <TouchableOpacity key={topic.id} style={selected===topic?styles.selected:styles.topic} onPress={()=>{select(topic.id)}}>
+                                                <Text style={selected===topic?styles.el_selected:styles.element} >{topic.name}</Text>
                                             </TouchableOpacity>
                                             )
                                         }
@@ -125,7 +125,7 @@ const Search = ({search,users,hashtags,isFetchingHash,isFetchingUsers,hashError,
                                     <ScrollView horizontal={true}>
                                         {
                                         selected.hashtags.map(hash =>
-                                                <Text key={hash.id} style={styles.element} >#{hash.content}</Text>
+                                                <Text key={hash.id} style={styles.hash} >#{hash.content}</Text>
                                             )
                                         }
                                 </ScrollView>
