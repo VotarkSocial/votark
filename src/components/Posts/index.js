@@ -12,8 +12,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import FitImage from 'react-native-fit-image';
 import { gridList } from '../../utils/gridList';
 
-const Posts = ({posts}) => {
-    if(posts.length===0){
+const Posts = ({posts, isFetching, fetchedOnce}) => {
+    if(isFetching && !fetchedOnce){
         return (
             <ScrollView style={styles.posts}>
                 <View style={styles.row}>
@@ -63,34 +63,39 @@ const Posts = ({posts}) => {
             </ScrollView>
          )
     }
-    return(
-        <ScrollView style={styles.posts}>
-                {            
-                posts.map(row =>
-                    <View style={styles.row} key={row[0].id}>
-                        {row.map(post => 
-                            <View key={post.id} style={styles.post}>
-                                <Text style={styles.text}>@{post.username} </Text>
-                                <Text style={styles.text}>topic:{post.topicname} </Text>
-                                <FitImage  
-                                    style={styles.image}
-                                    source={{uri: STATIC_URL+post.image}} 
-                                />
-                                <Text style={styles.text}>victories:{post.victories} </Text>
-                                <Text style={styles.text}>clasification:{post.order} </Text>
-                            </View>
+    if(posts.length!==0){
+        return(
+            <ScrollView style={styles.posts}>
+                {
+                    posts.map(row =>
+                        <View style={styles.row} key={row[0].id}>
+                            {row.map(post => 
+                                <View key={post.id} style={styles.post}>
+                                    <Text style={styles.text}>@{post.username} </Text>
+                                    <Text style={styles.text}>topic:{post.topicname} </Text>
+                                    <FitImage  
+                                        style={styles.image}
+                                        source={{uri: STATIC_URL+post.image}} 
+                                    />
+                                    <Text style={styles.text}>victories:{post.victories} </Text>
+                                    <Text style={styles.text}>clasification:{post.order} </Text>
+                                </View>
+                            )}
+                        </View>
                         )}
-                    </View>
-                    
-                    )
-            }
-        </ScrollView>
-)};
+            </ScrollView>
+    )}
+    return (
+        <Text style={styles.mainText}>NO POSTS</Text>)
+};
 
 export default connect(
   (state, {posts}) => ({
-      posts:gridList(posts)
+      posts:gridList(posts),
+      isFetching: selectors.isFetchingPost(state),
+      fetchedOnce: selectors.getFetchedOnce(state)
   }),
-  dispatch => ({      
+  dispatch => ({
+    
   }),
 )(Posts);

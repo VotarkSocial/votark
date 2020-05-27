@@ -33,7 +33,13 @@ import {
   watchFollowingExtraUserFetch,
   watchFollowingUserFetch,
   watchUnFollowExtraUser,
-  watchUnFollowUser
+  watchUnFollowUser,
+  watchDeleteUser,
+  watchUpdateUser,
+  watchFollowersFetch,
+  watchFollowingFetch,
+  watchCurrentUserFetch,
+  watchUserStoriesFetch,
 } from './user'
 
 import {
@@ -51,38 +57,51 @@ import {
 
 import {
   watchTopicSelected,
+  watchUserPostFetch,
   watchPostFetch
 } from './post'
 
+import {
+  watchSendReport
+} from './report'
+
 function* mainSaga() {
   yield all([
-    fork(watchLoginStarted),
-    fork(watchRefreshTokenStarted),
-    fork(watchSignupStarted),
-    fork(watchResetPassword),
-    fork(watchVersusFetch),
-    fork(watchVoteFetch),
     fork(watchCommentAddition),
     fork(watchCommentFetch),
+    fork(watchCurrentUserFetch),
+    fork(watchDeleteUser),
     fork(watchFetchHeart),
     fork(watchFetchLIke),
-    fork(watchHeart),
-    fork(watchLike),
-    fork(watchUnHeart),
-    fork(watchUnLike),
-    fork(watchFollowUser),
-    fork(watchFollowingExtraUserFetch),
-    fork(watchUnFollowExtraUser),
-    fork(watchUnFollowUser),
+    fork(watchFollowersFetch),
     fork(WatchfOLLOWExtraUser),
+    fork(watchFollowingExtraUserFetch),
+    fork(watchFollowingFetch),
     fork(watchFollowingUserFetch),
+    fork(watchFollowUser),
+    fork(watchHashgagFetch),
+    fork(watchHeart),
     fork(watchHistoryHashtagFetch),
     fork(watchHistoryUserFetch),
-    fork(watchHashgagFetch),
-    fork(watchUserFetch),   
+    fork(watchLike),
+    fork(watchLoginStarted),
     fork(watchPostFetch),
+    fork(watchRefreshTokenStarted),
+    fork(watchResetPassword),
+    fork(watchSendReport),
+    fork(watchSignupStarted),
     fork(watchTopicFetch),
     fork(watchTopicSelected),
+    fork(watchUnFollowExtraUser),
+    fork(watchUnFollowUser),
+    fork(watchUnHeart),
+    fork(watchUnLike),
+    fork(watchUpdateUser),
+    fork(watchUserFetch),   
+    fork(watchUserPostFetch),
+    fork(watchUserStoriesFetch),
+    fork(watchVersusFetch),
+    fork(watchVoteFetch),
   ]);
 }
 

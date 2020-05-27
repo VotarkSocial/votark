@@ -7,8 +7,11 @@ import { URL } from '../../../configuration'
 import { Actions } from 'react-native-router-flux';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../../../configuration';
+import * as actions from '../../actions/user';
+import { user } from '../../schemas/user';
+import { setToNull } from '../../actions/post';
 
-const NavBar = ({onClick,home,search}) => (
+const NavBar = ({onClick,home,search,user}) => (
     <View style={styles.container}>
         <TouchableOpacity style={styles.row} onPress={home}>
             <Image style={styles.icon} source={require('../../public/static/icon/home.png')} ></Image>
@@ -19,10 +22,10 @@ const NavBar = ({onClick,home,search}) => (
         <TouchableOpacity style={styles.row} onPress={() => home}>
             <Image style={styles.icon} source={require('../../public/static/icon/add.png')} ></Image>
         </TouchableOpacity>  
-        <TouchableOpacity style={styles.row} onPress={() => onClick}>
+        <TouchableOpacity style={styles.row} onPress={() => home}>
             <Image style={styles.icon} source={require('../../public/static/icon/dm.png')} />
         </TouchableOpacity>   
-        <TouchableOpacity style={styles.row} onPress={() => onClick}>
+        <TouchableOpacity style={styles.row} onPress={user}>
             <Image style={styles.icon} source={require('../../public/static/icon/user.png')} />
         </TouchableOpacity>   
     </View>
@@ -30,12 +33,9 @@ const NavBar = ({onClick,home,search}) => (
 
 export default connect(
   state => ({
-    isAuthenticated: selectors.isAuthenticated(state),
+    userid: selectors.getAuthUserID(state),
   }),
   dispatch => ({
-      onClick(){
-
-      },
       home(){
         if(typeof document !== 'undefined'){
             window.location.href = URL
@@ -45,12 +45,28 @@ export default connect(
           }
       },
       search(){
+        dispatch(setToNull())
         if(typeof document !== 'undefined'){
             window.location.href = URL+'search/'
           }
           else{
             Actions.Search(true)
           }
+      },
+      user(id){
+        dispatch(setToNull())
+        dispatch(actions.startUsFetch(id))
       }
   }),
+  (stateToProps, disptachToProps) => ({
+      home(){
+          disptachToProps.home()
+      },
+      search(){
+          disptachToProps.search()
+      },
+      user(){
+        disptachToProps.user(stateToProps.userid)
+      }
+  })
 )(NavBar);

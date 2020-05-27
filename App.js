@@ -1,29 +1,30 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'; 
 import { colors } from './configuration';
-import Login from './src/components/Login';
+import { createStore, applyMiddleware } from 'redux';
 import { Platform } from 'react-native';
-import Home from './src/components/Home';
 import { Provider } from 'react-redux';
 import { Router, Stack, Scene } from "react-native-router-flux";
-import { BrowserRouter, Route, Switch } from 'react-router-dom'; 
+import { StyleSheet, Text, View } from 'react-native';
 import {loadState,saveState} from './store'
-import throttle from 'lodash/throttle'
 import createSagaMiddleware from 'redux-saga';
+import Home from './src/components/Home';
+import Login from './src/components/Login';
 import mainSaga from './src/sagas';
-import { createStore, applyMiddleware } from 'redux';
+import React from 'react';
 import reducer from './src/reducers';
-import SignUp from './src/components/SignUp';
 import ResetPassword from './src/components/ResetPassword';
 import Search from './src/components/Search'
+import SignUp from './src/components/SignUp';
+import throttle from 'lodash/throttle'
+import User from './src/components/User'
 
 //localStorage.clear();
 let persistedState = undefined
 if(loadState()!==undefined){
   persistedState = {
-    auth: {
-      token: loadState().auth.token,
-      decoded: loadState().auth.decoded,
+    auth: loadState().auth,
+    user: {
+      user: loadState().user.user
     }
   }
 }
@@ -48,6 +49,7 @@ export default function App() {
           <Stack key="root" style={styles.container}>
             <Scene key="Home" component={Home}  hideNavBar={true} />
             <Scene key="Search" component={Search}  hideNavBar={true} />
+            <Scene key="User" component={User}  hideNavBar={true} />
             <Scene key="Login"  component={Login} hideNavBar={true} />
             <Scene key="SignUp" component={SignUp}  hideNavBar={true} />
             <Scene key="ResetPassword" component={ResetPassword}  hideNavBar={true} />
@@ -59,6 +61,7 @@ export default function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/search" component={Search}/>
             <Route exact path="/login" component={Login}/>
+            <Route exact path="/user" component={User}/>
             <Route exact path="/signup" component={SignUp}/>
             <Route exact path="/reset-password" component={ResetPassword}/>
           </Switch>

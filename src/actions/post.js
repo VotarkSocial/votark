@@ -18,3 +18,27 @@ export const failFetchPost = error => ({
         error,
     },
 });
+
+
+export const startUserPostsFetch = () => ({
+    type: types.USER_POSTS_STARTED,
+    });
+
+export const completeUserPostFetch = (entities, order) => ({
+    type: types.USER_POSTS_COMPLETED,
+    payload: {
+        entities,
+        order,
+    },
+    });
+
+export const failUserPostFetch = error => ({
+    type: types.USER_POSTS_FAILED,
+    payload: {
+        error,
+    },
+});
+
+export const setToNull = () => ({
+    type: types.POSTS_SETTED_TO_NULL,
+})

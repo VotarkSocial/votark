@@ -11,11 +11,12 @@ import * as actions from '../../actions/search';
 import { ScrollView } from 'react-native-gesture-handler';
 import NavBar from '../NavBar';
 import TokenRefresh from '../TokenRefresh';
-import { startFetchPost } from '../../actions/post';
+import { startFetchPost, setToNull } from '../../actions/post';
 import { startFetchTopic, selectTopic } from '../../actions/topic';
 import Posts from '../Posts';
+import { startUsFetch } from '../../actions/user';
 
-const Search = ({search,users,hashtags,isFetchingHash,isFetchingUsers,hashError,userError,fetch,posts,topics,error,select,selected}) => {
+const Search = ({search,users,hashtags,isFetchingHash,isFetchingUsers,hashError,userError,fetch,posts,topics,error,select,selected,selectUser}) => {
     
     useEffect(
         () => {
@@ -62,14 +63,16 @@ const Search = ({search,users,hashtags,isFetchingHash,isFetchingUsers,hashError,
         </View>
         {
             query?(
-                <ScrollView style={(typeof document==='undefined')?styles.section:styles.websection}>
+                <ScrollView style={styles.section}>
                     <Text style={styles.subtext}>{'@ USERS'}</Text>
                     <View style={styles.elements}>
                         {(!userError)?(!isFetchingUsers)?(
                             <View style={styles.item}>
                                 {
                                 users.map(user =>
-                                    <TouchableOpacity key={user.id} style={styles.item}>
+                                    <TouchableOpacity key={user.id} style={styles.item} onPress={()=>{
+                                        selectUser(user.id)
+                                    }}>
                                         <View style={styles.row}>
                                             <Image style={styles.photo} source={user.picture?{uri: STATIC_URL + user.picture}:require('../../public/static/icon/user.png')}/>
                                             <Text style={styles.element} >@ { user.username }</Text>
@@ -177,8 +180,11 @@ export default connect(
       },
     select(id){
         dispatch(selectTopic(id))
-    }
-      
+    },
+    selectUser(id){
+        dispatch(setToNull())
+        dispatch(startUsFetch(id))
+    },
   }),
   (stateToProps,disptachToProps) => {
     if(!stateToProps.isAuthenticated){

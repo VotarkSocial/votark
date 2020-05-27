@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
     },
     posts:{
         marginTop: normalize(5),
-        marginBottom: normalize(85)
+        marginBottom: normalize(85),
+        alignSelf: 'center',
     },
     post:{
       alignItems:'center',
@@ -32,6 +33,12 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontSize: normalize(2),
         margin: normalize(0.1),
+    },
+    mainText:{
+        color: colors.primaryB,
+        fontSize: normalize(4),
+        margin: normalize(2),
+        alignSelf: 'center',
     }
   });
   

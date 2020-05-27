@@ -114,6 +114,128 @@ export const failExtraUserFollowFetcch = error => ({
         },
     });
 
+
+
+export const startFollowersFetching = () => ({
+    type: types.FOLLOWERS_FETCH_STARTED,
+    });
+
+export const completeFolllwersFetch = (entities, order) => ({
+    type: types.FOLLOWERS_FETCH_COMPLETED,
+    payload: {
+        entities,
+        order,
+    },
+    });
+
+export const failFollowersFetch = error => ({
+    type: types.FOLLOWERS_FETCH_FAILED,
+    payload: {
+        error,
+    },
+});
+
+
+
+export const startFollowingFetching = () => ({
+    type: types.FOLLOWING_FETCH_STARTED,
+    });
+
+export const completeFolllowingFetch = (entities, order) => ({
+    type: types.FOLLOWING_FETCH_COMPLETED,
+    payload: {
+        entities,
+        order,
+    },
+    });
+
+export const failFollowingFetch = error => ({
+    type: types.FOLLOWING_FETCH_FAILED,
+    payload: {
+        error,
+    },
+});
+
+
+
+
+
+export const startUpdate = (entity) => ({
+    type: types.UPDATE_STARTED,
+    payload: entity
+    });
+
+export const completeUptade = (entities) => ({
+    type: types.UPDATE_COMPLETED,
+    payload: {
+        entities,
+    },
+    });
+
+export const failUpdate = error => ({
+    type: types.UPDATE_FAILED,
+    payload: {
+        error,
+    },
+});
+
+
+
+
+
+export const startDelete = () => ({
+    type: types.DELETE_STARTED,
+    });
+
+export const completeDelete = () => ({
+    type: types.DELETE_COMPLETED,
+    });
+
+export const failDelete = error => ({
+    type: types.DELETE_FAILED,
+    payload: {
+        error,
+    },
+});
+
+
+export const startStoriesFetch = () => ({
+    type: types.USER_STORIES_STARTED,
+    });
+
+export const completeStoriesFetch = (entities, order) => ({
+    type: types.USER_STORIES_COMPLETED,
+    payload: {
+        entities,
+        order,
+    },
+    });
+
+export const failStoriesFetch = error => ({
+    type: types.USER_STORIES_FAILED,
+    payload: {
+        error,
+    },
+});
+
+
+export const startUsFetch = (id) => ({
+    type: types.USER_STARTED,
+    payload: id,
+    });
+
+export const completeUsFetch = (entity) => ({
+    type: types.USER_COMPLETED,
+    payload: entity,
+});
+
+export const failUserFetch = error => ({
+    type: types.USER_FAILED,
+    payload: {
+        error,
+    },
+});
+
 export const setUser = (entity) => ({
     type: types.USER_SETTED,
     payload: entity

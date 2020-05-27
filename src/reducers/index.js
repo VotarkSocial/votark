@@ -8,12 +8,14 @@ import user,* as userSelectors from './user'
 import versus, * as versusSelectors from './versus';
 import posts, * as postSelectors from './post'
 import topic, * as topicSelectors from './topic'
+import report, * as reportSelectors from './report'
 
 const reducer = combineReducers({
     auth,
     comment,
     posts,
     reaction,
+    report,
     search,
     story,
     topic,
@@ -66,6 +68,15 @@ export const getIsFollowingExtraUser = state => userSelectors.getIsFollowingExtr
 export const getIsFollowingUser = (state) => userSelectors.getIsFollowingUser(state.user);
 export const getUser = (state) => userSelectors.getUser(state.user);
 export const isFetchingUser = state => userSelectors.getisFetching(state.user);
+export const getFollowersCount = state => userSelectors.getFollowersCount(state.user);
+export const getFollowingCount = state => userSelectors.getFollowingCount(state.user);
+export const getisFetchingFollowInfo = state => userSelectors.getisFetchingFollowInfo(state.user);
+export const getisFetchingUserStories = state => userSelectors.getisFetchingUserStories(state.user);
+export const getUserStory = (state, id) => userSelectors.getUserStory(state.user,id);
+export const getUserStories = state => userSelectors.getUserStories(state.user);
+export const getFollowingError = state => userSelectors.getFollowingError(state.user);
+export const getUserStorieserror = state => userSelectors.getUserStorieserror(state.user);
+export const getIsEditingUser = state => userSelectors.getIsEditingUser(state.user);
 
 export const getHidden = state => storySelectors.getHidden(state.story)
 
@@ -87,3 +98,8 @@ export const getPost = (state, id) => postSelectors.getPost(state.posts,id);
 export const getPosts = state => postSelectors.getPosts(state.posts);
 export const isFetchingPost = state => postSelectors.isFetchingPost(state.posts);
 export const getFetchingErrorPost = state => postSelectors.getFetchingErrorPost(state.posts);
+export const getFetchedOnce = state => postSelectors.getFetchedOnce(state.posts);
+
+export const getIsReporting = state => reportSelectors.getIsReporting(state.report);
+export const getisFetchingReport = state => reportSelectors.getisFetchingReport(state.report);
+export const getErrorReport = state => reportSelectors.getErrorReport(state.report);

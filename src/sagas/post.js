@@ -60,9 +60,55 @@ import { TOPIC_SELECTED } from '../types/topic';
     );
   }
 
-  export function* watchTopicSelected(){
-      yield takeEvery(
-          TOPIC_SELECTED,
-          postFetch,
-      )
+  function* userPostFetch(action) {
+    try {
+        const isAuth = yield select(selectors.isAuthenticated);
+        const user = yield select(selectors.getUser);
+        if (isAuth && user.id) {
+          const token = yield select(selectors.getAuthToken);
+          const response = yield call(
+            fetch,
+            `${API_BASE_URL}/user/${user.id}/posts/`,
+            {
+              method: 'GET',
+              headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `JWT ${token}`,
+              },
+            }
+          );
+          if (response.status === 200) {
+            const jsonResult = yield response.json();
+            const normalized = normalize(jsonResult, schemas.posts);
+            yield put(
+            actions.completeUserPostFetch(
+                normalized.entities.posts,
+                normalized.result
+            ),
+            );
+          } else {
+            const { non_field_errors } = yield response.json();
+            yield put(actions.failUserPostFetch(non_field_errors[0]));
+          }
+        }
+      } catch (error) {
+        yield put(actions.failUserPostFetch('CONNECTION FAILED'));
+      }
   }
+  
+  export function* watchUserPostFetch() {
+    yield takeEvery(
+      types.USER_POSTS_STARTED,
+      userPostFetch,
+    );
+  }
+
+  export function* watchTopicSelected(){
+    yield takeEvery(
+        TOPIC_SELECTED,
+        postFetch,
+    )
+}
+  
+
+  
