@@ -6,7 +6,7 @@ import * as selectors from '../../reducers';
 import * as actions from '../../actions/auth';
 
 
-const TokenRefresh = ({ onRefresh, reviewTime = 10000 }) => {
+const TokenRefresh = ({ onRefresh, reviewTime = 50000 }) => {
   useEffect(
     () => {
       const interval = setInterval(onRefresh, reviewTime);

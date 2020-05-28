@@ -20,7 +20,7 @@ const Search = ({search,users,hashtags,isFetchingHash,isFetchingUsers,hashError,
     
     useEffect(
         () => {
-          const interval = setInterval(fetch, 1000);
+          const interval = setInterval(fetch, 10000);
           return () => {
             clearInterval(interval);
           };

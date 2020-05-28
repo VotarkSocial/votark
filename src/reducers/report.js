@@ -41,6 +41,8 @@ const isReporting = (state=false, action) => {
     switch (action.type) {
         case types.REPORT:
             return !state
+        case types.SEND_REPORT_COMPLETED:
+            return false
         default:
             return state
     }

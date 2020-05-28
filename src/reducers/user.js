@@ -22,6 +22,9 @@ const followUser = (state = false, action) => {
       case types.NULL_SETTED:{
           return false
       }
+      case types.FOLLOWERS_FETCH_COMPLETED:{
+          return action.payload.order.map(id=>action.payload.entities[id].user).includes(action.payload.userid)
+      }
       default: {
         return state;
       }
@@ -360,7 +363,27 @@ const FollowersbyId = (state = {}, action) => {
       case types.PROFILE_EDITED: {
         return true;
       }
+      case types.PROFILE_EDITED_CANCELED:{
+          return false;
+      }
       case types.UPDATE_COMPLETED: {
+        return false;
+      }
+      default: {
+        return state;
+      }
+    }
+  };
+
+  const isDeleting = (state = false, action) => {
+    switch(action.type) {
+      case types.PROFILE_DELETED: {
+        return true;
+      }
+      case types.PROFILE_DELETED_CANCELED:{
+          return false;
+      }
+      case types.DELETE_COMPLETED: {
         return false;
       }
       default: {
@@ -387,6 +410,7 @@ export default combineReducers({
     StoriesbyId,
     Storiesorder,
     isEditing,
+    isDeleting,
   });
   
   export const getUser = (state) => state.user;
@@ -404,3 +428,4 @@ export default combineReducers({
   export const getFollowingError = state => state.error_FollowInfo;
   export const getUserStorieserror = state => state.error_UserStories;
   export const getIsEditingUser = state => state.isEditing;
+  export const getIsDeletingUser = state => state.isDeleting;

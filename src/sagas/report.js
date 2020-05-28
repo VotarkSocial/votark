@@ -17,6 +17,7 @@ import { API_URL } from '../../configuration';
   function* sendReport(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated);
+        const userid = yield select(selectors.getAuthUserID)
         if (isAuth) {
           const token = yield select(selectors.getAuthToken);
           const response = yield call(
@@ -24,15 +25,14 @@ import { API_URL } from '../../configuration';
             `${API_BASE_URL}/report/`,
             {
               method: 'POST',
-              body: action.payload,
+              body: JSON.stringify({...action.payload,user:userid}),
               headers:{
                 'Content-Type': 'application/json',
                 'Authorization': `JWT ${token}`,
               },
             }
           );
-          if (response.status === 200) {
-            const jsonResult = yield response.json();
+          if (response.status === 201) {
             yield put(actions.completeSendingReport());
           } else {
             const { non_field_errors } = yield response.json();

@@ -4,9 +4,12 @@ export const toggleReport = () => ({
     type: types.REPORT
 })
 
-export const startSendingReport = (report) => ({
+export const startSendingReport = (content,type) => ({
     type: types.SEND_REPORT_STARTED,
-    payload: report,
+    payload: {
+        content,
+        type
+    },
 });
 
 export const completeSendingReport = () => ({

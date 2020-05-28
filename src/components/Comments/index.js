@@ -11,7 +11,7 @@ const Comments = ({comments,send,fetch}) => {
     
   useEffect(
     () => {
-      const interval = setInterval(fetch, 10000);
+      const interval = setInterval(fetch, 50000);
       return () => {
         clearInterval(interval);
       };

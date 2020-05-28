@@ -77,6 +77,7 @@ export const getUserStories = state => userSelectors.getUserStories(state.user);
 export const getFollowingError = state => userSelectors.getFollowingError(state.user);
 export const getUserStorieserror = state => userSelectors.getUserStorieserror(state.user);
 export const getIsEditingUser = state => userSelectors.getIsEditingUser(state.user);
+export const getIsDeletingUser = state => userSelectors.getIsDeletingUser(state.user);
 
 export const getHidden = state => storySelectors.getHidden(state.story)
 

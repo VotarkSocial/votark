@@ -68,16 +68,39 @@ const styles = StyleSheet.create({
         borderRadius: normalize(5),
         height: normalize(20)
     },
+    input: {
+        width: normalize(1600),
+        alignSelf: 'center',
+        maxWidth: 700,
+        maxHeight: 50,
+        height: normalize(300),
+        backgroundColor: colors.white,
+        borderRadius: 7,
+        fontSize: normalize(1.5),
+        margin: normalize(0.5),
+        padding: 10,
+        borderColor: colors.black,
+        borderWidth: 1
+    },
     done:{
         backgroundColor:colors.secondaryB,
         justifyContent: 'center',
         margin: normalize(0.4),
         marginBottom: normalize(3),
-        padding: normalize(0.3),
+        padding: normalize(1),
         paddingTop: normalize(0.1),
         paddingBottom: normalize(0.8),
         borderRadius: normalize(5),
         height: normalize(20)
+    },
+    report:{
+        marginTop: normalize(5)
+    },
+    mainText:{
+        color: colors.primaryB,
+        fontSize: normalize(4),
+        margin: normalize(2),
+        alignSelf: 'center',
     },
     logo:{
       width:normalize(24),

@@ -14,7 +14,7 @@ import * as types from '../types/user';
 import { API_URL, URL } from '../../configuration';
 import { normalize } from 'normalizr';
 import * as schemas from '../schemas/user';
-import { startUserPostsFetch } from '../actions/post';
+import { Actions } from 'react-native-router-flux';
   
   const API_BASE_URL =  API_URL + 'api/v1';
   
@@ -31,7 +31,7 @@ import { startUserPostsFetch } from '../actions/post';
             `${API_BASE_URL}/follow/`,
             {
               method: 'POST',
-              body: JSON.stringify({...action.payload,follower:user}),
+              body: JSON.stringify({...action.payload,user:user}),
               headers:{
                 'Content-Type': 'application/json',
                 'Authorization': `JWT ${token}`,
@@ -72,7 +72,7 @@ import { startUserPostsFetch } from '../actions/post';
             `${API_BASE_URL}/follow/`,
             {
               method: 'POST',
-              body: JSON.stringify({...action.payload,follower:user}),
+              body: JSON.stringify({...action.payload,user:user}),
               headers:{
                 'Content-Type': 'application/json',
                 'Authorization': `JWT ${token}`,
@@ -270,6 +270,7 @@ import { startUserPostsFetch } from '../actions/post';
     try {
         const isAuth = yield select(selectors.isAuthenticated);
         const user = yield select(selectors.getUser);
+        const userid = yield select(selectors.getAuthUserID)
         if (isAuth && user.id) {
           const token = yield select(selectors.getAuthToken);
           const response = yield call(
@@ -289,7 +290,8 @@ import { startUserPostsFetch } from '../actions/post';
             yield put(
             actions.completeFolllwersFetch(
                 normalized.entities.users,
-                normalized.result
+                normalized.result,
+                userid
             ),
             );
           } else {

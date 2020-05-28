@@ -3,7 +3,7 @@ import * as types from '../types/user'
 export const startFollowUser = (user,onVersus) => ({
     type: types.USER_FOLLOW_STARTED,
     payload:{
-        user,
+        follower: user,
         onVersus
     },
     });
@@ -41,7 +41,7 @@ export const failUnFollowUser = error => ({
 export const startFolloExtraUser = (user,onVersus) => ({
     type: types.EXTRA_USER_FOLLOW_STARTED,
     payload:{
-        user,
+        follower: user,
         onVersus
     },
     });
@@ -120,11 +120,12 @@ export const startFollowersFetching = () => ({
     type: types.FOLLOWERS_FETCH_STARTED,
     });
 
-export const completeFolllwersFetch = (entities, order) => ({
+export const completeFolllwersFetch = (entities, order, userid) => ({
     type: types.FOLLOWERS_FETCH_COMPLETED,
     payload: {
         entities,
         order,
+        userid,
     },
     });
 
@@ -178,6 +179,26 @@ export const failUpdate = error => ({
         error,
     },
 });
+
+
+export const editUser = () => ({
+    type: types.PROFILE_EDITED,
+});
+
+export const cance_editUser = () => ({
+    type: types.PROFILE_EDITED_CANCELED,
+});
+
+
+
+export const deleteUser = () => ({
+    type: types.PROFILE_DELETED,
+});
+
+export const canceL_deleteUser = () => ({
+    type: types.PROFILE_DELETED_CANCELED,
+});
+
 
 
 
