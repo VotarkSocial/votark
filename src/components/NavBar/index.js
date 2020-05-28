@@ -41,7 +41,7 @@ export default connect(
             window.location.href = URL
           }
           else{
-            Actions.Home(true)
+            Actions.replace('Home')
           }
       },
       search(){
@@ -50,14 +50,14 @@ export default connect(
             window.location.href = URL+'search/'
           }
           else{
-            Actions.Search(true)
+            Actions.replace('Search')
           }
       },
       user(id){
         dispatch(setToNull())
         dispatch(actions.startUsFetch(id))
       }
-  }),
+  }), 
   (stateToProps, disptachToProps) => ({
       home(){
           disptachToProps.home()

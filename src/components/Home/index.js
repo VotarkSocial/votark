@@ -59,7 +59,7 @@ export default connect(
         window.location.href = URL+'login/'
       }
       else{
-        Actions.Login(true)
+        Actions.replace('Login')
       }
     }
     return ({...disptachToProps,...stateToProps})

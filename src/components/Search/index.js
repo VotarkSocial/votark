@@ -20,7 +20,7 @@ const Search = ({search,users,hashtags,isFetchingHash,isFetchingUsers,hashError,
     
     useEffect(
         () => {
-          const interval = setInterval(fetch, 10000);
+          const interval = setInterval(fetch, 500);
           return () => {
             clearInterval(interval);
           };
@@ -167,7 +167,7 @@ export default connect(
             window.location.href = URL
           }
           else{
-            Actions.Home(true)
+            Actions.replace('Home')
           }
       },
       search(query){
@@ -192,7 +192,7 @@ export default connect(
         window.location.href = URL+'login/'
       }
       else{
-        Actions.Login(true)
+        Actions.replace('Login')
       }
     }
     return ({...disptachToProps,

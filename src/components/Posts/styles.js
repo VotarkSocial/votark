@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
       margin: normalize(0.1),
       borderRadius: normalize(1),
       backgroundColor: colors.black,
-      width: normalize(105*9), 
+      width: normalize(90*9), 
       padding: normalize(5)
     },
     image:{

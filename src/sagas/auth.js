@@ -12,6 +12,7 @@ import {
   import * as actions from '../actions/auth';
   import * as types from '../types/auth';
   import { API_URL } from '../../configuration'
+  import {Actions} from 'react-native-router-flux'
   
   
   const API_BASE_URL =  API_URL + 'api/v1';
@@ -77,7 +78,12 @@ import {
           // TODO: poner un redirect al home (login)
           const { non_field_errors } = yield response.json();
           yield put(actions.logout());
-          alert('YOU HAVE BEEN TO MUCH LOGGED')
+          if(typeof document !== 'undefined'){
+            window.location.href = URL+'login/'
+          }
+          else{
+            Actions.replace('Login')
+          }
         }
       } catch (error) {
         // TODO: poner un redirect al home (login)

@@ -190,12 +190,12 @@ import { Actions } from 'react-native-router-flux';
   function* fetchUser(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated);
-    
-        if (isAuth) {
+        const userid = yield select(selectors.getUser)
+        if (isAuth && userid.id) {
           const token = yield select(selectors.getAuthToken);
           const response = yield call(
             fetch,
-            `${API_BASE_URL}/user/${action.payload.id}/isfollowing/`,
+            `${API_BASE_URL}/user/${userid.id}/isfollowing/`,
             {
               method: 'GET',
               headers:{
@@ -207,7 +207,7 @@ import { Actions } from 'react-native-router-flux';
           if (response.status === 200) {
             const {result} = yield response.json();
             yield put(
-              actions.completeExtraUserFollowFetch(result),
+              actions.completeUserFollowFetch(result),
             );
           } else {
             const { non_field_errors } = yield response.json();
@@ -229,12 +229,12 @@ import { Actions } from 'react-native-router-flux';
   function* fetchExtraUser(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated);
-    
-        if (isAuth) {
+        const userid = yield select(selectors.getExtraUser)
+        if (isAuth && userid.id) {
           const token = yield select(selectors.getAuthToken);
           const response = yield call(
             fetch,
-            `${API_BASE_URL}/user/${action.payload.id}/isfollowing/`,
+            `${API_BASE_URL}/user/${userid.id}/isfollowing/`,
             {
               method: 'GET',
               headers:{
@@ -511,7 +511,7 @@ import { Actions } from 'react-native-router-flux';
               yield window.location.href = URL+'user/'
             }
             else{
-              yield Actions.User(true)
+              yield Actions.replace('User')
             }
           } else {
             const { non_field_errors } = yield response.json();

@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
       flex: 1,
       position: 'absolute',
       alignItems: 'flex-end',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
       flexDirection: 'row',
       height: normalize(95),
       padding: normalize(4),

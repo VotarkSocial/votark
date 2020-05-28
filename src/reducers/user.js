@@ -203,7 +203,7 @@ const FollowersbyId = (state = {}, action) => {
   const Followersorder = (state = [], action) => {
     switch(action.type) {
       case types.FOLLOWERS_FETCH_COMPLETED: {
-        return state.length===0?action.payload.order:state;
+        return action.payload.order;
       }
       default: {
         return state;
@@ -233,7 +233,7 @@ const FollowersbyId = (state = {}, action) => {
   const Followingorder = (state = [], action) => {
     switch(action.type) {
       case types.FOLLOWING_FETCH_COMPLETED: {
-        return state.length===0?action.payload.order:state;
+        return action.payload.order;
       }
       default: {
         return state;

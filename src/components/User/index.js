@@ -19,13 +19,13 @@ const Header = ({user,followsUser,logged,followers,following,
     isReporting,changeIsReporting,follow,isFollowing,
     edit,unfollow,message,messages,deleteAccount,
     report,posts, fetch, isEditing, cancelEdit, cancelDelete,
-    startdeleteAccount,isDeleting}) => {
+    startdeleteAccount,isDeleting, logout }) => {
         
          const [content, changeContent] = useState('');
 
         useEffect(
             () => {
-              const interval = setInterval(fetch, 50000);
+              const interval = setInterval(fetch, 500);
               return () => {
                 clearInterval(interval);
               };
@@ -56,15 +56,14 @@ const Header = ({user,followsUser,logged,followers,following,
                     <View>
                         <TouchableOpacity >
                             <Image style={styles.photo} source={user.picture?{uri: user.picture}:require('../../public/static/icon/user.png')}/>
-                            {!followsUser&&logged&&<Image style={styles.icon2} source={require('../../public/static/icon/add.png')} />}
                         </TouchableOpacity> 
                         <Text style={styles.text3} >{user.first_name + ' ' + user.last_name}</Text>
                     </View>
-                    <View>
+                    <View style={styles.column}>
                         <Text style={styles.text2} >{followers}</Text>
                         <Text style={styles.text3} >{'Followers'}</Text>
                     </View> 
-                    <View>
+                    <View >
                         <Text style={styles.text2} >{following}</Text>
                         <Text style={styles.text3} >{'Following'}</Text>
                     </View> 
@@ -72,7 +71,7 @@ const Header = ({user,followsUser,logged,followers,following,
                 <Text style={styles.text2} >{user.bio}</Text>
                     {logged?(
                             <View style={styles.row}>
-                                {
+                                {!isDeleting&&(
                                     (isEditing)?
                                     <TouchableOpacity style={styles.button} onPress={cancelEdit}>
                                         <Text style={styles.text3} >{'CANCEL'}</Text>
@@ -81,12 +80,9 @@ const Header = ({user,followsUser,logged,followers,following,
                                     <TouchableOpacity style={styles.button} onPress={edit}>
                                         <Text style={styles.text3} >{'Edit profile'}</Text>
                                     </TouchableOpacity>
-                                        
+                                        )
                                 }
-                                <TouchableOpacity style={styles.button} onPress={messages}>
-                                    <Text style={styles.text3} >{'Messsages'}</Text>
-                                </TouchableOpacity>
-                                {
+                                {!isEditing&&(
                                     (isDeleting)?
                                     <TouchableOpacity style={styles.button} onPress={cancelDelete}>
                                         <Text style={styles.text3} >{'CANCEL'}</Text>
@@ -95,8 +91,11 @@ const Header = ({user,followsUser,logged,followers,following,
                                     <TouchableOpacity style={styles.button} onPress={startdeleteAccount}>
                                         <Text style={styles.text3} >{'DELETE MY ACCOUNT'}</Text>
                                     </TouchableOpacity>
-                                        
+                                        )
                                 }
+                                <TouchableOpacity style={styles.button} onPress={logout}>
+                                    <Text style={styles.text3} >{'Logout'}</Text>
+                                </TouchableOpacity>
                             </View>
                         ):(
                             <View style={styles.row}>
@@ -180,8 +179,8 @@ export default connect(
     isReporting : selectors.getIsReporting(state),
   }),
   dispatch => ({
-      messages(){
-        
+      logout(){
+        dispatch(logout())
       },
       message(){
 
@@ -232,24 +231,16 @@ export default connect(
         window.location.href = URL+'login/'
       }
       else{
-        Actions.Login(true)
+        Actions.replace('Login')
       }
     }
     return ({...disptachToProps,
         ...stateToProps,
         fetch(){
-            if(stateToProps.followers===0){
-                disptachToProps.fetchFollowers()
-            }
-            if(stateToProps.following===0){
-                disptachToProps.fetchFOllowing()
-            }
-            if(stateToProps.posts.length===0 && !stateToProps.hasFetchedPost){
-                disptachToProps.fetchPosts()
-            }
-            if(stateToProps.stories.length===0){
-                disptachToProps.fetchStories()
-            }
+            disptachToProps.fetchFollowers()
+            disptachToProps.fetchFOllowing()
+            disptachToProps.fetchPosts()
+            disptachToProps.fetchStories()
         },
         follow(){
             disptachToProps.follow_(stateToProps.user.id)

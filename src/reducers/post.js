@@ -39,9 +39,9 @@ const byId = (state = {}, action) => {
 const fetchedOnce = (state=false,action) => {
     switch (action.type) {
         case types.USER_POSTS_STARTED:
-            return true
+            return !state?true:state
         case types.POST_FETCH_STARTED:
-            return true
+            return !state?true:state
         case types.POSTS_SETTED_TO_NULL:
             return false
         default:

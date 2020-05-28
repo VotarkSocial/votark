@@ -6,11 +6,11 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       position: 'absolute',
-      alignItems: 'center',
-      justifyContent: 'center',
+      alignItems: 'flex-end',
+      justifyContent: 'flex-start',
       flexDirection: 'row',
       height: normalize(165),
-      padding: normalize(4),
+      padding: normalize(2),
       width: '100%',
     },
     webcontainer: {
@@ -26,28 +26,29 @@ const styles = StyleSheet.create({
     main_container: {
         flex: 1,
         backgroundColor: colors.black,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
         flexDirection: 'column',
+        width:'100%'
       },
     text: {
         color : colors.white,
-        marginRight: normalize(20),
-        marginLeft: normalize(20),
+        marginRight: normalize(2),
+        marginLeft: normalize(2),
         fontSize: normalize(6)
     },
     text2: {
         color : colors.black,
-        marginRight: normalize(20),
+        marginRight: normalize(5),
         alignSelf: 'center',
-        marginLeft: normalize(20),
-        fontSize: normalize(4)
+        marginLeft: normalize(5),
+        fontSize: normalize(3)
     },
     text3: {
         color : colors.black,
-        marginRight: normalize(20),
+        marginRight: normalize(5),
         alignSelf: 'center',
-        marginLeft: normalize(20),
+        marginLeft: normalize(5),
         fontSize: normalize(2)
     },
     text_selected: {
@@ -102,6 +103,9 @@ const styles = StyleSheet.create({
         margin: normalize(2),
         alignSelf: 'center',
     },
+    column:{
+        marginLeft: normalize(5),
+    },
     logo:{
       width:normalize(24),
       height:normalize(24)
@@ -119,14 +123,15 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.white,
         alignSelf: 'center',
+        alignItems:'center',
         width: '100%',
         margin: normalize(10),
-        marginTop: normalize(195), 
+        marginTop: normalize(155), 
         padding: normalize(1),
         padding: normalize(5),
       },
     item:{
-        width:'95%',
+        alignItems:'center',
     },
     photo:{
         margin: normalize(0.25), 
@@ -136,6 +141,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.black,
         borderColor: colors.secondary,
         borderWidth: 2,
+        marginRight: normalize(20),
         alignSelf:'center',
     },
   });

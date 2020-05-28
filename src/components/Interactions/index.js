@@ -11,7 +11,19 @@ import * as actions from '../../actions/user';
 import { startLikeVersus, startHeartVersus, startUnLikeVersus, startUnHeartVersus, startFetchinHeart, startFetchinLike } from '../../actions/reaction';
 import { startFetchingComments } from '../../actions/comment';
 
-const Interactions = ({fetch,followUser,followExtraUser,home,extrauserPicture,userPicture,followsUser, followsExtrauser, isLiked, isHearted, like, heart,share}) => (
+const Interactions = ({fetch,followUser,followExtraUser,home,extrauserPicture,userPicture,followsUser, followsExtrauser, isLiked, isHearted, like, heart,share}) => {
+    
+    useEffect(
+        () => {
+          const interval = setInterval(fetch, 5000);
+          return () => {
+            clearInterval(interval);
+          };
+        },
+        []
+      );
+    
+    return (
     <View style={styles.container}>
         <TouchableOpacity  onPress={followUser}>
             <Image style={styles.photo} source={userPicture?{uri: userPicture}:require('../../public/static/icon/user.png')}/>
@@ -43,7 +55,7 @@ const Interactions = ({fetch,followUser,followExtraUser,home,extrauserPicture,us
             <Image style={styles.icon} source={require('../../public/static/icon/share.png')} />
         </TouchableOpacity>   
     </View>
-);
+)};
 
 export default connect(
   state => ({
@@ -52,7 +64,7 @@ export default connect(
     extrauserid: selectors.getExtraUser(state).id,
     userPicture: selectors.getUser(state).picture,
     extrauserPicture: selectors.getExtraUser(state).picture,
-    followsUser: selectors.getIsFollowingUser(state),
+    followsUser: selectors.getIsFollowingUser(state)&&selectors.getUser(state).id!==selectors.getAuthUserID(state),
     followsExtrauser: selectors.getIsFollowingExtraUser(state),
     isLiked: selectors.getisLiked(state),
     isHearted : selectors.getisHearted(state),
@@ -85,6 +97,10 @@ export default connect(
         unHeart(id){
             dispatch(startUnHeartVersus(id))
         },
+        fetch(id,id2){
+            dispatch(actions.startUserFollowFetch(id))
+            dispatch(actions.startExtraUserFollowFetch(id2))
+        }
   }),
   (stateToProps,dispatchToProps) => ({
     userPicture: stateToProps.userPicture,
@@ -128,5 +144,8 @@ export default connect(
     share(){
         //do Share
     },
+    fetch(){
+        dispatchToProps.fetch(stateToProps.userid,stateToProps.extrauserid)
+    }
   }),
 )(Interactions);

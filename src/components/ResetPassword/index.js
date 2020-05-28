@@ -128,7 +128,7 @@ export default connect(
           window.location.href = URL
         }
         else{
-          Actions.Home(true)
+          Actions.replace('Home')
         }
       }
       return ({...disptachToProps,...stateToProps})
