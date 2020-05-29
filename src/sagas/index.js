@@ -65,8 +65,25 @@ import {
   watchSendReport
 } from './report'
 
+
+import {
+  watchAddAdminToChat,
+  watchAddUserToChat,
+  watchchatAddition,
+  watchchatFetch,
+} from './chat'
+
+import {
+  watchmessageAddition,
+  watchmessageFetch
+} from './messages'
+
 function* mainSaga() {
   yield all([
+    fork(watchAddAdminToChat),
+    fork(watchAddUserToChat),
+    fork(watchchatAddition),
+    fork(watchchatFetch),
     fork(watchCommentAddition),
     fork(watchCommentFetch),
     fork(watchCurrentUserFetch),
@@ -85,6 +102,8 @@ function* mainSaga() {
     fork(watchHistoryUserFetch),
     fork(watchLike),
     fork(watchLoginStarted),
+    fork(watchmessageAddition),
+    fork(watchmessageFetch),
     fork(watchPostFetch),
     fork(watchRefreshTokenStarted),
     fork(watchResetPassword),

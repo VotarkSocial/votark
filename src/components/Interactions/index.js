@@ -15,7 +15,7 @@ const Interactions = ({fetch,followUser,followExtraUser,home,extrauserPicture,us
     
     useEffect(
         () => {
-          const interval = setInterval(fetch, 5000);
+          const interval = setInterval(fetch, 1000);
           return () => {
             clearInterval(interval);
           };

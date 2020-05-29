@@ -11,7 +11,7 @@ import * as actions from '../../actions/user';
 import { user } from '../../schemas/user';
 import { setToNull } from '../../actions/post';
 
-const NavBar = ({onClick,home,search,user}) => (
+const NavBar = ({chats,home,search,user}) => (
     <View style={styles.container}>
         <TouchableOpacity style={styles.row} onPress={home}>
             <Image style={styles.icon} source={require('../../public/static/icon/home.png')} ></Image>
@@ -22,7 +22,7 @@ const NavBar = ({onClick,home,search,user}) => (
         <TouchableOpacity style={styles.row} onPress={() => home}>
             <Image style={styles.icon} source={require('../../public/static/icon/add.png')} ></Image>
         </TouchableOpacity>  
-        <TouchableOpacity style={styles.row} onPress={() => home}>
+        <TouchableOpacity style={styles.row} onPress={chats}>
             <Image style={styles.icon} source={require('../../public/static/icon/dm.png')} />
         </TouchableOpacity>   
         <TouchableOpacity style={styles.row} onPress={user}>
@@ -56,6 +56,14 @@ export default connect(
       user(id){
         dispatch(setToNull())
         dispatch(actions.startUsFetch(id))
+      },
+      chats(){
+        if(typeof document !== 'undefined'){
+          window.location.href = URL+'chats/'
+        }
+        else{
+          Actions.replace('Chats')
+        }
       }
   }), 
   (stateToProps, disptachToProps) => ({
@@ -67,6 +75,9 @@ export default connect(
       },
       user(){
         disptachToProps.user(stateToProps.userid)
+      },
+      chats(){
+        disptachToProps.chats()
       }
   })
 )(NavBar);

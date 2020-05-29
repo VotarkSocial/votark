@@ -17,6 +17,7 @@ import Search from './src/components/Search'
 import SignUp from './src/components/SignUp';
 import throttle from 'lodash/throttle'
 import User from './src/components/User'
+import Chats from './src/components/Chats'
 
 //localStorage.clear();
 let persistedState = undefined
@@ -51,6 +52,7 @@ export default function App() {
             <Scene key="Search" component={Search}  hideNavBar={true} />
             <Scene key="User" component={User}  hideNavBar={true} />
             <Scene key="Login"  component={Login} hideNavBar={true} />
+            <Scene key="Chats"  component={Chats} hideNavBar={true} />
             <Scene key="SignUp" component={SignUp}  hideNavBar={true} />
             <Scene key="ResetPassword" component={ResetPassword}  hideNavBar={true} />
           </Stack>
@@ -63,6 +65,7 @@ export default function App() {
             <Route exact path="/login" component={Login}/>
             <Route exact path="/user" component={User}/>
             <Route exact path="/signup" component={SignUp}/>
+            <Route exact path="/chats" component={Chats}/>
             <Route exact path="/reset-password" component={ResetPassword}/>
           </Switch>
         </BrowserRouter>

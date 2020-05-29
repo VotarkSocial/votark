@@ -1,18 +1,22 @@
 import { combineReducers } from 'redux';
 import auth, * as authSelectors from './auth';
+import chat, * as chatSelectors from './chat';
 import comment, * as commentSelectors from './comment';
+import message, * as messageSelectors from './message';
+import posts, * as postSelectors from './post';
 import reaction, * as reactionSelectros from './reaction';
-import search, * as searchSelectors from './search'
-import story, * as storySelectors from './stories'
-import user,* as userSelectors from './user'
+import report, * as reportSelectors from './report';
+import search, * as searchSelectors from './search';
+import story, * as storySelectors from './stories';
+import topic, * as topicSelectors from './topic';
+import user,* as userSelectors from './user';
 import versus, * as versusSelectors from './versus';
-import posts, * as postSelectors from './post'
-import topic, * as topicSelectors from './topic'
-import report, * as reportSelectors from './report'
 
 const reducer = combineReducers({
     auth,
+    chat,
     comment,
+    message,
     posts,
     reaction,
     report,
@@ -104,3 +108,18 @@ export const getFetchedOnce = state => postSelectors.getFetchedOnce(state.posts)
 export const getIsReporting = state => reportSelectors.getIsReporting(state.report);
 export const getisFetchingReport = state => reportSelectors.getisFetchingReport(state.report);
 export const getErrorReport = state => reportSelectors.getErrorReport(state.report);
+
+export const getChat = (state, id) => chatSelectors.getChat(state.chat,id);
+export const getChats = state => chatSelectors.getChats(state.chat);
+export const getisFetchingChat = state => chatSelectors.getisFetchingChat(state.chat);
+export const getErrorChat = state => chatSelectors.getErrorChat(state.chat);
+export const getIsAddingAdmin = state => chatSelectors.getIsAddingAdmin(state.chat);
+export const getIsAddingUser = state => chatSelectors.getIsAddingUser(state.chat);
+export const getErrorUserChat = state => chatSelectors.getErrorUserChat(state.chat);
+export const getErrorAdmin = state => chatSelectors.getErrorAdmin(state.chat);
+export const getChatSelected = state => chatSelectors.getChatSelected(state.chat);
+
+export const getMessage = (state, id) => messageSelectors.getMessage(state.message,id);
+export const getMessages = state => messageSelectors.getMessages(state.message);
+export const getisFetchingMessage = state => messageSelectors.getisFetchingMessage(state.message);
+export const getErrorMessage = state => messageSelectors.getErrorMessage(state.message);
