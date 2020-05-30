@@ -39,7 +39,7 @@ import * as schemas from '../schemas/chat';
             const jsonResult = yield response.json();
             const normalized = normalize(jsonResult, schemas.chats);
             yield put(
-            actions.completeFetchingchats(
+            actions.completeFetchingChats(
                 normalized.entities.chats,
                 normalized.result
             ),
@@ -64,7 +64,7 @@ import * as schemas from '../schemas/chat';
 function* addchat(action) {
     try {
       const isAuth = yield select(selectors.isAuthenticated);   
-  
+      console.log(action.payload)
       if (isAuth) {
         const token = yield select(selectors.getAuthToken);
         const response = yield call(
@@ -72,7 +72,7 @@ function* addchat(action) {
           `${API_BASE_URL}/chat/`,
           {
             method: 'POST',
-            body: JSON.stringify({...action.payload}),
+            body: JSON.stringify(action.payload),
             headers:{
               'Content-Type': 'application/json',
               'Authorization': `JWT ${token}`,

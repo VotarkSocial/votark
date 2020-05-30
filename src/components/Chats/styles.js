@@ -17,11 +17,11 @@ const styles = StyleSheet.create({
         backgroundColor:'gray',
         width:'100%',
         height: 1,
-        marginTop: normalize(0.5),
-        marginBottom: normalize(1),
+        marginTop: normalize(5),
+        marginBottom: normalize(3),
     },
     item:{
-        width:'95%',
+        width:'100%',
     },
     main_container: {
         flex: 1,
@@ -49,11 +49,20 @@ const styles = StyleSheet.create({
         marginLeft: normalize(20),
         fontSize: normalize(6)
     },
+    error_: {
+        marginTop: normalize(2),
+        fontSize: normalize(2),
+        alignItems: 'center',
+        alignSelf: 'center',
+        color: colors.white,
+        padding:normalize(1),
+        borderRadius: normalize(25)
+    },
     text_: {
         color : colors.white,
         marginRight: normalize(20),
         marginLeft: normalize(20),
-        fontSize: normalize(3)
+        fontSize: normalize(4)
     },
     subtext: {
         color : colors.primaryB,
@@ -62,9 +71,8 @@ const styles = StyleSheet.create({
     element: {
         color : colors.black,
         fontSize: normalize(2),
-        margin: normalize(0.5),
-        marginLeft: normalize(2),
-        width:'100%'
+        margin: normalize(0.2),
+        width:'90%'
     },
     el_selected: {
         color : colors.white,
@@ -73,9 +81,9 @@ const styles = StyleSheet.create({
         width:'100%'
     },
     photo:{
-        margin: normalize(0.25), 
-        width:normalize(10),
-        height:normalize(10),
+        margin: normalize(3), 
+        width:normalize(17),
+        height:normalize(17),
         borderRadius: normalize(20),
         backgroundColor: colors.black,
         borderColor: colors.secondary,
@@ -88,12 +96,80 @@ const styles = StyleSheet.create({
     icon:{
         width:normalize(8),
         height:normalize(8),
-        margin: normalize(1),
+        margin: normalize(0.5),
+    },
+    icon_big:{
+        width:normalize(15),
+        height:normalize(15),
+        margin: normalize(2),
+    },
+    message_text:{
+        color : colors.black,
+        marginRight: normalize(1),
+        marginLeft: normalize(1),
+        fontSize: normalize(3),
+        alignSelf: 'flex-start'
+    },
+    username:{
+        color : colors.black,
+        marginRight: normalize(0.2),
+        marginLeft: normalize(0.2),
+        fontSize: normalize(1.3),
+        marginBottom: normalize(1),
     },
     row:{
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'baseline',
         justifyContent: 'flex-start'
+    },
+    their_message:{
+        margin: normalize(2),
+        alignItems: 'baseline',
+        justifyContent: 'flex-start',
+        borderRadius: normalize(5),
+        backgroundColor: colors.primary,
+        padding: normalize(5),
+        paddingTop: normalize(2),
+        paddingBottom: normalize(2),
+        maxWidth: '50%',
+    },
+    my_message:{
+        margin: normalize(2),
+        alignItems: 'baseline',
+        alignSelf: 'flex-end',
+        borderRadius: normalize(5),
+        backgroundColor: colors.primary,
+        padding: normalize(5),
+        paddingTop: normalize(2),
+        paddingBottom: normalize(2),
+        marginBottom: normalize(10),
+        maxWidth: '50%',
+    },
+    Writer: {
+        position: 'absolute',
+        bottom: normalize(100),
+        flex: 1,
+        width:'100%',
+        alignItems: 'flex-end',
+        justifyContent: 'space-between',
+        backgroundColor:colors.white,
+      },
+    send:{
+        marginTop: normalize(5),
+        marginLeft: normalize(0.5),
+        color: colors.black,
+        fontSize: normalize(2),
+    },
+    sendInput: {
+        width: normalize(2000),
+        height: normalize(20),
+        borderRadius: normalize(30),
+        fontSize: normalize(1),
+        color: colors.black,
+        margin: normalize(0.5),
+        padding: 10,
+        borderColor: colors.black,
+        borderWidth: 1
     },
     row2:{
         flexDirection: 'row',
@@ -101,18 +177,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     elements:{
-        margin: normalize(10),
-        width:'80%'
+        width:'100%'
     },
     section: {
         flex: 1,
-        backgroundColor: colors.white,
+        backgroundColor: colors.primaryc,
         alignSelf: 'center',
         width: '100%',
         margin: normalize(10),
+        marginBottom: normalize(330),
         marginTop: normalize(195), 
-        padding: normalize(1),
-        padding: normalize(5),
       },
       hash:{
         margin: normalize(1),
@@ -123,9 +197,15 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.white,
         alignSelf: 'center',
-        alignItems: 'center',
-        width: '100%',
-        marginTop: normalize(195), 
+        width: '100%', 
+        padding: normalize(1),
+      },
+    section3: {
+        flex: 1,
+        backgroundColor: colors.white,
+        marginTop: normalize(195),
+        alignSelf: 'center',
+        width: '100%', 
         padding: normalize(1),
       },
     topic:{
@@ -159,7 +239,7 @@ const styles = StyleSheet.create({
         padding: normalize(5),
       },
     input: {
-        width: normalize(2500),
+        width: normalize(1500),
         alignSelf: 'center',
         maxWidth: 700,
         maxHeight: 50,

@@ -4888,6 +4888,12 @@ react-native-cached-image@^1.4.3:
     react-native-fetch-blob "0.10.8"
     url-parse "1.1.9"
 
+"react-native-camera@git+https://git@github.com/react-native-community/react-native-camera.git":
+  version "3.26.0"
+  resolved "git+https://git@github.com/react-native-community/react-native-camera.git#e55893bf4b6e030b9b705fa04c9967f3f46e24c0"
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-clcasher@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-clcasher/-/react-native-clcasher-1.0.0.tgz#1f77fb1a4abc6a0337ef19c991e04f19af6d2789"

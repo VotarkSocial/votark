@@ -93,8 +93,8 @@ const Header = ({user,followsUser,logged,followers,following,
                                     </TouchableOpacity>
                                         )
                                 }
-                                <TouchableOpacity style={styles.button} onPress={logout}>
-                                    <Text style={styles.text3} >{'Logout'}</Text>
+                                <TouchableOpacity style={styles.done} onPress={logout}>
+                                    <Text style={styles.text_selected} >{'Logout'}</Text>
                                 </TouchableOpacity>
                             </View>
                         ):(

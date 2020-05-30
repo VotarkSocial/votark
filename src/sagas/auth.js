@@ -19,7 +19,6 @@ import {
   
   
   function* login(action) {
-    console.log("hhhhh")
     try {
       const response = yield call(
         fetch,

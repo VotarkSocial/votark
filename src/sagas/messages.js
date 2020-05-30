@@ -21,8 +21,8 @@ import * as schemas from '../schemas/message';
   function* messageFetch(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated);
-        const userid = yield select(selectors.getAuthUserID)
-        if (isAuth) {
+        const chat = yield select(selectors.getChatSelectedWithProps);
+        if (isAuth && chat.id) {
           const token = yield select(selectors.getAuthToken);
           const response = yield call(
             fetch,

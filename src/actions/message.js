@@ -19,11 +19,10 @@ export const failFetchingMessages = error => ({
     },
 });
 
-export const startAddingMessage = (Message,versus,id) => ({
+export const startAddingMessage = (Message,id) => ({
     type: types.MESSAGE_ADDITION_STARTED,
     payload: {
         content: Message,
-        versus,
         id
     },
 });
