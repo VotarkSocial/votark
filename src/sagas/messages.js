@@ -14,6 +14,7 @@ import * as types from '../types/messages';
 import { API_URL } from '../../configuration';
 import { normalize } from 'normalizr';
 import * as schemas from '../schemas/message';
+import { CHAT_SELECTED } from '../types/chat';
   
   const API_BASE_URL =  API_URL + 'api/v1';
   
@@ -22,7 +23,7 @@ import * as schemas from '../schemas/message';
     try {
         const isAuth = yield select(selectors.isAuthenticated);
         const chat = yield select(selectors.getChatSelectedWithProps);
-        if (isAuth && chat.id) {
+        if (isAuth && chat) {
           const token = yield select(selectors.getAuthToken);
           const response = yield call(
             fetch,
@@ -36,24 +37,38 @@ import * as schemas from '../schemas/message';
             }
           );
           if (response.status === 200) {
-            const jsonResult = yield response.json();
-            const normalized = normalize(jsonResult, schemas.messages);
-            yield put(
-            actions.completeFetchingMessages(
-                normalized.entities.messages,
-                normalized.result
-            ),
-            );
+            const current_chat = yield select(selectors.getChatSelectedWithProps)
+            if(current_chat && chat.id===current_chat.id){
+              const jsonResult = yield response.json();
+              const normalized = normalize(jsonResult, schemas.messages);
+              yield put(
+              actions.completeFetchingMessages(
+                  normalized.entities.messages,
+                  normalized.result
+              ),
+              );
+            }
           } else {
             const { non_field_errors } = yield response.json();
             yield put(actions.failFetchingMessages(non_field_errors[0]));
           }
         }
+        if(!chat){
+          yield put(actions.completeFetchingMessages({},[]))
+        }
       } catch (error) {
+        console.log(error)
         yield put(actions.failFetchingMessages('CONNECTION FAILED'));
       }
   }
-  
+ 
+  export function* watchChatSelected() {
+    yield takeEvery(
+      CHAT_SELECTED,
+      messageFetch,
+    );
+  }
+
   export function* watchmessageFetch() {
     yield takeEvery(
       types.MESSAGES_FETCHING_STARTED,

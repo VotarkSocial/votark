@@ -11,7 +11,7 @@ import * as actions from '../../actions/user';
 import { user } from '../../schemas/user';
 import { setToNull } from '../../actions/post';
 
-const NavBar = ({chats,home,search,user,more}) => (
+const NavBar = ({chats,home,search,user,add}) => (
     <View style={styles.container}>
         <TouchableOpacity style={styles.row} onPress={home}>
             <Image style={styles.icon} source={require('../../public/static/icon/home.png')} ></Image>
@@ -19,7 +19,7 @@ const NavBar = ({chats,home,search,user,more}) => (
         <TouchableOpacity style={styles.row} onPress={search}>
             <Image style={styles.icon} source={require('../../public/static/icon/search.png')} />
         </TouchableOpacity>  
-        <TouchableOpacity style={styles.row} onPress={more}>
+        <TouchableOpacity style={styles.row} onPress={add}>
             <Image style={styles.icon} source={require('../../public/static/icon/add.png')} ></Image>
         </TouchableOpacity>  
         <TouchableOpacity style={styles.row} onPress={chats}>
@@ -53,7 +53,7 @@ export default connect(
             Actions.replace('Search')
           }
       },
-      more(){
+      add(){
         dispatch(setToNull())
         if(typeof document !== 'undefined'){
             window.location.href = URL+'camara/'
@@ -87,6 +87,9 @@ export default connect(
       },
       chats(){
         disptachToProps.chats()
+      },
+      add(){
+        disptachToProps.add()
       }
   })
 )(NavBar);

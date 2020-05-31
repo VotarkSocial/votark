@@ -18,13 +18,7 @@ import { startUsFetch } from '../../actions/user';
 
 const Search = ({search,users,hashtags,isFetchingHash,isFetchingUsers,hashError,userError,fetch,posts,topics,error,select,selected,selectUser}) => {
     
-    useEffect(
-        () => {
-          const interval = setInterval(fetch, 500);
-          return () => {
-            clearInterval(interval);
-          };
-        },
+    useEffect(fetch,
         []
       );
 
@@ -175,7 +169,6 @@ export default connect(
         dispatch(actions.startUserFetching(query))
       },
     dofetch(){
-        dispatch(startFetchPost())
         dispatch(startFetchTopic())
       },
     select(id){

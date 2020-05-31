@@ -154,6 +154,18 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor:colors.white,
       },
+      message_notConfirmed:{
+        margin: normalize(2),
+        alignItems: 'baseline',
+        alignSelf: 'flex-end',
+        borderRadius: normalize(5),
+        backgroundColor: colors.primary,
+        padding: normalize(5),
+        paddingTop: normalize(2),
+        paddingBottom: normalize(2),
+        marginBottom: normalize(10),
+        maxWidth: '50%',
+      },
     send:{
         marginTop: normalize(5),
         marginLeft: normalize(0.5),

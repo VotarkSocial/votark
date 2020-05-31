@@ -75,7 +75,8 @@ import {
 
 import {
   watchmessageAddition,
-  watchmessageFetch
+  watchmessageFetch,
+  watchChatSelected,
 } from './messages'
 
 function* mainSaga() {
@@ -84,6 +85,7 @@ function* mainSaga() {
     fork(watchAddUserToChat),
     fork(watchchatAddition),
     fork(watchchatFetch),
+    fork(watchChatSelected),
     fork(watchCommentAddition),
     fork(watchCommentFetch),
     fork(watchCurrentUserFetch),

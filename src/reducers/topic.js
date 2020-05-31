@@ -35,6 +35,7 @@ const order = (state = [], action) => {
   }
 };
 
+
 const isFetching = (state = false, action) => {
   switch(action.type) {
     case types.TOPIC_FETCH_STARTED: {

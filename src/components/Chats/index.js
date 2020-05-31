@@ -19,8 +19,8 @@ const Chats = ({add, chats,error,messages, error_message,fetch,selected,select,s
     
     useEffect(
         () => {
-          const interval = setInterval(fetch, 500);
-          return () => {
+          const interval = setInterval(fetch, 1000);
+          return () => {fetch
             clearInterval(interval);
           };
         },
@@ -128,9 +128,10 @@ const Chats = ({add, chats,error,messages, error_message,fetch,selected,select,s
                         style={{
                             width: '100%',
                             height: '100%',
-                            flexDirection: 'column',
+                            flexDirection: 'column-reverse',
                             alignItems: 'flex-start',
-                            justifyContent: 'flex-start'
+                            justifyContent: 'flex-start',
+                            
                         }}
                         >
                     {(!error_message)?(
@@ -138,8 +139,8 @@ const Chats = ({add, chats,error,messages, error_message,fetch,selected,select,s
                             {
                                 messages.length!==0?
                                 messages.map(item =>
-                                    <View style={looggedUser===item.user?styles.my_message:styles.their_message}>
-                                        <Text style={styles.username} > @{ item.username }</Text>
+                                    <View style={looggedUser===item.user?styles.my_message:item.isConfirmed?styles.their_message:styles.message_notConfirmed}>
+                                        <Text style={styles.username} > {item.username?'@'+item.username:'Loading...'}</Text>
                                         <Text style={styles.message_text} > { item.content }</Text>
                                     </View>                                
                                 ):

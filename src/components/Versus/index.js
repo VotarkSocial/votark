@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 import FitImage from 'react-native-fit-image';
 
 const Versus = ({fetchVersus,url1,url2,versusid}) =>{
-  useEffect(fetchVersus)
+  useEffect(fetchVersus,[])
   
   return (
     <View style={styles.row1}>
@@ -76,9 +76,7 @@ export default connect(
     url1:(stateToProps.versus)? STATIC_URL+stateToProps.versus.content1.image:null,
     url2:(stateToProps.versus)?STATIC_URL+stateToProps.versus.content2.image:null,
     fetchVersus(){
-      if(!stateToProps.versusid && !stateToProps.isFetchingVersus && !stateToProps.fail){
         dispatchToProps.fetchVersus()
-      }
     }
   })
 )(Versus);

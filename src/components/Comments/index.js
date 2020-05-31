@@ -11,7 +11,7 @@ const Comments = ({comments,send,fetch}) => {
     
   useEffect(
     () => {
-      const interval = setInterval(fetch, 50000);
+      const interval = setInterval(fetch, 1000);
       return () => {
         clearInterval(interval);
       };
@@ -40,8 +40,9 @@ const Comments = ({comments,send,fetch}) => {
             onChange={e => changeComment(e.target.value)}
             />
             <Text style={styles.send} type="submit" 
-            onPress={() =>
-              send(comment)
+            onPress={() =>{
+              changeComment('')
+              send(comment)}
             }>{' Send '}</Text>
       </View>
 </View>

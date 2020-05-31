@@ -486,6 +486,12 @@ import { Actions } from 'react-native-router-flux';
 
   function* userFetch(action) {
     try {
+        if(typeof document !== 'undefined'){
+          yield window.location.href = URL+'user/'
+        }
+        else{
+          yield Actions.replace('User')
+        }
         const isAuth = yield select(selectors.isAuthenticated);
         if (isAuth) {
           const token = yield select(selectors.getAuthToken);
@@ -507,12 +513,6 @@ import { Actions } from 'react-native-router-flux';
                 jsonResult
             ),
             );
-            if(typeof document !== 'undefined'){
-              yield window.location.href = URL+'user/'
-            }
-            else{
-              yield Actions.replace('User')
-            }
           } else {
             const { non_field_errors } = yield response.json();
             yield put(actions.failUserFetch(non_field_errors[0]));

@@ -167,7 +167,7 @@ function* addAdmin(action) {
           },
         }
       );
-
+      
       if (response.status === 200) {
         const chat = yield response.json();
         yield put(

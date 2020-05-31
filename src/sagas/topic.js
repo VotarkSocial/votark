@@ -42,12 +42,14 @@ import * as schemas from '../schemas/topic';
                 normalized.result
             ),
             );
+            yield put(actions.selectTopic(normalized.result[0]))
           } else {
             const { non_field_errors } = yield response.json();
             yield put(actions.failFetchTopic(non_field_errors[0]));
           }
         }
       } catch (error) {
+        console.log(error)
         yield put(actions.failFetchTopic('CONNECTION FAILED'));
       }
   }

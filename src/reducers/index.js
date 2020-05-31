@@ -118,7 +118,7 @@ export const getIsAddingUser = state => chatSelectors.getIsAddingUser(state.chat
 export const getErrorUserChat = state => chatSelectors.getErrorUserChat(state.chat);
 export const getErrorAdmin = state => chatSelectors.getErrorAdmin(state.chat);
 export const getChatSelected = state => chatSelectors.getChatSelected(state.chat);
-export const getChatSelectedWithProps = state => chatSelectors.getChat(state.chat,getChatSelected(state));
+export const getChatSelectedWithProps = state => chatSelectors.getChat(state.chat,getChatSelected(state))?chatSelectors.getChat(state.chat,getChatSelected(state)):null;
 
 export const getMessage = (state, id) => messageSelectors.getMessage(state.message,id);
 export const getMessages = state => messageSelectors.getMessages(state.message);

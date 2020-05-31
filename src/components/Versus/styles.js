@@ -14,13 +14,14 @@ const styles = StyleSheet.create({
       height:'100%',
       alignItems:'center',
       justifyContent:'flex-start',
-      width: '49.4%',
-      borderRadius: normalize(55),
-      backgroundColor: colors.black
+      width: '49.9%',
+      borderRadius: normalize(1),
+      backgroundColor: colors.black,
+      paddingTop: normalize(10),
     },
     image:{
-      width: normalize(70*9), 
-      height: normalize(70*48),
+      width: normalize(90*9), 
+      height: normalize(90*48),
     }
   });
   

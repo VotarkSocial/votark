@@ -13,13 +13,7 @@ import { startFetchingComments } from '../../actions/comment';
 
 const Interactions = ({fetch,followUser,followExtraUser,home,extrauserPicture,userPicture,followsUser, followsExtrauser, isLiked, isHearted, like, heart,share}) => {
     
-    useEffect(
-        () => {
-          const interval = setInterval(fetch, 1000);
-          return () => {
-            clearInterval(interval);
-          };
-        },
+    useEffect(fetch,
         []
       );
     

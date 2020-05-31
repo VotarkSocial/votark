@@ -11,7 +11,7 @@ import {
   import * as selectors from '../reducers';
   import * as actions from '../actions/auth';
   import * as types from '../types/auth';
-  import { API_URL } from '../../configuration'
+  import { API_URL, URL } from '../../configuration'
   import {Actions} from 'react-native-router-flux'
   
   

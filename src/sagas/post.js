@@ -20,7 +20,7 @@ import { TOPIC_SELECTED } from '../types/topic';
   function* postFetch(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated);
-        const topicid = yield select(selectors.getTopicSelected);
+        const topicid = action.payload;
         if (isAuth) {
           const token = yield select(selectors.getAuthToken);
           const response = yield call(

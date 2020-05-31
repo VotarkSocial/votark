@@ -192,4 +192,4 @@ export const getIsAddingAdmin = state => state.isAddingAdmin;
 export const getIsAddingUser = state => state.isAddingUser;
 export const getErrorUserChat = state => state.errorUser_Chat;
 export const getErrorAdmin = state => state.errorAdmin;
-export const getChatSelected = state => state.chatSelected;
+export const getChatSelected = state => state.chatSelected?state.chatSelected:null;

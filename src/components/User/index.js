@@ -23,13 +23,7 @@ const Header = ({user,followsUser,logged,followers,following,
         
          const [content, changeContent] = useState('');
 
-        useEffect(
-            () => {
-              const interval = setInterval(fetch, 500);
-              return () => {
-                clearInterval(interval);
-              };
-            },
+        useEffect(fetch,
             []
           );
         
