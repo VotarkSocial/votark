@@ -79,9 +79,15 @@ import {
   watchChatSelected,
 } from './messages'
 
+import {
+  watchAddingPost,
+  watchPictureSetted,
+} from './newPost'
+
 function* mainSaga() {
   yield all([
     fork(watchAddAdminToChat),
+    fork(watchAddingPost),
     fork(watchAddUserToChat),
     fork(watchchatAddition),
     fork(watchchatFetch),
@@ -106,6 +112,7 @@ function* mainSaga() {
     fork(watchLoginStarted),
     fork(watchmessageAddition),
     fork(watchmessageFetch),
+    fork(watchPictureSetted),
     fork(watchPostFetch),
     fork(watchRefreshTokenStarted),
     fork(watchResetPassword),

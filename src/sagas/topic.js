@@ -49,7 +49,6 @@ import * as schemas from '../schemas/topic';
           }
         }
       } catch (error) {
-        console.log(error)
         yield put(actions.failFetchTopic('CONNECTION FAILED'));
       }
   }

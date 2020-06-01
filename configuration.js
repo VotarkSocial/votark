@@ -4,9 +4,9 @@
     app.
 */
 
-export const API_URL = 'https://5ebc47dbfe1e.ngrok.io/'
+export const API_URL = 'https://01e5e8587daf.ngrok.io/'
 export const URL = 'https://localhost:19006/'
-export const STATIC_URL = 'https://5ebc47dbfe1e.ngrok.io'
+export const STATIC_URL = 'https://01e5e8587daf.ngrok.io'
 
 export const colors = {
     primary: '#21796A',

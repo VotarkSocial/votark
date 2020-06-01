@@ -152,10 +152,9 @@ export default connect(
     error : selectors.getFetchingErrorTopic(state),
     selected : selectors.getTopic(state,selectors.getTopicSelected(state))
   }),
-  dispatch => ({
-      onClick(){
+  dispatch => ({onClick(){
         
-      },
+},
       home(){
         if(typeof document !== 'undefined'){
             window.location.href = URL

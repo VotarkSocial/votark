@@ -19,6 +19,7 @@ import throttle from 'lodash/throttle'
 import User from './src/components/User'
 import Chats from './src/components/Chats'
 import MyCamara from './src/components/Camera';
+import Post from './src/components/Post';
 
 //localStorage.clear();
 let persistedState = undefined
@@ -56,6 +57,7 @@ export default function App() {
             <Scene key="Chats"  component={Chats} hideNavBar={true} />
             <Scene key="SignUp" component={SignUp}  hideNavBar={true} />
             <Scene key="Camara" component={MyCamara}  hideNavBar={true} />
+            <Scene key="Post" component={Post}  hideNavBar={true} />
             <Scene key="ResetPassword" component={ResetPassword}  hideNavBar={true} />
           </Stack>
         </Router>
@@ -70,6 +72,7 @@ export default function App() {
             <Route exact path="/chats" component={Chats}/>
             <Route exact path="/reset-password" component={ResetPassword}/>
             <Route exact path="/camara" component={MyCamara}/>
+            <Route exact path="/post" component={Post}/>
           </Switch>
         </BrowserRouter>
         )

@@ -3,6 +3,7 @@ import auth, * as authSelectors from './auth';
 import chat, * as chatSelectors from './chat';
 import comment, * as commentSelectors from './comment';
 import message, * as messageSelectors from './message';
+import newPost, * as newPostSelectors from './newPost';
 import posts, * as postSelectors from './post';
 import reaction, * as reactionSelectros from './reaction';
 import report, * as reportSelectors from './report';
@@ -12,11 +13,13 @@ import topic, * as topicSelectors from './topic';
 import user,* as userSelectors from './user';
 import versus, * as versusSelectors from './versus';
 
+
 const reducer = combineReducers({
     auth,
     chat,
     comment,
     message,
+    newPost,
     posts,
     reaction,
     report,
@@ -124,3 +127,7 @@ export const getMessage = (state, id) => messageSelectors.getMessage(state.messa
 export const getMessages = state => messageSelectors.getMessages(state.message);
 export const getisFetchingMessage = state => messageSelectors.getisFetchingMessage(state.message);
 export const getErrorMessage = state => messageSelectors.getErrorMessage(state.message);
+
+export const getImage = state => newPostSelectors.getImage(state.newPost);
+export const getAddingPostError = state => newPostSelectors.getAddingPostError(state.newPost);
+export const getIsAddingPost = state => newPostSelectors.getIsAddingPost(state.newPost);
