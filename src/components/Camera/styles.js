@@ -53,6 +53,20 @@ const styles = StyleSheet.create({
     borderColor: colors.white,
     borderWidth: 1
   },
+  input2: {
+    width: normalize(800),
+    maxWidth: 700,
+    maxHeight: normalize(50),
+    justifyContent: 'flex-start',
+    alignItems:'center',
+    backgroundColor: colors.white,
+    borderRadius: 7,
+    fontSize: normalize(1.5),
+    margin: normalize(0.5),
+    padding: 10,
+    borderColor: colors.white,
+    borderWidth: 1
+  },
   text: {
       fontSize: normalize(6),
       alignSelf: 'center',
@@ -87,7 +101,6 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: colors.white,
       alignSelf: 'center',
-      justifyContent: 'flex-start',
       width: '100%',
       margin: normalize(10),
       marginTop: normalize(195), 
@@ -143,7 +156,7 @@ const styles = StyleSheet.create({
     camera:{ 
         alignSelf:'center',
         width: width, 
-        height: width*128/72, 
+        height: width*120/72, 
     },
     mainContainer:{
       backgroundColor: colors.black,

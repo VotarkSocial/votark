@@ -16,6 +16,7 @@ import versus, * as versusSelectors from './versus';
 
 const reducer = combineReducers({
     auth,
+    
     chat,
     comment,
     message,
@@ -98,6 +99,7 @@ export const getError_User_search = state => searchSelectors.getError_User_searc
 
 export const getTopic = (state, id) => topicSelectors.getTopic(state.topic,id);
 export const getTopics = state => topicSelectors.getTopics(state.topic);
+export const getUnsortedTopics = state => topicSelectors.getUnsortedTopics(state.topic);
 export const isFetchingTopic = state => topicSelectors.isFetchingTopic(state.topic);
 export const getFetchingErrorTopic = state => topicSelectors.getFetchingErrorTopic(state.topic);
 export const getTopicSelected = state => topicSelectors.getSelectedTopic(state.topic)

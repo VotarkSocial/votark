@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     image:{
       width: normalize(90*9), 
       height: normalize(90*48),
-      paddingTop: normalize(10),
     }
   });
   

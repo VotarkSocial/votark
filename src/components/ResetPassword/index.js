@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import styles from './styles'
 import { colors } from '../../../configuration';
 import * as actions from '../../actions/auth';
+import { reduxForm } from 'redux-form'
 import { URL } from '../../../configuration'
 
 const ResetPassword = ({
@@ -18,7 +19,37 @@ const ResetPassword = ({
   hasReset,
   onBack,
 }) => {
+  const validate = values => {
+    const error= {};
+    error.email= '';
+    error.name= '';
+    var ema = values.email;
+    var nm = values.name;
+    if(values.email === undefined){
+      ema = '';
+    }
+    if(values.name === undefined){
+      nm = '';
+    }
+    if(ema.length < 8 && ema !== ''){
+      error.email= 'too short';
+    }
+    if(!ema.includes('@') && ema !== ''){
+      error.email= '@ not included';
+    }
+    if(nm.length > 8){
+      error.name= 'max 8 characters';
+    }
+    return error;
+  };
   const [email, changeEmail] = useState('');
+  const renderInput = ({ input, label, type, meta: { touched, error, warning } })=>{
+    var hasError= false;
+    if(error !== undefined){
+      hasError= true;
+    }
+  }
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -96,7 +127,7 @@ const ResetPassword = ({
   );
 } 
 
-export default connect(
+const myResetPassword = connect(
     state => ({
       isLoading: selectors.isReseting(state),
       error: selectors.resetError(state),
@@ -134,4 +165,8 @@ export default connect(
       return ({...disptachToProps,...stateToProps})
     }
   )(ResetPassword);
+  
+  export default reduxForm({
+    form: 'myresetpassoword',
+  })(myResetPassword)
   

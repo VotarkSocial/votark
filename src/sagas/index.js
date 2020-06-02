@@ -51,7 +51,9 @@ import {
 
 
 import {
-  watchTopicFetch
+  watchTopicFetch,
+  watchUnsortedTopicFetch,
+  watcTopicAddition,
 } from './topic'
 
 
@@ -103,6 +105,7 @@ function* mainSaga() {
     fork(watchFollowingExtraUserFetch),
     fork(watchFollowingFetch),
     fork(watchFollowingUserFetch),
+    fork(watchUnsortedTopicFetch),
     fork(watchFollowUser),
     fork(watchHashgagFetch),
     fork(watchHeart),
@@ -130,6 +133,7 @@ function* mainSaga() {
     fork(watchUserStoriesFetch),
     fork(watchVersusFetch),
     fork(watchVoteFetch),
+    fork(watcTopicAddition),
   ]);
 }
 

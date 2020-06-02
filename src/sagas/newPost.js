@@ -20,6 +20,7 @@ import { Actions } from 'react-native-router-flux'
   function* addingPost(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated);
+        const user = yield select(selectors.getAuthUserID)
         if (isAuth) {
           const token = yield select(selectors.getAuthToken);
           const response = yield call(
@@ -27,8 +28,9 @@ import { Actions } from 'react-native-router-flux'
             `${API_BASE_URL}/post/`,
             {
               method: 'POST',
+              body: JSON.stringify({...action.payload,user}),
               headers:{
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
                 'Authorization': `JWT ${token}`,
               },
             }
@@ -36,11 +38,12 @@ import { Actions } from 'react-native-router-flux'
           if (response.status === 201) {
             yield put(actions.completeAddingPost())
           } else {
-            const { non_field_errors } = yield response.json();
-            yield put(actions.failAddingPost(non_field_errors[0]));
+            const error= yield response.json();
+            //yield put(actions.failAddingPost(non_field_errors[0]));
           }
         }
       } catch (error) {
+          console.log(error)
         yield put(actions.failAddingPost('CONNECTION FAILED'));
       }
   }

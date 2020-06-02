@@ -1,22 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, TouchableOpacity, Image, Picker, TextInput } from 'react-native';
+import { Text, View, TouchableOpacity, Image, Picker, TextInput,ScrollView } from 'react-native';
 import { Camera } from 'expo-camera'; 
 import styles from  './styles'
 import TokenRefresh from '../TokenRefresh';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import * as selectors from '../../reducers'
-import { setPicture } from '../../actions/newPost';
+import { setPicture, startAddingPost } from '../../actions/newPost';
 import { LinearGradient } from 'expo-linear-gradient';
 import {colors} from '../../../configuration'
-import { startFetchTopic } from '../../actions/topic';
+import { startFetchTopic, startAddingTopic, startTopic } from '../../actions/topic';
+import {v4} from 'uuid'
 
-const MyCamera = ({takePicture,topics,fetch}) => {
+const MyCamera = ({addTopic,topics,fetch,publish}) => {
 
   useEffect(fetch,
     []
   );
-
 
   const getHash = (index) => {
     const array = topics[index]
@@ -29,16 +29,14 @@ const MyCamera = ({takePicture,topics,fetch}) => {
     return firstDescrip
   }
 
-  
-
-  
-
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null)
   const [uri, changeUri] = useState('')
   const [selectedValue, setSelectedValue] = useState(topics[0]);
   const [isAdding,changeIsAdding] = useState(false)
-  const [description, changeDescription] = useState(getHash(0))
+  const [description, changeDescription] = useState(getHash(0));
+  const [newTopic, changeTopic] = useState('');
+  const [topicIndex,changeTopicIndex] = useState(topics[0]?topics[0].id:1)
 
   const [type, setType] = useState(Camera.Constants.Type.back);useEffect(() => {
     (async () => {
@@ -71,7 +69,7 @@ const MyCamera = ({takePicture,topics,fetch}) => {
                 <Image style={styles.icon} source={require('../../public/static/icon/return.png')} ></Image>
             </TouchableOpacity>  
         </View>
-        <View style={styles.section}>
+        <ScrollView style={styles.section}>
           <Text style={styles.text}>READY TO POST</Text>
           <View style={styles.bar}></View>
           <View style={styles.row2}>
@@ -96,7 +94,9 @@ const MyCamera = ({takePicture,topics,fetch}) => {
               style={{ height: 50, width: 150, color:colors.black}}
               onValueChange={(itemValue, itemIndex) => {
                 changeDescription(getHash(itemIndex))
-                setSelectedValue(itemValue)}}
+                setSelectedValue(itemValue)
+                changeTopicIndex(itemIndex)
+              }}
             >
               {topics.map(
                 topic => <Picker.Item label={topic.name} value={topic.name} />
@@ -104,15 +104,39 @@ const MyCamera = ({takePicture,topics,fetch}) => {
             </Picker>
             <TouchableOpacity onPress={()=>changeIsAdding(!isAdding)}>
                 <Image style={styles.icon} source={isAdding? require('../../public/static/icon/close.png'):require('../../public/static/icon/add_dark.png')} ></Image>
-            </TouchableOpacity>  
+            </TouchableOpacity>
           </View>
+          {isAdding&&
+              <View>
+                <View style={styles.row}>
+                  <View>
+                    <View style={styles.row}>
+                      <Text>NEW TOPIC:</Text>
+                      <TextInput
+                      style={styles.input2}
+                      type="text"
+                      placeholder="Name"
+                      value={newTopic}
+                      onChangeText={changeTopic}
+                      onChange={e=>changeTopic(e.target.value)}
+                      />
+                    </View>
+                  </View>
+                  <TouchableOpacity onPress={()=>{
+                    changeIsAdding(false)
+                    addTopic(newTopic)}}>
+                      <Image style={styles.icon} source={require('../../public/static/icon/add_dark.png')} ></Image>
+                  </TouchableOpacity>
+                </View>
+              </View>           
+            }
           <View style={styles.bar}></View>
           <View style={styles.row3}>
           <Text style={styles.button} type="submit" onPress={
-              () => onSubmit(username,password)
+              () => publish(uri,topicIndex,description)
           }>{'Publish'}</Text>
           </View>
-        </View>
+        </ScrollView>
           </LinearGradient>
         :
           <Camera style={styles.camera} type={type} ref={ref => {
@@ -163,15 +187,24 @@ const MyCamera = ({takePicture,topics,fetch}) => {
 export default connect(
   state => ({
     isAuthenticated: selectors.isAuthenticated(state),
-    topics: selectors.getTopics(state),
+    topics: selectors.getUnsortedTopics(state),
   }),
   dispatch=>({
-    takePicture(data){
-
+    addTopic(name,hashtags){
+      dispatch(startAddingTopic({name,hashtags,id:v4()}))      
     },
     fetch(){
-      dispatch(startFetchTopic())
+      dispatch(startTopic())
     },
+    publish(image,topic,description){
+      let formData = new FormData();
+        formData.append('file', {
+        uri: image,
+        name: v4(),
+        type: `image/jpeg`,
+      });
+      dispatch(startAddingPost({image:formData,topic,description}))
+    }
   }),
   (stateToProps,disptachToProps) => {
     if(!stateToProps.isAuthenticated){

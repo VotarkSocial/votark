@@ -3,6 +3,7 @@ import { Text, View, TextInput, Button, Image } from 'react-native';
 import * as actions from '../../actions/auth';
 import * as selectors from '../../reducers';
 import React, { useState } from 'react';
+import { reduxForm } from 'redux-form'
 import styles from './styles'
 import { colors } from '../../../configuration';
 import { Link } from "react-router-dom";
@@ -17,8 +18,43 @@ const Login = ({
   isLoading,
   error = null,
 }) => {
+
+
+  const validate = values => {
+    const error= {};
+    error.email= '';
+    error.name= '';
+    var ema = values.email;
+    var nm = values.name;
+    if(values.email === undefined){
+      ema = '';
+    }
+    if(values.name === undefined){
+      nm = '';
+    }
+    if(ema.length < 8 && ema !== ''){
+      error.email= 'too short';
+    }
+    if(!ema.includes('@') && ema !== ''){
+      error.email= '@ not included';
+    }
+    if(nm.length > 8){
+      error.name= 'max 8 characters';
+    }
+    return error;
+  };
+
+
   const [username, changeUsername] = useState('');
   const [password, changePassword] = useState('');
+
+  const renderInput = ({ input, label, type, meta: { touched, error, warning } })=>{
+    var hasError= false;
+    if(error !== undefined){
+      hasError= true;
+    }
+  }
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -111,7 +147,7 @@ const Login = ({
   );
 } 
 
-export default connect(
+const myLogin = connect(
   state => ({
     isLoading: selectors.getIsAuthenticating(state),
     error: selectors.getAuthenticatingError(state),
@@ -142,3 +178,9 @@ export default connect(
     return ({...disptachToProps,...stateToProps})
   }
 )(Login);
+
+export default reduxForm({
+  form: 'login',
+})(myLogin)
+
+
