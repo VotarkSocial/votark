@@ -1,9 +1,7 @@
 # votark
 A social media app that allows you to vote for posts based on hashtags and topics. 
 
-HELLO EVERYONE IN THE README YOU WILL FIND TWO THINGS:
-1.How to run?
-2.Documentation
+HELLO EVERYONE!
 
 ## 1.How to Run:
 
