@@ -13,43 +13,40 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { URL } from '../../../configuration'
 import Spinner from 'react-native-loading-spinner-overlay';
 
+
+const validate = values => {
+  const error= {};
+  error.email= '';
+  error.name= '';
+  var ema = values.email;
+  var nm = values.name;
+  if(values.email === undefined){
+    ema = '';
+  }
+  if(values.name === undefined){
+    nm = '';
+  }
+  if(ema.length < 8 && ema !== ''){
+    error.email= 'too short';
+  }
+  if(!ema.includes('@') && ema !== ''){
+    error.email= '@ not included';
+  }
+  if(nm.length > 8){
+    error.name= 'max 8 characters';
+  }
+  return error;
+};
+
 const Login = ({
   onSubmit,
   isLoading,
   error = null,
 }) => {
 
-  const validate = values => {
-    const error= {};
-    error.email= '';
-    error.name= '';
-    var ema = values.email;
-    var nm = values.name;
-    if(values.email === undefined){
-      ema = '';
-    }
-    if(values.name === undefined){
-      nm = '';
-    }
-    if(ema.length < 8 && ema !== ''){
-      error.email= 'too short';
-    }
-    if(!ema.includes('@') && ema !== ''){
-      error.email= '@ not included';
-    }
-    if(nm.length > 8){
-      error.name= 'max 8 characters';
-    }
-    return error;
-  };
   const [username, changeUsername] = useState('');
   const [password, changePassword] = useState('');
-  const renderInput = ({ input, label, type, meta: { touched, error, warning } })=>{
-    var hasError= false;
-    if(error !== undefined){
-      hasError= true;
-    }
-  }
+  
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -142,7 +139,7 @@ const Login = ({
   );
 } 
 
-const MyLogin = connect(
+export default connect(
   state => ({
     isLoading: selectors.getIsAuthenticating(state),
     error: selectors.getAuthenticatingError(state),
@@ -174,6 +171,7 @@ const MyLogin = connect(
   }
 )(Login);
 
-export default reduxForm({
+const LoginForm = reduxForm({
   form: 'login',
-})(MyLogin)
+  validate,
+})(Login)

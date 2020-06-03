@@ -144,12 +144,12 @@ const myResetPassword = connect(
           }
       },
       onBack(){
-        dispatch(actions.failReset(''))
+        dispatch(actions.completeReset())
         if(typeof document !== 'undefined'){
             window.location.href = URL
         }
         else{
-            Actions.Home(true)
+            Actions.replace('Login')
         }
       } 
     }),

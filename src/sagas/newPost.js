@@ -11,7 +11,7 @@ import {
 import * as selectors from '../reducers';
 import * as actions from '../actions/newPost';
 import * as types from '../types/post';
-import { API_URL } from '../../configuration';
+import { API_URL, URL } from '../../configuration';
 import { normalize } from 'normalizr';
 import { Actions } from 'react-native-router-flux'
   
@@ -40,6 +40,12 @@ import { Actions } from 'react-native-router-flux'
           } else {
             const error= yield response.json();
             //yield put(actions.failAddingPost(non_field_errors[0]));
+          }
+          if(typeof document !== 'undefined'){
+            yield window.location.href = URL
+          }
+          else{
+            yield Actions.replace('Home')
           }
         }
       } catch (error) {
