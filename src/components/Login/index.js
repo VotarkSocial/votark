@@ -3,9 +3,9 @@ import { Text, View, TextInput, Button, Image } from 'react-native';
 import * as actions from '../../actions/auth';
 import * as selectors from '../../reducers';
 import React, { useState } from 'react';
-import { reduxForm } from 'redux-form'
 import styles from './styles'
 import { colors } from '../../../configuration';
+import { reduxForm } from 'redux-form'
 import { Link } from "react-router-dom";
 import { Actions } from 'react-native-router-flux';
 import { normalize } from '../../utils/normalize';
@@ -18,7 +18,6 @@ const Login = ({
   isLoading,
   error = null,
 }) => {
-
 
   const validate = values => {
     const error= {};
@@ -43,18 +42,14 @@ const Login = ({
     }
     return error;
   };
-
-
   const [username, changeUsername] = useState('');
   const [password, changePassword] = useState('');
-
   const renderInput = ({ input, label, type, meta: { touched, error, warning } })=>{
     var hasError= false;
     if(error !== undefined){
       hasError= true;
     }
   }
-
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -147,7 +142,7 @@ const Login = ({
   );
 } 
 
-const myLogin = connect(
+const MyLogin = connect(
   state => ({
     isLoading: selectors.getIsAuthenticating(state),
     error: selectors.getAuthenticatingError(state),
@@ -181,6 +176,4 @@ const myLogin = connect(
 
 export default reduxForm({
   form: 'login',
-})(myLogin)
-
-
+})(MyLogin)
