@@ -8,11 +8,8 @@ import { colors } from '../../../configuration';
 import { reduxForm } from 'redux-form'
 import { Link } from "react-router-dom";
 import { Actions } from 'react-native-router-flux';
-import { normalize } from '../../utils/normalize';
 import { LinearGradient } from 'expo-linear-gradient';
 import { URL } from '../../../configuration'
-import Spinner from 'react-native-loading-spinner-overlay';
-
 
 const validate = values => {
   const error= {};
@@ -50,7 +47,7 @@ const Login = ({
   return (
     <View style={styles.container}>
       <LinearGradient
-          colors={[colors.primary, 'transparent']}
+          colors={[colors.white, 'transparent']}
           style={{
             width: '100%',
             height: '100%',
@@ -109,7 +106,7 @@ const Login = ({
           ) : (
             <View> 
               <View style={styles.button}>
-                  <Text style={styles.button} type="submit" onPress={
+                  <Text style={styles.buttons} type="submit" onPress={
                       () => onSubmit(username,password)
                   }>{'LOGIN'}</Text>
               </View>

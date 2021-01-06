@@ -11,12 +11,13 @@ import search, * as searchSelectors from './search';
 import story, * as storySelectors from './stories';
 import topic, * as topicSelectors from './topic';
 import user,* as userSelectors from './user';
+import currentPost,* as currentPostSelectors from './currentPost';
 import versus, * as versusSelectors from './versus';
 
 
 const reducer = combineReducers({
     auth,
-    
+    currentPost,
     chat,
     comment,
     message,
@@ -86,6 +87,7 @@ export const getFollowingError = state => userSelectors.getFollowingError(state.
 export const getUserStorieserror = state => userSelectors.getUserStorieserror(state.user);
 export const getIsEditingUser = state => userSelectors.getIsEditingUser(state.user);
 export const getIsDeletingUser = state => userSelectors.getIsDeletingUser(state.user);
+export const getIsFetchingFollow = state => userSelectors.getisFetchingFollow(state.user);
 
 export const getHidden = state => storySelectors.getHidden(state.story)
 
@@ -133,3 +135,8 @@ export const getErrorMessage = state => messageSelectors.getErrorMessage(state.m
 export const getImage = state => newPostSelectors.getImage(state.newPost);
 export const getAddingPostError = state => newPostSelectors.getAddingPostError(state.newPost);
 export const getIsAddingPost = state => newPostSelectors.getIsAddingPost(state.newPost);
+
+export const getCurrentPost = (state) => currentPostSelectors.getCurrentPost(state.currentPost);
+export const getCurrentPostError = (state) => currentPostSelectors.getCurrentPostError(state.currentPost);
+export const getCurrentPostFetching = (state) => currentPostSelectors.getCurrentPostFetching(state.currentPost);
+export const getCurrentPostSelected = (state) => currentPostSelectors.getCurrentPostSelected(state.currentPost);

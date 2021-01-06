@@ -9,11 +9,10 @@ export const styles = StyleSheet.create({
       justifyContent: 'flex-start',
       width: '100%',
       height: '100%',
-      marginTop: normalize(105), 
     },
     text: {
         position: 'absolute',
-        top: '40%',
+        top: normalize(40),
         color : colors.white,
         alignSelf: 'center',
         fontSize: normalize(2),
@@ -21,6 +20,16 @@ export const styles = StyleSheet.create({
         padding:normalize(1),
         borderRadius: normalize(25)
     },
+    text2: {
+      position: 'absolute',
+      top: '40%',
+      color : colors.white,
+      alignSelf: 'center',
+      fontSize: normalize(2),
+      backgroundColor: colors.primary,
+      padding:normalize(1),
+      borderRadius: normalize(25)
+  },
   });
 
 export const styles2 = StyleSheet.create({
@@ -30,7 +39,6 @@ export const styles2 = StyleSheet.create({
       justifyContent: 'flex-start',
       width: '100%',
       height: '100%',
-      marginTop: normalize(0.1), 
     },
     text: {
         position: 'absolute',

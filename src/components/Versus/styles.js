@@ -21,6 +21,40 @@ const styles = StyleSheet.create({
     image:{
       width: normalize(90*9), 
       height: normalize(90*48),
+    },
+    photo:{
+      margin: normalize(8), 
+      marginBottom: normalize(1),
+      width:normalize(43),
+      height:normalize(43),
+      borderRadius: normalize(20),
+      backgroundColor: colors.black,
+      borderColor: colors.secondary,
+      borderWidth: 2
+    },
+    icon2:{
+      backgroundColor: colors.white,
+      margin: normalize(2), 
+      width:normalize(3),
+      height:normalize(3),
+    },
+    follow: {
+      color: colors.terceary,
+      fontSize: normalize(2.2),
+    },
+    set: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    relative:{
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: normalize(10)
     }
   });
   

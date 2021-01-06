@@ -7,23 +7,11 @@ const followUser = (state = false, action) => {
       case types.USER_IS_FOLLOWING_FETCH_COMPLETED: {
         return action.payload;
       }
-      case types.USER_FOLLOW_STARTED:{
-        return !state
-      }
-      case types.USER_FOLLOW_FAILED:{
-        return !state
-      }
-      case types.USER_UNFOLLOW_STARTED:{
-          return !state
-      }
-      case types.USER_UNFOLLOW_FAILED:{
-          return !state
-      }
       case types.NULL_SETTED:{
           return false
       }
       case types.FOLLOWERS_FETCH_COMPLETED:{
-          return action.payload.order.map(id=>action.payload.entities[id].user).includes(action.payload.userid)
+        return !action.payload.order.map(id=>action.payload.entities[id].user).includes(action.payload.userid)
       }
       default: {
         return state;
@@ -35,18 +23,6 @@ const followUser = (state = false, action) => {
     switch(action.type) {
       case types.EXTRA_USER_IS_FOLLOWING_FETCH_COMPLETED: {
         return action.payload;
-      }
-      case types.EXTRA_USER_FOLLOW_STARTED:{
-        return !state
-      }
-      case types.EXTRA_USER_FOLLOW_FAILED:{
-        return !state
-      }
-      case types.EXTRA_USER_UNFOLLOW_STARTED:{
-          return !state
-      }
-      case types.EXTRA_USER_UNFOLLOW_FAILED:{
-          return !state
       }
       case types.NULL_SETTED:{
           return false
@@ -82,41 +58,48 @@ const followUser = (state = false, action) => {
     }
 }
 
+  const isFetchingFollow = (state=false, action) => {
+    switch (action.type) {
+      case types.USER_FOLLOW_STARTED:
+        return true
+      case types.USER_UNFOLLOW_STARTED:
+        return true
+      case types.EXTRA_USER_FOLLOW_STARTED:
+        return true
+      case types.EXTRA_USER_UNFOLLOW_STARTED:
+        return true
+      case types.USER_FOLLOW_COMPLETED:
+          return false
+      case types.USER_UNFOLLOW_COMPLETED:
+          return false
+      case types.EXTRA_USER_FOLLOW_COMPLETED:
+          return false
+      case types.EXTRA_USER_UNFOLLOW_COMPLETED:
+          return false
+      case types.USER_FOLLOW_FAILED:
+          return false
+      case types.USER_UNFOLLOW_FAILED:
+          return false
+      case types.EXTRA_USER_FOLLOW_FAILED:
+          return false
+      case types.EXTRA_USER_UNFOLLOW_FAILED:
+          return false  
+      default:
+        return state;
+    }
+  }
+
   const isFetching = (state=false,action)=>{
       switch (action.type) {
-            case types.USER_FOLLOW_STARTED:
-                return true
-            case types.USER_UNFOLLOW_STARTED:
-                return true
-            case types.EXTRA_USER_FOLLOW_STARTED:
-                return true
-            case types.EXTRA_USER_UNFOLLOW_STARTED:
-                return true
             case types.USER_IS_FOLLOWING_FETCH_STARTED:
                 return true
             case types.EXTRA_USER_IS_FOLLOWING_FETCH_STARTED:
                 return true
             case types.USER_STARTED:
                 return true
-            case types.USER_FOLLOW_FAILED:
-                return false
-            case types.USER_UNFOLLOW_FAILED:
-                return false
-            case types.EXTRA_USER_FOLLOW_FAILED:
-                return false
-            case types.EXTRA_USER_UNFOLLOW_FAILED:
-                return false
             case types.USER_IS_FOLLOWING_FETCH_FAILED:
                 return false
             case types.EXTRA_USER_IS_FOLLOWING_FETCH_FAILED:
-                return false
-            case types.USER_FOLLOW_COMPLETED:
-                return false
-            case types.USER_UNFOLLOW_COMPLETED:
-                return false
-            case types.EXTRA_USER_FOLLOW_COMPLETED:
-                return false
-            case types.EXTRA_USER_UNFOLLOW_COMPLETED:
                 return false
             case types.EXTRA_USER_IS_FOLLOWING_FETCH_COMPLETED:
                 return false
@@ -204,6 +187,12 @@ const FollowersbyId = (state = {}, action) => {
     switch(action.type) {
       case types.FOLLOWERS_FETCH_COMPLETED: {
         return action.payload.order;
+      }
+      case types.USER_FOLLOW_COMPLETED: {
+        return [...state, [0]]
+      }
+      case types.USER_UNFOLLOW_COMPLETED: {
+        return [...state].slice(1)
       }
       default: {
         return state;
@@ -411,6 +400,7 @@ export default combineReducers({
     Storiesorder,
     isEditing,
     isDeleting,
+    isFetchingFollow,
   });
   
   export const getUser = (state) => state.user;
@@ -429,3 +419,4 @@ export default combineReducers({
   export const getUserStorieserror = state => state.error_UserStories;
   export const getIsEditingUser = state => state.isEditing;
   export const getIsDeletingUser = state => state.isDeleting;
+  export const getisFetchingFollow = state => state.isFetchingFollow;

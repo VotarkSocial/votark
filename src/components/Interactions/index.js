@@ -11,22 +11,14 @@ import * as actions from '../../actions/user';
 import { startLikeVersus, startHeartVersus, startUnLikeVersus, startUnHeartVersus, startFetchinHeart, startFetchinLike } from '../../actions/reaction';
 import { startFetchingComments } from '../../actions/comment';
 
-const Interactions = ({fetch,followUser,followExtraUser,home,extrauserPicture,userPicture,followsUser, followsExtrauser, isLiked, isHearted, like, heart,share}) => {
+const Interactions = ({fetch, isLiked, isHearted, like, heart,share}) => {
     
     useEffect(fetch,
         []
       );
     
     return (
-    <View style={styles.container}>
-        <TouchableOpacity  onPress={followUser}>
-            <Image style={styles.photo} source={userPicture?{uri: userPicture}:require('../../public/static/icon/user.png')}/>
-            {!followsUser&&<Image style={styles.icon2} source={require('../../public/static/icon/add.png')} />}
-        </TouchableOpacity>  
-        <TouchableOpacity  onPress={followExtraUser}>
-            <Image style={styles.photo} source={extrauserPicture?{uri: extrauserPicture}:require('../../public/static/icon/user.png')}/>
-            {!followsExtrauser&&<Image style={styles.icon2} source={require('../../public/static/icon/add.png')} />}
-        </TouchableOpacity>  
+    <View style={styles.container}>  
         <TouchableOpacity style={styles.row} onPress={like}>
             {
                 (isLiked)?(
@@ -67,18 +59,6 @@ export default connect(
     versusid: selectors.getVersus(state)?selectors.getVersus(state).id:null,
   }),
   dispatch => ({
-        followUser(userid,versusid){
-            dispatch(actions.startFollowUser(userid,versusid))
-        },
-        followExtraUser(userid,versusid){
-            dispatch(actions.startFolloExtraUser(userid,versusid))
-        },
-        unFollowUser(userid){
-            dispatch(actions.startUnFollowUser(userid))
-        },
-        unfollowExtraUser(userid){
-            dispatch(actions.startUnFollowExtraUser(userid))
-        },
         like(id){
             dispatch(startLikeVersus(id))
         },
@@ -97,28 +77,8 @@ export default connect(
         }
   }),
   (stateToProps,dispatchToProps) => ({
-    userPicture: stateToProps.userPicture,
-    extrauserPicture: stateToProps.extrauserPicture,
-    followsUser: stateToProps.followsUser,
-    followsExtrauser: stateToProps.followsExtrauser,
     isLiked: stateToProps.isLiked,
     isHearted: stateToProps.isHearted,
-    followUser(){
-        if(stateToProps.followsUser){
-            dispatchToProps.unFollowUser(stateToProps.userid)
-        }
-        else{
-            dispatchToProps.followUser(stateToProps.userid,stateToProps.versusid)
-        }
-    },
-    followExtraUser(){
-        if(stateToProps.followsExtrauser){
-            dispatchToProps.unfollowExtraUser(stateToProps.extrauserid)
-        }
-        else{
-            dispatchToProps.followExtraUser(stateToProps.extrauserid,stateToProps.versusid)
-        }
-    },
     like(){
         if(!stateToProps.isLiked){
             dispatchToProps.like(stateToProps.versusid)

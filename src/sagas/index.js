@@ -19,6 +19,11 @@ import {
 
 
 import {
+  watchCurrentPostFetch,
+} from './currrentPost'
+
+
+import {
   watchFetchHeart,
   watchFetchLIke,
   watchHeart,
@@ -134,6 +139,7 @@ function* mainSaga() {
     fork(watchVersusFetch),
     fork(watchVoteFetch),
     fork(watcTopicAddition),
+    fork(watchCurrentPostFetch),
   ]);
 }
 

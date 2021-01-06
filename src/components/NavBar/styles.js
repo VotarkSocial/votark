@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
       paddingRight: normalize(12),
       paddingLeft: normalize(12),
       width: '100%',
+      zIndex: 2
     },
     text: {
         color : colors.white,

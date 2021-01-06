@@ -5,7 +5,7 @@ import { normalize } from '../../utils/normalize';
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.black,
+      backgroundColor: colors.white,
       alignItems: 'center',
       justifyContent: 'center',
       borderColor: colors.primary,
@@ -14,19 +14,19 @@ const styles = StyleSheet.create({
       alignSelf: 'center'
     },
     error: {
-        color : colors.white,
-        fontSize: normalize(0.9),
+        color : colors.red,
+        fontSize: normalize(1.2),
         margin: normalize(5)
     },
     text: {
         marginTop: normalize(5),
-        color : colors.white,
-        fontSize: normalize(0.9),
+        color : colors.black,
+        fontSize: normalize(1.7),
       },
     link: {
         marginTop: normalize(5),
-        color: colors.white,
-        fontSize: normalize(0.9),
+        color: colors.black,
+        fontSize: normalize(1.7),
         textDecorationLine: 'underline',
     },
     input: {
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         fontSize: normalize(1.5),
         margin: normalize(0.5),
         padding: 10,
-        borderColor: colors.white,
+        borderColor: colors.black,
         borderWidth: 1
     },
     button:{
@@ -50,20 +50,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        paddingTop: normalize(0.5),
-        paddingBottom: normalize(0.5), 
-        paddingRight:normalize(2),
-        paddingLeft: normalize(2)
     },
     logo: {
         alignSelf: 'center',
-        height: normalize(300),
-        width: normalize(170),
-        margin: normalize(200),
+        height: normalize(250),
+        width: normalize(330),
+        margin: normalize(100),
       },
     buttons:{
       alignItems: 'center',
       justifyContent: 'center',
+      paddingTop: normalize(1.5),
+      paddingBottom: normalize(1.5), 
+      paddingRight:normalize(6),
+      paddingLeft: normalize(6),
+      fontSize: normalize(3.4),
+      color: colors.white,
     },
     errors:{
         alignItems: 'center',

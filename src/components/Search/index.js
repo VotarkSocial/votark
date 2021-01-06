@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import {Text, View, Image, TouchableOpacity,TextInput } from 'react-native';
+import {Text, View, Image, TouchableOpacity,TextInput, BackHandler } from 'react-native';
 import * as selectors from '../../reducers'
 import React, {useEffect,useState} from 'react';
 import styles from './styles'
@@ -15,6 +15,7 @@ import { startFetchPost, setToNull } from '../../actions/post';
 import { startFetchTopic, selectTopic } from '../../actions/topic';
 import Posts from '../Posts';
 import { startUsFetch } from '../../actions/user';
+import { normalize } from '../../utils/normalize';
 
 const Search = ({search,users,hashtags,isFetchingHash,isFetchingUsers,hashError,userError,fetch,posts,topics,error,select,selected,selectUser}) => {
     
@@ -75,6 +76,7 @@ const Search = ({search,users,hashtags,isFetchingHash,isFetchingUsers,hashError,
                                     </TouchableOpacity>
                                     )
                                 }
+                                {users.length===0 && <Text>{'THERE ARE NOT RESULTS'}</Text>}
                             </View>
                         ):(<Text>{'LOADING...'}</Text>)
                         :(<Text>{userError}</Text>)
@@ -95,6 +97,7 @@ const Search = ({search,users,hashtags,isFetchingHash,isFetchingUsers,hashError,
                                     </TouchableOpacity>
                                     )
                                 }
+                                {hashtags.length===0 && <Text>{'THERE ARE NOT RESULTS'}</Text>}
                             </View>
                         ):(<Text>{'LOADING...'}</Text>))
                         :(<Text>{hashError}</Text>)
@@ -127,7 +130,9 @@ const Search = ({search,users,hashtags,isFetchingHash,isFetchingUsers,hashError,
                                         }
                                 </ScrollView>
                                 }
-                                <Posts posts={posts}></Posts>
+                                <Posts posts={posts}
+                                    isOnSearchPage={true}
+                                ></Posts>
                             </View>
                         )
                 )

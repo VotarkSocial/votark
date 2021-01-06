@@ -23,7 +23,7 @@ const NavBar = ({chats,home,search,user,add}) => (
             <Image style={styles.icon} source={require('../../public/static/icon/add.png')} ></Image>
         </TouchableOpacity>  
         <TouchableOpacity style={styles.row} onPress={chats}>
-            <Image style={styles.icon} source={require('../../public/static/icon/dm.png')} />
+            <Image style={styles.icon} source={require('../../public/static/icon/notification.png')} />
         </TouchableOpacity>   
         <TouchableOpacity style={styles.row} onPress={user}>
             <Image style={styles.icon} source={require('../../public/static/icon/user.png')} />
@@ -50,7 +50,7 @@ export default connect(
             window.location.href = URL+'search/'
           }
           else{
-            Actions.replace('Search')
+            Actions.Search()
           }
       },
       add(){

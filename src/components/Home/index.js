@@ -28,10 +28,6 @@ const Home = ({redirect, areHidden}) => {
       }}
     >
     <View style={styles.body}>
-      <Header/>
-      {
-        ((typeof document === 'undefined') && !areHidden)&&<Stories/>
-      }
       <VersusPad/>  
       <Comments/>
       <NavBar/>

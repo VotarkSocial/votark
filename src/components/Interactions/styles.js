@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
       right: 0,
       bottom: 0,
       alignItems: 'flex-end',
-      marginBottom: normalize(80),
+      marginBottom: normalize(150),
       justifyContent: 'space-between',
       padding: normalize(4),
       paddingRight: normalize(12),
@@ -26,10 +26,10 @@ const styles = StyleSheet.create({
         fontSize: normalize(6)
     },
     icon:{
-        marginTop: normalize(10), 
-        marginRight: normalize(5),
-        width:normalize(15),
-        height:normalize(15),
+        marginTop: normalize(35), 
+        marginRight: normalize(0.4),
+        width:normalize(18),
+        height:normalize(18),
     },
     icon2:{
         position: 'absolute',
@@ -42,16 +42,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start'
     },
-    photo:{
-        margin: normalize(2), 
-        width:normalize(40),
-        height:normalize(40),
-        borderRadius: normalize(20),
-        backgroundColor: colors.black,
-        borderColor: colors.secondary,
-        borderWidth: 2
-    }
-
   });
   
 export default styles

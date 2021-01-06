@@ -48,7 +48,7 @@ const VersusPad = ({onSwipeDown,onSwipeLeft,onSwipeUp,onSwipeRight, isFetching,a
         style={{height:'100%', }}
         >
           <Versus></Versus>
-          <Text style={styles.text} >{fail?fail:(isFetching?"LOADING...":"VS")}</Text>
+          <Text style={isFetching?styles.text2:styles.text} >{fail?fail:(isFetching?"LOADING...":"VS")}</Text>
       </GestureRecognizer>
   </View>
 )};

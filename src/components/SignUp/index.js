@@ -59,7 +59,7 @@ const SignUp = ({
   return (
     <View style={styles.container}>
       <LinearGradient
-          colors={[colors.primary, 'transparent']}
+          colors={[colors.white, 'transparent']}
           style={{
             width: '100%',
             height: '100%',
@@ -120,7 +120,7 @@ const SignUp = ({
           ) : (
             <View> 
               <View style={styles.button}>
-                  <Text style={styles.button} type="submit" onPress={
+                  <Text style={styles.buttons} type="submit" onPress={
                       () => onSubmit(username,password, email, confirmPassword)
                   }>{'SIGN UP'}</Text>
               </View>

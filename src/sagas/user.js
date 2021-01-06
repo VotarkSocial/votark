@@ -100,12 +100,6 @@ import { Actions } from 'react-native-router-flux';
     );
   }
 
-
-
-
-
-
-
   function* unFollowUser(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated);
@@ -126,7 +120,7 @@ import { Actions } from 'react-native-router-flux';
           );
           if (response.status === 200) {
             yield put(
-              actions.completeUnFollowExtraUser(),
+              actions.completeUnFollowUser(),
             );
           } else {
             const { non_field_errors } = yield response.json();
@@ -487,6 +481,7 @@ import { Actions } from 'react-native-router-flux';
   function* userFetch(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated);
+        const id = yield select(selectors.getAuthUserID);
         if (isAuth) {
           const token = yield select(selectors.getAuthToken);
           const response = yield call(
@@ -515,7 +510,12 @@ import { Actions } from 'react-native-router-flux';
             yield window.location.href = URL+'user/'
           }
           else{
-            yield Actions.replace('User')
+            if(id==action.payload){
+              yield Actions.replace('User')
+            }
+            else {
+              yield Actions.User()
+            }
           }
         }
       } catch (error) {

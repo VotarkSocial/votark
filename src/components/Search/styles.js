@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'flex-start',
     flexDirection: 'row',
-    height: normalize(195),
+    height: normalize(110),
     padding: normalize(4),
     width: '100%',
     },
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         width: '100%',
         margin: normalize(10),
-        marginTop: normalize(195), 
+        marginTop: normalize(120), 
         padding: normalize(1),
         padding: normalize(5),
       },
@@ -112,8 +112,9 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         alignSelf: 'center',
         alignItems: 'center',
+        justifyContent: 'flex-start',
         width: '100%',
-        marginTop: normalize(195), 
+        marginTop: normalize(120), 
         padding: normalize(1),
       },
     topic:{
@@ -157,7 +158,8 @@ const styles = StyleSheet.create({
         fontSize: normalize(1.5),
         padding: 10,
         borderColor: colors.primaryB,
-        borderWidth: 1
+        borderWidth: 1,
+        color: colors.gray
     },
   });
   

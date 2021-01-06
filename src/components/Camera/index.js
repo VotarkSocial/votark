@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, TouchableOpacity, Image, Picker, TextInput,ScrollView } from 'react-native';
-import { Camera } from 'expo-camera'; 
 import styles from  './styles'
 import TokenRefresh from '../TokenRefresh';
 import { Actions } from 'react-native-router-flux';
@@ -36,15 +35,7 @@ const MyCamera = ({addTopic,topics,fetch,publish}) => {
   const [isAdding,changeIsAdding] = useState(false)
   const [description, changeDescription] = useState(getHash(0));
   const [newTopic, changeTopic] = useState('');
-  const [topicIndex,changeTopicIndex] = useState(topics[0]?topics[0].id:1)
-
-  const [type, setType] = useState(Camera.Constants.Type.back);useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
-    })();
-  }, []);
-  
+  const [topicIndex,changeTopicIndex] = useState(topics[0]?topics[0].id:1)  
   
   if (hasPermission === null) {
     return <View />;
@@ -139,21 +130,13 @@ const MyCamera = ({addTopic,topics,fetch,publish}) => {
         </ScrollView>
           </LinearGradient>
         :
-          <Camera style={styles.camera} type={type} ref={ref => {
-            setCameraRef(ref) ;
-          }}>
+          <Fragment>
         
           <View
             style={styles.container}>
             <TouchableOpacity
               style={styles.iconContainer}
-              onPress={() => {
-                setType(
-                  type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-                );
-              }}>
+              >
               <Image style={styles.icon} source={require('../../public/static/icon/frontal.png')} />
             </TouchableOpacity>
             <TouchableOpacity onPress={async() => {
@@ -176,7 +159,7 @@ const MyCamera = ({addTopic,topics,fetch,publish}) => {
               <Image style={styles.icon} source={require('../../public/static/icon/close.png')} />
             </TouchableOpacity>
           </View>
-        </Camera>
+        </Fragment>
         }
       <TokenRefresh/>
     </View>

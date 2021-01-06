@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import {Text, View, Image, TouchableOpacity, TextInput } from 'react-native';
+import {Text, View, Image, TouchableOpacity, BackHandler } from 'react-native';
 import * as selectors from '../../reducers'
 import React, {useEffect, useState} from 'react';
 import styles from './styles'
@@ -14,20 +14,41 @@ import Posts from '../Posts';
 import { startFollowersFetching, startFollowingFetching, startStoriesFetch, startFollowUser, startUnFollowUser, editUser, cance_editUser, canceL_deleteUser, deleteUser, startDelete } from '../../actions/user';
 import { startUserPostsFetch } from '../../actions/post';
 import { startSendingReport, toggleReport } from '../../actions/report';
+import { reducer } from 'redux-form';
+import { maskNumber } from '../../utils/mask';
 
 const Header = ({user,followsUser,logged,followers,following,
     isReporting,changeIsReporting,follow,isFollowing,
     edit,unfollow,message,messages,deleteAccount,
     report,posts, fetch, isEditing, cancelEdit, cancelDelete,
-    startdeleteAccount,isDeleting, logout }) => {
+    startdeleteAccount,isDeleting, logout, isFetchingFollow, }) => {
         
-         const [content, changeContent] = useState('');
+    const [content, changeContent] = useState('');
 
-        useEffect(fetch,
-            []
-          );
-        
-        return (
+    useEffect(
+        () => {
+            fetch()
+            const interval = setInterval(fetch, 1000);
+            return () => {fetch
+                clearInterval(interval);
+            };
+        },
+        []
+    );
+    
+    const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        ()=>{
+            if(logged){
+                Actions.replace('Home')
+            }
+            else {
+                Actions.pop()
+            }
+        }
+    );
+    
+    return (
 
     <View style={styles.main_container}>
         <LinearGradient
@@ -40,115 +61,76 @@ const Header = ({user,followsUser,logged,followers,following,
             }}
         >
         <View style={(typeof document==='undefined')?styles.container:styles.webcontainer}>
-            <View style={styles.row}>
-                <Text style={styles.text} >{user.username?'@'+user.username:'PROFILE'}</Text>
+            <View style={styles.row2}>
+                <Text style={styles.text} >{user.username?user.username:'PROFILE'}</Text>
+                <TouchableOpacity>
+                    <Image style={styles.options} source={require('../../public/static/icon/options.png')}/>
+                </TouchableOpacity> 
             </View>
         </View>
         <View style={styles.section}>
+            <View style={styles.userpicture}>
+                <TouchableOpacity >
+                    <Image style={styles.photo} source={user.picture?{uri: user.picture}:require('../../public/static/icon/user.png')}/>
+                </TouchableOpacity>
+            </View>
             <View style={styles.item}>
                 <View style={styles.row}>
-                    <View>
-                        <TouchableOpacity >
-                            <Image style={styles.photo} source={user.picture?{uri: user.picture}:require('../../public/static/icon/user.png')}/>
-                        </TouchableOpacity> 
-                        <Text style={styles.text3} >{user.first_name + ' ' + user.last_name}</Text>
-                    </View>
-                    <View style={styles.column}>
-                        <Text style={styles.text2} >{followers}</Text>
-                        <Text style={styles.text3} >{'Followers'}</Text>
-                    </View> 
                     <View >
-                        <Text style={styles.text2} >{following}</Text>
+                        <Text style={styles.text2} >{maskNumber(following)}</Text>
                         <Text style={styles.text3} >{'Following'}</Text>
                     </View> 
+                    <View style={styles.column}>
+                        <Text style={styles.text2} >{maskNumber(followers)}</Text>
+                        <Text style={styles.text3} >{'Followers'}</Text>
+                    </View> 
+                    <View style={styles.column}>
+                        <Text style={styles.text2} >{maskNumber([...posts].reduce(
+                            (accumulator, current) => (
+                                accumulator + current.victories
+                            ),
+                            0
+                        ))
+                        }</Text>
+                        <Text style={styles.text3} >{'Victories'}</Text>
+                    </View> 
                 </View>
-                <Text style={styles.text2} >{user.bio}</Text>
-                    {logged?(
-                            <View style={styles.row}>
-                                {!isDeleting&&(
-                                    (isEditing)?
-                                    <TouchableOpacity style={styles.button} onPress={cancelEdit}>
-                                        <Text style={styles.text3} >{'CANCEL'}</Text>
-                                    </TouchableOpacity>
-                                    :
-                                    <TouchableOpacity style={styles.button} onPress={edit}>
-                                        <Text style={styles.text3} >{'Edit profile'}</Text>
-                                    </TouchableOpacity>
-                                        )
-                                }
-                                {!isEditing&&(
-                                    (isDeleting)?
-                                    <TouchableOpacity style={styles.button} onPress={cancelDelete}>
-                                        <Text style={styles.text3} >{'CANCEL'}</Text>
-                                    </TouchableOpacity>
-                                    :
-                                    <TouchableOpacity style={styles.button} onPress={startdeleteAccount}>
-                                        <Text style={styles.text3} >{'DELETE MY ACCOUNT'}</Text>
-                                    </TouchableOpacity>
-                                        )
-                                }
-                                <TouchableOpacity style={styles.done} onPress={logout}>
-                                    <Text style={styles.text_selected} >{'Logout'}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        ):(
-                            <View style={styles.row}>
-                                {isFollowing?
-                                    <TouchableOpacity style={styles.button} onPress={unfollow}>
-                                        <Text style={styles.text3} >{'UNFOLLOW'}</Text>
-                                    </TouchableOpacity>:
-                                    <TouchableOpacity style={styles.button} onPress={follow}>
-                                        <Text style={styles.text3} >{'FOLLOW'}</Text>
-                                    </TouchableOpacity>
-                                }
-                                <TouchableOpacity style={styles.button} onPress={message}>
-                                    <Text style={styles.text3} >{'MESSAGE'}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.button} onPress={changeIsReporting}>
-                                    <Text style={styles.text3} >{isReporting?'CANCEL':'REPORT'}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        )
-                    }
-                    {
-                        isEditing?
-                            <Text style={styles.text2}>This option will be soon integrated</Text>
-                        :
-                            isDeleting? 
-                            <View>
-                                <Text style={styles.mainText}>ARE YOU SURE YOU WANT TO DELETE YOUR ACCOUNT?</Text>
-                                <View style={styles.row}>
-                                    <TouchableOpacity style={styles.done} onPress={deleteAccount}>
-                                        <Text style={styles.text_selected} >{'YES'}</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.done} onPress={cancelDelete}>
-                                        <Text style={styles.text_selected} >{'NO'}</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                            :
-                                isReporting?
-                                <View style={styles.report}>
-                                    <Text style={styles.mainText}>TELL US WHAT IS GOING ON</Text>
-                                    <View style={styles.row}>
-                                        <TextInput
-                                            style={styles.input}
-                                            className="email"
-                                            type="multiline"
-                                            placeholder="Write here..."
-                                            value={content}   
-                                            onChangeText={changeContent}
-                                            onChange={e => changeContent(e.target.value)}
-                                        />
-                                        <TouchableOpacity style={styles.done} onPress={()=>report(content)}>
-                                            <Text style={styles.text_selected} >{'Send'}</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                            :
-                            <Posts posts={posts}/>
-                    }
+                <View style={styles.row}>
+                    <TouchableOpacity onPress={logged ? 
+                            edit : 
+                                isFollowing ? 
+                                follow :
+                                unfollow
+                        } >
+                        <Text style={
+                            logged ? 
+                            styles.username : 
+                                isFollowing ? 
+                                styles.follow :
+                                styles.unfollow
+                        } >{
+                        logged ? 
+                        'Edit Profile' : 
+                            isFollowing ? 
+                            'Follow' :
+                            'Unfollow'}
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={message
+                        } >
+                        <Text style={styles.message
+                        } >{
+                        logged ? 
+                        'Money $' : 
+                        'Message'}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                {user.bio ? <Text style={styles.bio} >{user.bio}</Text>: null}
             </View>
+            <Posts posts={posts}
+                isOnSearchPage={false}
+            />
         </View>
         </LinearGradient>
         <NavBar/>
@@ -171,6 +153,7 @@ export default connect(
     isEditing: selectors.getIsEditingUser(state),
     isDeleting: selectors.getIsDeletingUser(state),
     isReporting : selectors.getIsReporting(state),
+    isFetchingFollow: selectors.getIsFetchingFollow(state),
   }),
   dispatch => ({
       logout(){
