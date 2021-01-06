@@ -20,6 +20,7 @@ import User from './src/components/User'
 import Chats from './src/components/Chats'
 import MyCamara from './src/components/Camera';
 import Post from './src/components/Post';
+import Inspect from './src/components/Inspect';
 
 //localStorage.clear();
 let persistedState = undefined
@@ -58,7 +59,8 @@ export default function App() {
             <Scene key="SignUp" component={SignUp}  hideNavBar={true} />
             <Scene key="Camara" component={MyCamara}  hideNavBar={true} />
             <Scene key="Post" component={Post}  hideNavBar={true} />
-            <Scene key="ResetPassword" component={ResetPassword}  hideNavBar={true} />
+            <Scene key="ResetPassword" component={ResetPassword}  hideNavBar={true}/>
+            <Scene key="Inspect" component={Inspect} hideNavBar={true} path={"/Inspect/:id/"}/>
           </Stack>
         </Router>
         ):(

@@ -1,38 +1,12 @@
 {
+  "name": "Votark",
+  "displayName": "Votark",
   "expo": {
-    "name": "votark",
-    "slug": "votark",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "name": "Votark",
+    "slug": "Votark",
     "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
     "assetBundlePatterns": [
       "**/*"
-    ],
-    "ios": {
-      "bundleIdentifier": "com.votark.votark"
-    },
-    "android": {
-        "package": "com.votark.votark"
-   },
-   "permissions": [
-    "CAMERA",
-    "READ_INTERNAL_STORAGE",
-    "READ_EXTERNAL_STORAGE",
-    "WRITE_EXTERNAL_STORAGE"
-  ]
-  },
-  "name": "votark"
+    ]
+  }
 }
